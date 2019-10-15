@@ -87,8 +87,10 @@ export const checkCollisionByMapIndex = (room) => {
 	// Si index du joueur vaut 0 sur la map il y a collision
 	if (room.collisionArray[hero.mapIndexPosition] === 0) {
 		console.log('collision');
+		console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 	} else { // Sinon, pas de collision
 		console.log('pas de collision');
+		console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 	}
 }
 
@@ -281,7 +283,8 @@ const updateHero = (event) => {
 
 		console.log('checkOutOfBounds(room)', checkOutOfBounds(room));
 	
-		if(checkOutOfBounds(room)){ // Si le héro est en dehors du terrain	
+		// if(checkOutOfBounds(room)){ // Si le héro est en dehors du terrain
+		if(false){ // Si le héro est en dehors du terrain		
 			hero.x = x;
 			hero.y = y;
 			hero.centerX = centerX;
@@ -362,7 +365,7 @@ const drawAll = () => {
 
 		
 	// On vérifie la collision entre le héro et les obstacles
-	checkCollisionByMapIndex(room);
+	// checkCollisionByMapIndex(room);
 	
 		
 	// On vérifie s'il y a collision entre la balle et un ennemi
@@ -443,9 +446,11 @@ export const checkOutOfBounds = (currentRoom) => {
 		// Si index du joueur vaut 0 sur la map il y a collision
 		if (currentRoom.collisionArray[hero.mapIndexPosition] === 0) {
 			console.log('collision');
+			console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 			return true;
 		} else { // Sinon, pas de collision
 			console.log('pas de collision');
+			console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 			return false;
 		}
 
