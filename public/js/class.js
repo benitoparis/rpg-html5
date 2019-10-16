@@ -6,8 +6,8 @@ export class GeneralConfig {
   constructor(setInterval){
     this.setInterval = setInterval;
     this.fps = 60;
-    this.stageConfig = [];
-    this.playersRanking = [];
+/*     this.stageConfig = [];
+    this.playersRanking = []; */
 /*     this.playerProgress = {
       id_player: null,
       currentStage: 0,
@@ -17,14 +17,15 @@ export class GeneralConfig {
       { id : 1,
         name : "chateau",
         rooms : [
-          { id: 1,
+          {
+            id: 1,
             name : "salle_repos",
             positionX: 0,
             positionY: 0,
             width: 1200,
             height: 800,
             collisionArray:
-            [
+              [
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -86,21 +87,21 @@ export class GeneralConfig {
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               ],
-            doors: [
-              {
-                id: 1,
-                doorPositionX : 50,
-                dorrPositionY : 50,
-                doorWidth : 50,
-                doorHeight : 50,
-                doorDestinationRoom : {
-                  id : 1,
-                  setpositionX : 100,
-                  setPositionY : 100,
-                  setDirection : "top"
+              doors: [
+                {
+                  id: 1,
+                  doorPositionX : 50,
+                  dorrPositionY : 50,
+                  doorWidth : 50,
+                  doorHeight : 50,
+                  doorDestinationRoom : {
+                    id : 1,
+                    setpositionX : 100,
+                    setPositionY : 100,
+                    setDirection : "top"
+                  }
                 }
-              }
-            ]
+              ]
           },
           { id: 2,
             name : "dsds",
@@ -454,19 +455,19 @@ export class Hero {
  // Constructeur de la classe du héros...
  constructor(dx, dy, speedX, speedY) {
 
-    this.x = 351; // Il est tjrs placé au centre du canvas
-    this.y = 500; // Il est tjrs placé au centre du canvas
+    this.x = 360; // Position X sur la map
+    this.y = 500; // Position Y sur la map
     this.dx = dx;
     this.dy = dy;
-    this.mapIndexPosition = Math.floor(this.x / 48) + (60 * Math.floor(this.y / 48));
     this.width = 48;
     this.height = 48;
+    this.centerX = ((this.x + this.width) - (this.width / 2));
+    this.centerY = ((this.y + this.height) - (this.height / 2));
+    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.speedX = speedX;
     this.speedY = speedY;
     this.faceX = 70;
     this.faceY = 207;
-    this.centerX = ((this.x + this.width) - (this.width / 2));
-    this.centerY = ((this.y + this.height) - (this.height / 2));
     this.lifeCredits = 3;
     this.isDead = false;
     this.shootedBullet = 0;
@@ -489,7 +490,7 @@ export class Hero {
       // this.x, // Position x de l'image à croper sur le canvas
       // this.y,  // Position y de l'image à croper sur le canvas
       351, // on l'affiche toujours au milieu du canvas // Position x de l'image à croper sur le canvas
-      301, // on l'affiche toujours au milieu du canvas // Position y de l'image à croper sur le canvas
+      288.5, // on l'affiche toujours au milieu du canvas // Position y de l'image à croper sur le canvas
       this.width , // Largeur de la partie cropée
       this.height // Hauteur de la partie cropée
     ); 
@@ -566,7 +567,7 @@ export class Hero {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
 
-    // On recalcule la position de l'index du héro sur la map
+    // On recalcule la position de l'index du héros sur la map
     this.setMapIndexPosition();
   }
 
@@ -605,11 +606,12 @@ export class Hero {
   } */
 
   // Méthode pour réinitialiser la position du héro
-  resetHeroPosition() {
-    this.x = rangeNumber(10, 550);
-    this.y = rangeNumber(10, 300);
+  setHeroPosition(x, y) {
+    this.x = x;
+    this.y = y;
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
+    this.setMapIndexPosition();
   };
 
   // Méthode pour retirer un point de vie au héro
@@ -640,12 +642,12 @@ export class Hero {
     return this.bulletsList.length - this.shootedBullet;
   }
 
-  // Méthode pour setter l'index du héro sur le tileset
+  // Méthode pour setter l'index du héros sur la map
   setMapIndexPosition(){
-    this.mapIndexPosition = Math.floor(this.x / 48) + (60 * Math.floor(this.y / 48));
+    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     console.log('mapIndexPosition', this.mapIndexPosition);
-    console.log('hero.x', this.x);
-    console.log('hero.y', this.y);
+    console.log('hero.x', this.centerX);
+    console.log('hero.y', this.centerY);
   }
 
 }

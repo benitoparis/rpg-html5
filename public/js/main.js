@@ -61,6 +61,9 @@ const initSprites = () => {
 	console.log('config', config);
 	console.log('stageInfo', stageInfo);
 	initEnemies(stageInfo); */
+
+	// On positionne le Héro n'importe où sur la map
+	hero.setHeroPosition(1000, 1000);
 }
 
 // On crée les obstacles
@@ -221,8 +224,8 @@ const drawBackground = ()=> {
 
 	ctx.drawImage(
 		roomImg,
-		hero.x - 300, // Position X de la partie à croper
-		hero.y - 300, // Position Y de la partie à croper
+		hero.x - 351, // Position X de la partie à croper
+		hero.y - 288.5, // Position Y de la partie à croper
 		750 , // Largeur de la partie à croper
 		625 , // Hauteur de la partie à corper
 		0, // Position x de l'image à croper sur le canvas
@@ -455,6 +458,12 @@ export const checkOutOfBounds = (currentRoom) => {
 		}
 
 };
+
+// Méthode qui vérifie si le héros passe à travers une porte
+export const checkDoorCrossed = ()=> {
+
+
+}
 
 
 // On récupère les points du joueur depuis le backend
