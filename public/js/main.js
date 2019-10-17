@@ -61,9 +61,6 @@ const initSprites = () => {
 	console.log('config', config);
 	console.log('stageInfo', stageInfo);
 	initEnemies(stageInfo); */
-
-	// On positionne le Héro n'importe où sur la map
-	hero.setHeroPosition(1000, 1000);
 }
 
 // On crée les obstacles
@@ -284,10 +281,22 @@ const updateHero = (event) => {
 		hero.update(event);
 		
 
+
+		if (checkCollision(config.roomSheets[0].rooms[0].doors[0], hero)) { // Si passe par une porte
+			console.log('passe par une porte');
+			const destinationX = config.roomSheets[0].rooms[0].doors[0].doorDestinationRoom.x;
+			const destinationY = config.roomSheets[0].rooms[0].doors[0].doorDestinationRoom.y;
+
+			// On set la position du héro dans la pièce de destination
+			hero.setHeroPosition(destinationX , destinationY);
+		};
+
+
 		console.log('checkOutOfBounds(room)', checkOutOfBounds(room));
 	
-		// if(checkOutOfBounds(room)){ // Si le héro est en dehors du terrain
-		if(false){ // Si le héro est en dehors du terrain		
+		// On vérifie si le héros est sorti des limites
+		// if(checkOutOfBounds(room)){ // Si le héro est en dehors du terrain	
+		if(false){ // Si le héro est en dehors du terrain	
 			hero.x = x;
 			hero.y = y;
 			hero.centerX = centerX;
