@@ -320,6 +320,11 @@ export class Hero {
     this.speedY = speedY;
     this.faceX = 70;
     this.faceY = 207;
+    this.currentLoopIndex = 0;
+    this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
+    this.leftCycleLoop = [{faceX:8,faceY:310},{faceX:70,faceY:310},{faceX:8,faceY:310},{faceX:140,faceY:310}];
+    this.upCycleLoop = [{faceX:8,faceY:22},{faceX:70,faceY:22},{faceX:8,faceY:22},{faceX:140,faceY:22}];
+    this.downCycleLoop = [{faceX:8,faceY:210},{faceX:70,faceY:210},{faceX:8,faceY:210},{faceX:140,faceY:210}];
     this.lifeCredits = 3;
     this.isDead = false;
     this.shootedBullet = 0;
@@ -351,12 +356,21 @@ export class Hero {
   // Méthode qui va modifier les coordonnées du héros.
   update(event) {
 
-    if(this.frame === 30){
+    if(this.frame === this.fps){
       this.frame = 0;
     } else {
       this.frame++;
     }
     
+    // On détermine quel sprite afficher
+    if (this.frame % 15 === 0){ // on décide d'incrémenter l'index toutes les 15 frames
+      this.currentLoopIndex++;
+    }
+
+    // Si l'index est supérieur au nombre de position possible on le repositionne à zero
+    if (this.currentLoopIndex >= this.rightCycleLoop.length) {
+      this.currentLoopIndex = 0;
+    }
 
     switch (event.key) {
       case "ArrowRight":
@@ -366,19 +380,11 @@ export class Hero {
           this.speedY = 2;
         }
         this.x = (this.x + this.speedX);
-
-        // On détermine quel sprite afficher
-        if(this.frame < 10){
-          this.faceX = 70;
-          this.faceY = 120;
-        } else if (this.frame > 20) {
-          this.faceX = 140;
-          this.faceY = 120;
-        } else {
-          this.faceX = 8;
-          this.faceY = 120;
-        }
   
+        // On détermine la positon x/y du crop du personnage
+        this.faceX = this.rightCycleLoop[this.currentLoopIndex].faceX;
+        this.faceY = this.rightCycleLoop[this.currentLoopIndex].faceY;
+
         this.shootDirection = 'right';
 
         break;
@@ -391,8 +397,10 @@ export class Hero {
         }
         this.x = this.x - this.speedX;
     
-        this.faceX = 8;
-        this.faceY = 310;
+        // On détermine la positon x/y du crop du personnage
+        this.faceX = this.leftCycleLoop[this.currentLoopIndex].faceX;
+        this.faceY = this.leftCycleLoop[this.currentLoopIndex].faceY;
+
         this.shootDirection = 'left';
         break;
 
@@ -406,6 +414,10 @@ export class Hero {
       
         this.faceX = 8;
         this.faceY = 22;
+
+        // On détermine la positon x/y du crop du personnage
+        this.faceX = this.upCycleLoop[this.currentLoopIndex].faceX;
+        this.faceY = this.upCycleLoop[this.currentLoopIndex].faceY;
         this.shootDirection = 'up';
         break;
 
@@ -419,6 +431,9 @@ export class Hero {
               
         this.faceX = 8;
         this.faceY = 210;
+        // On détermine la positon x/y du crop du personnage
+        this.faceX = this.downCycleLoop[this.currentLoopIndex].faceX;
+        this.faceY = this.downCycleLoop[this.currentLoopIndex].faceY;
         this.shootDirection = 'down';
         break;
 
@@ -438,6 +453,7 @@ export class Hero {
 
     // On recalcule la position de l'index du héros sur la map
     this.setMapIndexPosition();
+
   }
 
   // Méthode qui permet au héros de tirer une balle
