@@ -1,4 +1,5 @@
 import { Hero, Obstacles, Enemies, GeneralConfig} from './class.js';
+import { runInThisContext } from 'vm';
 // Déclaration des variables
 const stage = document.getElementById("stage");
 stage.width = 750;
@@ -216,9 +217,8 @@ const drawHomeMenu = ()=> {
 
 
 // Dessine l'image de fond
-const drawBackground = ()=> {
+const drawBackground = () => {
 	// ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
-
 	ctx.drawImage(
 		roomImg,
 		hero.x - 351, // Position X de la partie à croper
@@ -229,7 +229,7 @@ const drawBackground = ()=> {
 		0,  // Position y de l'image à croper sur le canvas
 		750 , // Largeur de la partie cropée
 		625 // Hauteur de la partie cropée
-	  ); 
+	);
 }
 
 
@@ -286,6 +286,15 @@ const updateHero = (event) => {
 			console.log('passe par une porte');
 			const destinationX = config.roomSheets[0].rooms[0].doors[0].doorDestinationRoom.x;
 			const destinationY = config.roomSheets[0].rooms[0].doors[0].doorDestinationRoom.y;
+
+			// On stop l'animation
+			// clearInterval(config.setInterval);
+
+			// On dessine un canvas sur fond noir
+			// setTimeout(function(){ console.log('nothing'); }, 3000);
+			
+			// On relance l'animation
+			// config.setInterval = setInterval(drawAll, 1000 / config.fps);
 
 			// On set la position du héro dans la pièce de destination
 			hero.setHeroPosition(destinationX , destinationY);
@@ -370,6 +379,8 @@ const drawAll = () => {
 	config.drawStageName();
 	config.drawRemainingBullet(hero.getRemainingBullet()); */
 	hero.drawHero();
+
+
 	
 	// On renseigne l'index du joueur sur la map à l'aide des ses coordonnées x/y
 	// hero.setMapIndexPosition();

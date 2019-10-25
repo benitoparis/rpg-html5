@@ -122,7 +122,7 @@ export class GeneralConfig {
           },
         ]
       }
-    ]
+    ];
   }
   
   
@@ -297,6 +297,13 @@ export class GeneralConfig {
   // Méthode qui renvoie le numéro du niveau
 /*   getStage(){
     return this.stageConfig[this.playerProgress.currentStage];
+  } */
+
+  // Joue un sound effect
+/*   playAudioEffects(){
+    let audio = new Audio();
+    audio.src = "file_name.mp3";
+    audio.play();
   } */
  
 }
