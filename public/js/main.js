@@ -1,10 +1,6 @@
 import { Hero, Obstacles, Enemies, GeneralConfig} from './class.js';
-<<<<<<< HEAD
-// import { runInThisContext } from 'vm';
 
-=======
-import { runInThisContext } from 'vm';
->>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
+
 // Déclaration des variables
 const stage = document.getElementById("stage");
 stage.width = 750;
@@ -99,7 +95,7 @@ export const checkCollisionByMapIndex = (room) => {
 		console.log('pas de collision');
 		console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 	}
->>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
+
 }
 
 
@@ -113,17 +109,17 @@ const loadImages = () => {
   // ctx.drawImage(charImg, 0, 0);
   };
 
-  // On charge une autre image
-  tileFloorHouseImg.src = '../img/sprites/complete-spritesheet.png';
-  tileFloorHouseImg.onload = () => {
-  // ctx.drawImage(charImg, 0, 0);
-  };
+  // // On charge une autre image
+  // tileFloorHouseImg.src = '../img/sprites/complete-spritesheet.png';
+  // tileFloorHouseImg.onload = () => {
+  // // ctx.drawImage(charImg, 0, 0);
+  // };
 
-  // On charge une autre image
-  tileChairHouseImg.src = '../img/sprites/complete-spritesheet.png';
-  tileChairHouseImg.onload = () => {
-  // ctx.drawImage(charImg, 0, 0);
-  };
+  // // On charge une autre image
+  // tileChairHouseImg.src = '../img/sprites/complete-spritesheet.png';
+  // tileChairHouseImg.onload = () => {
+  // // ctx.drawImage(charImg, 0, 0);
+  // };
 
   // On charge le background complet image
   backgroundImg.src = '../img/background/1.png';
@@ -163,6 +159,9 @@ const loadImages = () => {
   };
 
 }
+
+
+
 
 loadImages();
 
@@ -240,7 +239,7 @@ const drawBackground = () => {
 		750 , // Largeur de la partie cropée
 		625 // Hauteur de la partie cropée
 	);
->>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
+
 }
 
 
@@ -336,7 +335,7 @@ const updateHero = (event) => {
 			}
 		}) */
 	}
->>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
+
 }
 
 const launchGame = (event) => {
@@ -475,7 +474,7 @@ const drawAll = () => {
 		setTimeout(drawInterStage, 1000);
 
 	} */
->>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
+
 }
 
 // Méthode qui vérifie si le héro est sorti des limites autorisées
@@ -492,7 +491,7 @@ export const checkOutOfBounds = (currentRoom) => {
 			console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 			return false;
 		}
->>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
+
 
 };
 
@@ -535,7 +534,6 @@ const drawMessages = (msg,x,y) => {
   ctx.fillStyle = "#FFFFFF";
   ctx.fillText(msg, x, y);
 }
-
 
 
 
