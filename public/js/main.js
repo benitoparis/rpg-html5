@@ -15,7 +15,9 @@ export const enemySkeletonImg = new Image();
 const backgroundImg = new Image();
 const tileFloorHouseImg = new Image();
 const tileChairHouseImg = new Image();
-const roomImg = new Image();
+const roomImgLayer1 = new Image();
+const roomImgLayer2 = new Image();
+const roomImgLayer3 = new Image();
 
 // Méthode pour trouver un chiffre compris entre a et b
 export const rangeNumber = (a,b)=> {
@@ -153,8 +155,20 @@ const loadImages = () => {
   //};
 
   // On charge l'image de la room
-  roomImg.src = '../img/rooms/layer_01.png';
-  roomImg.onload = () => {
+  roomImgLayer1.src = '../img/rooms/layer_01.png';
+  roomImgLayer1.onload = () => {
+  // ctx.drawImage(roomImg, 0, 0);
+  };
+
+  // On charge l'image de la room
+  roomImgLayer2.src = '../img/rooms/layer_02.png';
+  roomImgLayer2.onload = () => {
+  // ctx.drawImage(roomImg, 0, 0);
+  };
+
+  // On charge l'image de la room
+  roomImgLayer3.src = '../img/rooms/layer_03.png';
+  roomImgLayer3.onload = () => {
   // ctx.drawImage(roomImg, 0, 0);
   };
 
@@ -171,7 +185,7 @@ const drawHomeMenu = ()=> {
 
   // On dessine une background d'accueil
   ctx.drawImage(
-    roomImg,
+    roomImgLayer1,
     0 , // Position X de la partie à croper
     0 , // Position Y de la partie à croper
     750 , // Largeur de la partie à croper
@@ -229,7 +243,7 @@ const drawBackground = () => {
 
 	// ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
 	ctx.drawImage(
-		roomImg,
+		roomImgLayer1,
 		hero.x - 351, // Position X de la partie à croper
 		hero.y - 288.5, // Position Y de la partie à croper
 		750 , // Largeur de la partie à croper
@@ -240,6 +254,29 @@ const drawBackground = () => {
 		625 // Hauteur de la partie cropée
 	);
 
+  ctx.drawImage(
+    roomImgLayer2,
+    hero.x - 351, // Position X de la partie à croper
+    hero.y - 288.5, // Position Y de la partie à croper
+    750 , // Largeur de la partie à croper
+    625 , // Hauteur de la partie à corper
+    0, // Position x de l'image à croper sur le canvas
+    0,  // Position y de l'image à croper sur le canvas
+    750 , // Largeur de la partie cropée
+    625 // Hauteur de la partie cropée
+  );
+
+  ctx.drawImage(
+    roomImgLayer3,
+    hero.x - 351, // Position X de la partie à croper
+    hero.y - 288.5, // Position Y de la partie à croper
+    750 , // Largeur de la partie à croper
+    625 , // Hauteur de la partie à corper
+    0, // Position x de l'image à croper sur le canvas
+    0,  // Position y de l'image à croper sur le canvas
+    750 , // Largeur de la partie cropée
+    625 // Hauteur de la partie cropée
+  );
 }
 
 
@@ -535,5 +572,18 @@ const drawMessages = (msg,x,y) => {
   ctx.fillText(msg, x, y);
 }
 
+
+const playSound = (url)=> {
+  // audio.style.display = "none";
+  const audio = document.getElementById('myPlayer');
+  audio.src = url;
+  audio.autoplay = true;
+  audio.onended = function(){
+    audio.remove() //Remove when played.
+  };
+  audio.addEventListener('click', audio.play);
+}
+
+playSound('../audio/far-east-kingdom.mp3');
 
 

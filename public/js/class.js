@@ -278,7 +278,7 @@ export class GeneralConfig {
   // Méthode pour afficher le viewport
   drawViewportBackground(roomImg) {
     ctx.drawImage(
-      roomImg,
+      roomImgLayer1,
       this.roomX , // Position X de la partie à croper
       this.roomY , // Position Y de la partie à croper
       750 , // Largeur de la partie à croper
