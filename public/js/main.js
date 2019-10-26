@@ -1,5 +1,6 @@
 import { Hero, Obstacles, Enemies, GeneralConfig} from './class.js';
-import { runInThisContext } from 'vm';
+// import { runInThisContext } from 'vm';
+
 // Déclaration des variables
 const stage = document.getElementById("stage");
 stage.width = 750;
@@ -144,7 +145,13 @@ const loadImages = () => {
   };
 
   // On charge l'image de la room
-  roomImg.src = '../img/rooms/room1.png';
+  //roomImg.src = '../img/rooms/room1.png';
+  //roomImg.onload = () => {
+  // ctx.drawImage(roomImg, 0, 0);
+  //};
+
+  // On charge l'image de la room
+  roomImg.src = '../img/rooms/layer_01.png';
   roomImg.onload = () => {
   // ctx.drawImage(roomImg, 0, 0);
   };
@@ -506,6 +513,7 @@ const drawMessages = (msg,x,y) => {
   ctx.font = "40px Arial";
   ctx.fillStyle = "#FFFFFF";
   ctx.fillText(msg, x, y);
+}
 
 
 
