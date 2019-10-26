@@ -8,10 +8,7 @@ export class GeneralConfig {
     this.fps = 30;
     this.frame = 0;
     this.roomSheets = [
-<<<<<<< HEAD
       {
-=======
-      { 
 >>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
         id : 1,
         name : "chateau inside",
@@ -128,12 +125,9 @@ export class GeneralConfig {
       }
     ];
   }
-<<<<<<< HEAD
 
 
-=======
-  
-  
+
 >>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
   // ***** Appels des Webservices ****** //
   // Récupère un joueur sur le serveur
@@ -307,10 +301,8 @@ export class GeneralConfig {
     audio.src = "file_name.mp3";
     audio.play();
   } */
-<<<<<<< HEAD
 
-=======
- 
+
 >>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
 }
 
@@ -374,10 +366,8 @@ export class Hero {
     } else {
       this.frame++;
     }
-<<<<<<< HEAD
 
-=======
-    
+
 >>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
     // On détermine quel sprite afficher
     if (this.frame % 15 === 0){ // on décide d'incrémenter l'index toutes les 15 frames
@@ -397,17 +387,12 @@ export class Hero {
           this.speedY = 2;
         }
         this.x = (this.x + this.speedX);
-  
+
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.rightCycleLoop[this.currentLoopIndex].faceX;
         this.faceY = this.rightCycleLoop[this.currentLoopIndex].faceY;
 
-<<<<<<< HEAD
-        // On détermine la positon x/y du crop du personnage
-        this.faceX = this.rightCycleLoop[this.currentLoopIndex].faceX;
-        this.faceY = this.rightCycleLoop[this.currentLoopIndex].faceY;
 
-=======
 >>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
         this.shootDirection = 'right';
 
@@ -420,10 +405,8 @@ export class Hero {
           this.speedY = 2;
         }
         this.x = this.x - this.speedX;
-<<<<<<< HEAD
 
-=======
-    
+
 >>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.leftCycleLoop[this.currentLoopIndex].faceX;

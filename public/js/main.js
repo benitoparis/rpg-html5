@@ -89,18 +89,8 @@ export const checkCollision = (a, b) => {
 
 // Méthode pour vérifier la collision entre un élément a et b en prenant en compte les index sur la map
 export const checkCollisionByMapIndex = (room) => {
-<<<<<<< HEAD
 
-  // Si index du joueur vaut 0 sur la map il y a collision
-  if (room.collisionArray[hero.mapIndexPosition] === 0) {
-    console.log('collision');
-    console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
-  } else { // Sinon, pas de collision
-    console.log('pas de collision');
-    console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
-  }
-=======
-	
+
 	// Si index du joueur vaut 0 sur la map il y a collision
 	if (room.collisionArray[hero.mapIndexPosition] === 0) {
 		console.log('collision');
@@ -237,20 +227,7 @@ const drawHomeMenu = ()=> {
 
 // Dessine l'image de fond
 const drawBackground = () => {
-<<<<<<< HEAD
-  // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
-  ctx.drawImage(
-    roomImg,
-    hero.x - 351, // Position X de la partie à croper
-    hero.y - 288.5, // Position Y de la partie à croper
-    750 , // Largeur de la partie à croper
-    625 , // Hauteur de la partie à corper
-    0, // Position x de l'image à croper sur le canvas
-    0,  // Position y de l'image à croper sur le canvas
-    750 , // Largeur de la partie cropée
-    625 // Hauteur de la partie cropée
-  );
-=======
+
 	// ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
 	ctx.drawImage(
 		roomImg,
@@ -306,68 +283,15 @@ const drawBackground = () => {
 
 const updateHero = (event) => {
 
-<<<<<<< HEAD
-  if (event.keyCode !== 13){ // Si la touche appuyée est différente d'entrée
-    const x = hero.x;
-    const y = hero.y;
-    const centerX = hero.centerX;
-    const centerY = hero.centerY;
 
-    hero.update(event);
-
-
-
-    if (checkCollision(config.roomSheets[0].rooms[0].doors[0], hero)) { // Si passe par une porte
-      console.log('passe par une porte');
-      const destinationX = config.roomSheets[0].rooms[0].doors[0].doorDestinationRoom.x;
-      const destinationY = config.roomSheets[0].rooms[0].doors[0].doorDestinationRoom.y;
-
-      // On stop l'animation
-      // clearInterval(config.setInterval);
-
-      // On dessine un canvas sur fond noir
-      // setTimeout(function(){ console.log('nothing'); }, 3000);
-
-      // On relance l'animation
-      // config.setInterval = setInterval(drawAll, 1000 / config.fps);
-
-      // On set la position du héro dans la pièce de destination
-      hero.setHeroPosition(destinationX , destinationY);
-    };
-
-
-    console.log('checkOutOfBounds(room)', checkOutOfBounds(room));
-
-    // On vérifie si le héros est sorti des limites
-    // if(checkOutOfBounds(room)){ // Si le héro est en dehors du terrain
-    if(false){ // Si le héro est en dehors du terrain
-      hero.x = x;
-      hero.y = y;
-      hero.centerX = centerX;
-      hero.centerY = centerY;
-      hero.setMapIndexPosition();
-    }
-
-
-    // Si la/les balles volantes est sortie du terrain on change son statut
-/*     hero.bulletsList.forEach(item => {
-      if(item.isFlying && checkOutOfBounds(item)){
-        item.isFlying = false;
-
-        // On inrémente le nombre de balle tirée
-        hero.shootedBullet += 1;
-      }
-    }) */
-  }
-=======
 	if (event.keyCode !== 13){ // Si la touche appuyée est différente d'entrée
 		const x = hero.x;
 		const y = hero.y;
 		const centerX = hero.centerX;
 		const centerY = hero.centerY;
-		
+
 		hero.update(event);
-		
+
 
 
 		if (checkCollision(config.roomSheets[0].rooms[0].doors[0], hero)) { // Si passe par une porte
@@ -380,7 +304,7 @@ const updateHero = (event) => {
 
 			// On dessine un canvas sur fond noir
 			// setTimeout(function(){ console.log('nothing'); }, 3000);
-			
+
 			// On relance l'animation
 			// config.setInterval = setInterval(drawAll, 1000 / config.fps);
 
@@ -390,23 +314,23 @@ const updateHero = (event) => {
 
 
 		console.log('checkOutOfBounds(room)', checkOutOfBounds(room));
-	
+
 		// On vérifie si le héros est sorti des limites
-		// if(checkOutOfBounds(room)){ // Si le héro est en dehors du terrain	
-		if(false){ // Si le héro est en dehors du terrain	
+		// if(checkOutOfBounds(room)){ // Si le héro est en dehors du terrain
+		if(false){ // Si le héro est en dehors du terrain
 			hero.x = x;
 			hero.y = y;
 			hero.centerX = centerX;
 			hero.centerY = centerY;
 			hero.setMapIndexPosition();
 		}
-		
-	
+
+
 		// Si la/les balles volantes est sortie du terrain on change son statut
 /* 		hero.bulletsList.forEach(item => {
 			if(item.isFlying && checkOutOfBounds(item)){
 				item.isFlying = false;
-				
+
 				// On inrémente le nombre de balle tirée
 				hero.shootedBullet += 1;
 			}
@@ -463,88 +387,7 @@ window.addEventListener('keydown', launchGame);
 
 // Méthode pour afficher tous les éléments dans l'animation
 const drawAll = () => {
-<<<<<<< HEAD
-  drawBackground();
-/*   config.drawHeroLifeCredit(hero.getLifeCredit());
-  config.drawStageName();
-  config.drawRemainingBullet(hero.getRemainingBullet()); */
-  hero.drawHero();
 
-
-
-  // On renseigne l'index du joueur sur la map à l'aide des ses coordonnées x/y
-  // hero.setMapIndexPosition();
-
-
-
-  // On vérifie la collision entre le héro et les obstacles
-  // checkCollisionByMapIndex(room);
-
-
-  // On vérifie s'il y a collision entre la balle et un ennemi
-/*   enemies.forEach(enemy => {
-    if (checkCollision(enemy, hero.bulletsList[hero.shootedBullet])){
-      console.log('colision entre une balle et un ennemi');
-      killEnemy(enemy);
-    };
-  }); */
-
-  // On vérifie s'il y a collision entre le héro et un ennemi
-/*   enemies.forEach(enemy => {
-    if (checkCollision(enemy, hero)){
-      console.log('colision entre une balle et un ennemi');
-      if(hero.isHeroDead()){ // Si le héro est mort
-        // On arrete la partie
-        endGame();
-        // On indique un message
-        drawMessages('Perdu ! La partie est terminée', 50, 300);
-        // On affiche le classement général des joueurs
-        drawRanking();
-        setTimeout(drawHomeMenu, 5000);
-      } else {
-        hero.removeLifeCredit();
-        hero.resetHeroPosition();
-      }
-    };
-  }); */
-
-/*   if(hero.bulletsList[hero.shootedBullet].isFlying === true){
-    hero.bulletsList[hero.shootedBullet].drawBullet();
-    hero.bulletsList[hero.shootedBullet].update();
-  } */
-  // drawEnemies();
-  // updateEnemies();
-
-  // Si tous les énnemis sont morts
-/*   if (enemies.length === 0) {
-
-    // On arrete la partie
-    endGame();
-    // On indique un message
-    drawMessages('Bravo, la partie est terminée', 50, 300);
-    // On passe au tableau suivant
-    if(config.stageConfig.length > config.playerProgress.currentStage){
-      config.playerProgress.currentStage++
-      // On enregistre la progression du héros
-      config.updateHero();
-    } else {
-      drawFinishedGame()
-    }
-
-    // On relance le jeu
-    setTimeout(drawInterStage, 1000);
-  } */
-
-  // Si plus de balle
-/*   if(hero.getRemainingBullet() === 0){
-    // On arrete la partie
-    endGame();
-    // On indique un message
-    drawMessages('Perdu, la partie est terminée', 50, 300);
-    // On relance le jeu
-    setTimeout(drawInterStage, 1000);
-  } */
-=======
 	drawBackground();
 /* 	config.drawHeroLifeCredit(hero.getLifeCredit());
 	config.drawStageName();
@@ -552,16 +395,16 @@ const drawAll = () => {
 	hero.drawHero();
 
 
-	
+
 	// On renseigne l'index du joueur sur la map à l'aide des ses coordonnées x/y
 	// hero.setMapIndexPosition();
 
 
-		
+
 	// On vérifie la collision entre le héro et les obstacles
 	// checkCollisionByMapIndex(room);
-	
-		
+
+
 	// On vérifie s'il y a collision entre la balle et un ennemi
 /* 	enemies.forEach(enemy => {
 		if (checkCollision(enemy, hero.bulletsList[hero.shootedBullet])){
@@ -589,7 +432,7 @@ const drawAll = () => {
 
 		};
 	}); */
-	
+
 /* 	if(hero.bulletsList[hero.shootedBullet].isFlying === true){
 		hero.bulletsList[hero.shootedBullet].drawBullet();
 		hero.bulletsList[hero.shootedBullet].update();
@@ -599,7 +442,7 @@ const drawAll = () => {
 
 	// Si tous les énnemis sont morts
 /* 	if (enemies.length === 0) {
-		
+
 		// On arrete la partie
 		endGame();
 		// On indique un message
@@ -615,7 +458,7 @@ const drawAll = () => {
 		} else {
 			drawFinishedGame()
 		}
-		
+
 
 		// On relance le jeu
 		setTimeout(drawInterStage, 1000);
@@ -637,20 +480,8 @@ const drawAll = () => {
 
 // Méthode qui vérifie si le héro est sorti des limites autorisées
 export const checkOutOfBounds = (currentRoom) => {
-<<<<<<< HEAD
 
-    // Si index du joueur vaut 0 sur la map il y a collision
-    if (currentRoom.collisionArray[hero.mapIndexPosition] === 0) {
-      console.log('collision');
-      console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
-      return true;
-    } else { // Sinon, pas de collision
-      console.log('pas de collision');
-      console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
-      return false;
-    }
-=======
-		
+
 		// Si index du joueur vaut 0 sur la map il y a collision
 		if (currentRoom.collisionArray[hero.mapIndexPosition] === 0) {
 			console.log('collision');
