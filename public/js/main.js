@@ -581,9 +581,9 @@ const playSound = (url)=> {
   audio.onended = function(){
     audio.remove() //Remove when played.
   };
-  audio.addEventListener('click', audio.play);
+  document.addEventListener('keydown', audio.play);
 }
 
-playSound('../audio/far-east-kingdom.mp3');
+playSound('../audio/sound-effects/tm2_chair000.wav');
 
 
