@@ -1,13 +1,18 @@
 .background {
-    background-color: #ffffff;
+    background-color: #FFFFFF;
+>>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
 }
 
 .game {
     width:100%;
 }
 
-#stage {
+/* #stage {
     width: '960px';
     height: '540px';
     margin: 200 auto;
+<<<<<<< HEAD
 }
+=======
+} */
+>>>>>>> 0f77e5973dc5c71dd7d5935df11267780f2f76b0
