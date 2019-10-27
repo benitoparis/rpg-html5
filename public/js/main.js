@@ -30,7 +30,7 @@ let obstacle = [];
 
 // On récupère la map
 const firstMap = config.worlds[0].mapSheets.find(data => {
-  return data.mapSheetId === 1;
+  return data.mapSheetId === 2;
 });
 // On récupère la room
 const room = firstMap.rooms.find(item=>{
@@ -40,7 +40,7 @@ const room = firstMap.rooms.find(item=>{
 // Méthode pour initialiser le héros
 const InitHero = () => {
   // On initialise le héros
-  hero = new Hero (1,1,2,2);
+  hero = new Hero (1,1,20,20);
 }
 
 // On initialise les énnemis
@@ -330,10 +330,10 @@ const updateHero = (event) => {
 
 
 
-		if (checkCollision(config.worlds[0].mapSheets[0].rooms[0].doors[0], hero)) { // Si passe par une porte
+		if (checkCollision(config.worlds[0].mapSheets[1].rooms[0].doors[0], hero)) { // Si passe par une porte
 			console.log('passe par une porte');
-			const destinationX = config.worlds[0].mapSheets[0].rooms[0].doors[0].doorDestinationRoom.x;
-			const destinationY = config.worlds[0].mapSheets[0].doors[0].doorDestinationRoom.y;
+			const destinationX = config.worlds[0].mapSheets[1].rooms[0].doors[0].doorDestinationRoom.x;
+			const destinationY = config.worlds[0].mapSheets[1].rooms[0].doors[0].doorDestinationRoom.y;
 
 			// On stop l'animation
 			// clearInterval(config.setInterval);
@@ -348,12 +348,8 @@ const updateHero = (event) => {
 			hero.setHeroPosition(destinationX , destinationY);
 		};
 
-
-		console.log('checkOutOfBounds(room)', checkOutOfBounds(room));
-
 		// On vérifie si le héros est sorti des limites
-		// if(checkOutOfBounds(room)){ // Si le héro est en dehors du terrain
-		if(false){ // Si le héro est en dehors du terrain
+		if(checkOutOfBounds(firstMap)){ // Si le héro est en dehors du terrain
 			hero.x = x;
 			hero.y = y;
 			hero.centerX = centerX;
@@ -515,17 +511,19 @@ const drawAll = () => {
 }
 
 // Méthode qui vérifie si le héro est sorti des limites autorisées
-export const checkOutOfBounds = (currentRoom) => {
+export const checkOutOfBounds = (currentMap) => {
 
+    console.log('entre dans checkOutOfBounds');
+    console.log('currentMap', currentMap);
 
 		// Si index du joueur vaut 0 sur la map il y a collision
-		if (currentRoom.collisionArray[hero.mapIndexPosition] === 0) {
+		if (currentMap.collisionArray[hero.mapIndexPosition] === 0) {
 			console.log('collision');
-			console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
+			console.log('room.collisionArray[hero.mapIndexPosition]', currentMap.collisionArray[hero.mapIndexPosition]);
 			return true;
 		} else { // Sinon, pas de collision
 			console.log('pas de collision');
-			console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
+			console.log('room.collisionArray[hero.mapIndexPosition]', currentMap.collisionArray[hero.mapIndexPosition]);
 			return false;
 		}
 
