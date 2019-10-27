@@ -29,8 +29,8 @@ let hero = {};
 let obstacle = [];
 
 // On récupère la map
-const firstMap = config.roomSheets.find(data => {
-  return data.id === 1;
+const firstMap = config.worlds[0].mapSheets.find(data => {
+  return data.mapSheetId === 1;
 });
 // On récupère la room
 const room = firstMap.rooms.find(item=>{
@@ -330,10 +330,10 @@ const updateHero = (event) => {
 
 
 
-		if (checkCollision(config.roomSheets[0].rooms[0].doors[0], hero)) { // Si passe par une porte
+		if (checkCollision(config.worlds[0].mapSheets[0].rooms[0].doors[0], hero)) { // Si passe par une porte
 			console.log('passe par une porte');
-			const destinationX = config.roomSheets[0].rooms[0].doors[0].doorDestinationRoom.x;
-			const destinationY = config.roomSheets[0].rooms[0].doors[0].doorDestinationRoom.y;
+			const destinationX = config.worlds[0].mapSheets[0].rooms[0].doors[0].doorDestinationRoom.x;
+			const destinationY = config.worlds[0].mapSheets[0].doors[0].doorDestinationRoom.y;
 
 			// On stop l'animation
 			// clearInterval(config.setInterval);
