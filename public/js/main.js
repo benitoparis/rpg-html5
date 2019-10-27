@@ -579,7 +579,7 @@ const playSound = (url)=> {
   audio.onended = function(){
     audio.remove() //Remove when played.
   };
-  document.addEventListener('keydown', audio.play);
+  audio.addEventListener('click', audio.play);
 }
 
 playSound('../audio/sound-effects/tm2_chair000.wav');
