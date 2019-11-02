@@ -78,53 +78,140 @@ export class GeneralConfig {
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             ],
-            rooms: [
+            doors: [
               {
                 id: 1,
-                name : "salle_repos",
-                positionX: 0,
-                positionY: 0,
-                width: 1200,
-                height: 800,
-                doors: [
-                  {
-                    id: 1,
-                    x : 433,
-                    y : 289,
-                    width : 47,
-                    height : 79,
-                    doorDestinationRoom : {
-                      id : 2,
-                      x : 721,
-                      y : 2400,
-                      setDirection : "bottom"
-                    }
-                  }
-                ]
+                roomName:"piece secrete arrière chateau",
+                x: 432,
+                y: 288,
+                width: 48,
+                height: 92,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "chateau outside",
+                  mapSheetId:2 ,
+                  roomName: "les remparts",
+                  x: 709,
+                  y: 388,
+                  heroPosition: "up"
+                }
               },
+
               {
                 id: 2,
-                name : "salle_prison",
-                positionX: 0,
-                positionY: 0,
-                width: 1200,
-                height: 800,
-                doors: [
-                  {
-                    id: 1,
-                    x : 721,
-                    y : 2209,
-                    width : 47,
-                    height : 79,
-                    doorDestinationRoom : {
-                      id : 1,
-                      x : 1000,
-                      y : 1000,
-                      setDirection : "top"
-                    }
-                  }
-                ]
+                roomName:"salle secrete à droite chateau",
+                x: 2565,
+                y: 383,
+                width: 38,
+                height: 48,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "chateau outside",
+                  mapSheetId: 2,
+                  roomName: "les remparts",
+                  x: 2294,
+                  y: 951,
+                  heroPosition: "right"
+                }
               },
+
+              {
+                id: 3,
+                roomName:"couloir dans chateau inside",
+                x: 576,
+                y: 384,
+                width: 46,
+                height: 46,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "chateau inside",
+                  mapSheetId: 1,
+                  roomName: "Prison castle inside",
+                  x: 733,
+                  y: 2309,
+                  heroPosition: "down"
+                }
+              },
+
+              {
+                id: 4,
+                roomName:"couloir dans chateau inside",
+                x: 2304,
+                y: 1633,
+                width: 46,
+                height: 46,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "chateau inside",
+                  mapSheetId: 1,
+                  roomName: "zone entrée chateau inside",
+                  x: 2257,
+                  y: 2166,
+                  heroPosition: "down"
+                }
+              },
+
+              {
+                id: 5,
+                roomName:"zone entrée chateau inside échelle",
+                x: 1679,
+                y: 1701,
+                width: 65,
+                height: 152,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "chateau outside",
+                  mapSheetId: 2,
+                  roomName: "parvis en haut du chateau",
+                  x: 1225,
+                  y: 1349,
+                  heroPosition: "down"
+                }
+              },
+
+              {
+                id: 6,
+                roomName:"prison",
+                x: 720,
+                y: 2208,
+                width: 48,
+                height: 96,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "chateau inside",
+                  mapSheetId: 1,
+                  roomName: "couloir dans chateau inside",
+                  x: 588,
+                  y: 1620,
+                  heroPosition: "up"
+                }
+              },
+
+              {
+                id: 7,
+                roomName:"zone entrée chateau inside",
+                x: 2255,
+                y: 2064,
+                width: 48,
+                height: 96,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "chateau inside",
+                  mapSheetId: 1,
+                  roomName: "couloir dans chateau inside",
+                  x: 2304,
+                  y: 1609,
+                  heroPosition: "up"
+                }
+              },
+
             ]
           },
           {
@@ -192,58 +279,71 @@ export class GeneralConfig {
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             ],
-            rooms: [
+            doors: [
               {
                 id: 1,
-                name : "salle_repos",
-                positionX: 0,
-                positionY: 0,
-                width: 1200,
-                height: 800,
-                doors: [
-                  {
-                    id: 1,
-                    x : 433,
-                    y : 289,
-                    width : 47,
-                    height : 79,
-                    doorDestinationRoom : {
-                      id : 2,
-                      x : 721,
-                      y : 2400,
-                      setDirection : "bottom"
-                    }
-                  }
-                ]
+                roomName:"les remparts",
+                x: 710,
+                y: 401,
+                width: 70,
+                height: 37,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "castle inside",
+                  mapSheetId: 1,
+                  roomName: "piece secrete arrière chateau",
+                  x: 452,
+                  y: 398,
+                  heroPosition: "down"
+                }
               },
+
               {
                 id: 2,
-                name : "salle_prison",
-                positionX: 0,
-                positionY: 0,
-                width: 1200,
-                height: 800,
-                doors: [
-                  {
-                    id: 1,
-                    x : 721,
-                    y : 2209,
-                    width : 47,
-                    height : 79,
-                    doorDestinationRoom : {
-                      id : 1,
-                      x : 1000,
-                      y : 1000,
-                      setDirection : "top"
-                    }
-                  }
-                ]
+                roomName:"les remparts",
+                x: 2256,
+                y: 952,
+                width: 35,
+                height: 52,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "castle inside",
+                  mapSheetId: 1,
+                  roomName: "salle secrete à droite chateau",
+                  x: 2481,
+                  y: 406,
+                  heroPosition: "left"
+                }
               },
+
+              {
+                id: 3,
+                roomName:"parvis chateau",
+                x: 1210,
+                y: 1263,
+                width: 78,
+                height: 74,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "castle inside",
+                  mapSheetId: 1,
+                  roomName: "zone entrée chateau inside",
+                  x: 1706,
+                  y: 1860,
+                  heroPosition: "left"
+                }
+              },
+
+
             ]
           }
         ]
       }
     ]
+
   } // fin constructeur
 
 
@@ -432,8 +532,8 @@ export class Hero {
  // Constructeur de la classe du héros...
  constructor(dx, dy, speedX, speedY) {
 
-    this.x = 1400; // Position X sur la map
-    this.y = 1100; // Position Y sur la map
+    this.x = 400; // Position X sur la map
+    this.y = 400; // Position Y sur la map
     this.dx = dx;
     this.dy = dy;
     this.width = 48;
@@ -445,6 +545,10 @@ export class Hero {
     this.speedY = speedY;
     this.faceX = 70;
     this.faceY = 207;
+    this.currentWorldPosition = {
+      wordlId:1,
+      mapSheetId:2
+    }
     this.currentLoopIndex = 0;
     this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
     this.leftCycleLoop = [{faceX:8,faceY:310},{faceX:70,faceY:310},{faceX:8,faceY:310},{faceX:140,faceY:310}];
@@ -619,9 +723,11 @@ export class Hero {
   } */
 
   // Méthode pour réinitialiser la position du héro
-  setHeroPosition(x, y) {
-    this.x = x;
-    this.y = y;
+  setHeroPosition(destination) {
+    this.x = destination.x;
+    this.y = destination.y;
+    this.currentWorldPosition.worldId = destination.worldId;
+    this.currentWorldPosition.mapSheetId = destination.mapSheetId;
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.setMapIndexPosition();

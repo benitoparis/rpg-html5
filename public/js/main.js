@@ -15,9 +15,12 @@ export const enemySkeletonImg = new Image();
 const backgroundImg = new Image();
 const tileFloorHouseImg = new Image();
 const tileChairHouseImg = new Image();
+const roomImg = new Image();
 const roomImgLayer1 = new Image();
 const roomImgLayer2 = new Image();
 const roomImgLayer3 = new Image();
+
+let backgroundToDisplay;
 
 // Méthode pour trouver un chiffre compris entre a et b
 export const rangeNumber = (a,b)=> {
@@ -33,14 +36,14 @@ const firstMap = config.worlds[0].mapSheets.find(data => {
   return data.mapSheetId === 2;
 });
 // On récupère la room
-const room = firstMap.rooms.find(item=>{
-  return item.id === 1;
-});
+// const room = firstMap.rooms.find(item=>{
+//   return item.id === 1;
+// });
 
 // Méthode pour initialiser le héros
 const InitHero = () => {
   // On initialise le héros
-  hero = new Hero (1,1,20,20);
+  hero = new Hero (1,1,30,30);
 }
 
 // On initialise les énnemis
@@ -83,6 +86,24 @@ export const checkCollision = (a, b) => {
   } else {
     return false;
   }
+}
+
+// Méthode pour connaitre l'image de fond à afficher
+const selectBackGroundImg = (hero)=> {
+
+  switch(hero){
+
+    case (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1):
+      backgroundToDisplay = roomImg;
+      break;
+
+    case (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 2):
+      backgroundToDisplay = roomImgLayer1;
+      break;
+      default:
+      backgroundToDisplay = roomImgLayer1;
+  }
+
 }
 
 // Méthode pour vérifier la collision entre un élément a et b en prenant en compte les index sur la map
@@ -149,10 +170,10 @@ const loadImages = () => {
   };
 
   // On charge l'image de la room
-  //roomImg.src = '../img/rooms/room1.png';
-  //roomImg.onload = () => {
-  // ctx.drawImage(roomImg, 0, 0);
-  //};
+  roomImg.src = '../img/rooms/room1.png';
+  roomImg.onload = () => {
+  ctx.drawImage(roomImg, 0, 0);
+  };
 
   // On charge l'image de la room
   roomImgLayer1.src = '../img/rooms/layer_01.png';
@@ -178,23 +199,24 @@ const loadImages = () => {
 
 
 loadImages();
+selectBackGroundImg();
 
 // Dessine l'image du menu
 const drawHomeMenu = ()=> {
   // ctx.drawImage(backgroundImg,0,0,960,540,0,0,stage.width,stage.height);
 
   // On dessine une background d'accueil
-  ctx.drawImage(
-    roomImgLayer1,
-    0 , // Position X de la partie à croper
-    0 , // Position Y de la partie à croper
-    750 , // Largeur de la partie à croper
-    625 , // Hauteur de la partie à corper
-    0, // Position x de l'image à croper sur le canvas
-    0,  // Position y de l'image à croper sur le canvas
-    750 , // Largeur de la partie cropée
-    625 // Hauteur de la partie cropée
-  );
+  // ctx.drawImage(
+  //   roomImgLayer1,
+  //   0 , // Position X de la partie à croper
+  //   0 , // Position Y de la partie à croper
+  //   750 , // Largeur de la partie à croper
+  //   625 , // Hauteur de la partie à corper
+  //   0, // Position x de l'image à croper sur le canvas
+  //   0,  // Position y de l'image à croper sur le canvas
+  //   750 , // Largeur de la partie cropée
+  //   625 // Hauteur de la partie cropée
+  // );
 
 
   drawMessages('Appuyez sur Entrée', 50, 50);
@@ -243,7 +265,7 @@ const drawBackground = () => {
 
 	// ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
 	ctx.drawImage(
-		roomImgLayer1,
+		backgroundToDisplay,
 		hero.x - 351, // Position X de la partie à croper
 		hero.y - 288.5, // Position Y de la partie à croper
 		750 , // Largeur de la partie à croper
@@ -254,68 +276,31 @@ const drawBackground = () => {
 		625 // Hauteur de la partie cropée
 	);
 
-  ctx.drawImage(
-    roomImgLayer2,
-    hero.x - 351, // Position X de la partie à croper
-    hero.y - 288.5, // Position Y de la partie à croper
-    750 , // Largeur de la partie à croper
-    625 , // Hauteur de la partie à corper
-    0, // Position x de l'image à croper sur le canvas
-    0,  // Position y de l'image à croper sur le canvas
-    750 , // Largeur de la partie cropée
-    625 // Hauteur de la partie cropée
-  );
+  // ctx.drawImage(
+  //   roomImgLayer2,
+  //   hero.x - 351, // Position X de la partie à croper
+  //   hero.y - 288.5, // Position Y de la partie à croper
+  //   750 , // Largeur de la partie à croper
+  //   625 , // Hauteur de la partie à corper
+  //   0, // Position x de l'image à croper sur le canvas
+  //   0,  // Position y de l'image à croper sur le canvas
+  //   750 , // Largeur de la partie cropée
+  //   625 // Hauteur de la partie cropée
+  // );
 
-  ctx.drawImage(
-    roomImgLayer3,
-    hero.x - 351, // Position X de la partie à croper
-    hero.y - 288.5, // Position Y de la partie à croper
-    750 , // Largeur de la partie à croper
-    625 , // Hauteur de la partie à corper
-    0, // Position x de l'image à croper sur le canvas
-    0,  // Position y de l'image à croper sur le canvas
-    750 , // Largeur de la partie cropée
-    625 // Hauteur de la partie cropée
-  );
+  // ctx.drawImage(
+  //   roomImgLayer3,
+  //   hero.x - 351, // Position X de la partie à croper
+  //   hero.y - 288.5, // Position Y de la partie à croper
+  //   750 , // Largeur de la partie à croper
+  //   625 , // Hauteur de la partie à corper
+  //   0, // Position x de l'image à croper sur le canvas
+  //   0,  // Position y de l'image à croper sur le canvas
+  //   750 , // Largeur de la partie cropée
+  //   625 // Hauteur de la partie cropée
+  // );
 }
 
-
-
-
-// // Dessine le parquet au sol
-// const drawFloor = ()=> {
-//       let indexX = 0;
-//     let indexY = 0;
-//     [...new Array(41)].forEach(item => {
-//         [...new Array(20)].forEach(data => {
-//         ctx.drawImage(tileFloorHouseImg, 128 , 128 , 33 , 33, indexX * 33 , indexY * 33, 33 , 33);
-//         indexY++
-//         if(indexY === 20){
-//           indexY = 0;
-//         }
-//         });
-//       indexX++;
-//     });
-// }
-
-// // dessine des chaises
-// const drawChair = () => {
-//   let indexX = 0;
-//     let indexY = 0;
-//     [...new Array(41)].forEach(item => {
-//         [...new Array(20)].forEach(data => {
-//           if (Math.random() > 0.8){
-//             ctx.drawImage(tileChairHouseImg, 322 , 193 , 33 , 33, indexX * 33 , indexY * 33, 33 , 33);
-//           }
-
-//         indexY++
-//         if(indexY === 20){
-//           indexY = 0;
-//         }
-//         });
-//       indexX++;
-//     });
-// }
 
 const updateHero = (event) => {
 
@@ -329,24 +314,26 @@ const updateHero = (event) => {
 		hero.update(event);
 
 
+    // On itère sur toutes les portes de la mapsheet
+    config.worlds[0].mapSheets[1].doors.forEach(item => {
 
-		if (checkCollision(config.worlds[0].mapSheets[1].rooms[0].doors[0], hero)) { // Si passe par une porte
-			console.log('passe par une porte');
-			const destinationX = config.worlds[0].mapSheets[1].rooms[0].doors[0].doorDestinationRoom.x;
-			const destinationY = config.worlds[0].mapSheets[1].rooms[0].doors[0].doorDestinationRoom.y;
+      console.log('on itère sur les portes');
 
-			// On stop l'animation
-			// clearInterval(config.setInterval);
+      // On vérifie s'il y a une collision entre la porte et le héro
+      if (checkCollision(item, hero)) { // Si passe par une porte
+        console.log('passe par une porte');
+        const destinationX = item.destination.x;
+        const destinationY = item.destination.y;
 
-			// On dessine un canvas sur fond noir
-			// setTimeout(function(){ console.log('nothing'); }, 3000);
+        // On set la position du héro dans la pièce de destination
+        hero.setHeroPosition(destinationX , destinationY);
+      };
 
-			// On relance l'animation
-			// config.setInterval = setInterval(drawAll, 1000 / config.fps);
+    }
 
-			// On set la position du héro dans la pièce de destination
-			hero.setHeroPosition(destinationX , destinationY);
-		};
+      );
+
+
 
 		// On vérifie si le héros est sorti des limites
 		if(checkOutOfBounds(firstMap)){ // Si le héro est en dehors du terrain
@@ -582,6 +569,7 @@ const playSound = (url)=> {
   audio.addEventListener('click', audio.play);
 }
 
-playSound('../audio/sound-effects/tm2_chair000.wav');
+playSound('../audio/soundtracks/far-east-kingdom.mp3');
+
 
 
