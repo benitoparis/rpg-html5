@@ -510,10 +510,12 @@ export class GeneralConfig {
     );
   }
 
-  // Méthode qui renvoie le numéro du niveau
-/*   getStage(){
-    return this.stageConfig[this.playerProgress.currentStage];
-  } */
+  // Méthode qui renvoie les informations de la mapsheet courante
+  getCurrentMapSheetDatas(hero){
+    return this.worlds[0].mapSheets.find(data => {
+      return data.mapSheetId === hero.currentWorldPosition.mapSheetId;
+    });
+  }
 
   // Joue un sound effect
 /*   playAudioEffects(){
@@ -607,8 +609,8 @@ export class Hero {
       case "ArrowRight":
 
         if (this.faceY === 310) {
-          this.speedX = 2;
-          this.speedY = 2;
+          this.speedX = 20;
+          this.speedY = 20;
         }
         this.x = (this.x + this.speedX);
 
@@ -624,8 +626,8 @@ export class Hero {
       case "ArrowLeft":
 
         if (this.faceY === 120) {
-          this.speedX = 2;
-          this.speedY = 2;
+          this.speedX = 20;
+          this.speedY = 20;
         }
         this.x = this.x - this.speedX;
 
@@ -641,8 +643,8 @@ export class Hero {
       case "ArrowUp":
 
         if(this.faceY === 210) {
-          this.speedX = 2;
-          this.speedY = 2;
+          this.speedX = 20;
+          this.speedY = 20;
         }
         this.y = this.y - this.speedY;
 
@@ -658,8 +660,8 @@ export class Hero {
       case "ArrowDown":
 
         if (this.faceY === 22) {
-          this.speedX = 2;
-          this.speedY = 2;
+          this.speedX = 20;
+          this.speedY = 20;
         }
         this.y = this.y + this.speedY;
 

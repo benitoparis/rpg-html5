@@ -21,6 +21,7 @@ const roomImgLayer2 = new Image();
 const roomImgLayer3 = new Image();
 
 let backgroundToDisplay;
+let currentMapSheetDatas;
 
 // Méthode pour trouver un chiffre compris entre a et b
 export const rangeNumber = (a,b)=> {
@@ -31,14 +32,7 @@ let hero = {};
 // let enemies = [];
 let obstacle = [];
 
-// On récupère la map
-const firstMap = config.worlds[0].mapSheets.find(data => {
-  return data.mapSheetId === 2;
-});
-// On récupère la room
-// const room = firstMap.rooms.find(item=>{
-//   return item.id === 1;
-// });
+
 
 // Méthode pour initialiser le héros
 const InitHero = () => {
@@ -63,11 +57,17 @@ const InitHero = () => {
 // Méthode pour initialiser les sprites animés
 const initSprites = () => {
 
+  console.log('par la');
+
   InitHero();
-/*   const stageInfo = config.getStage();
-  console.log('config', config);
-  console.log('stageInfo', stageInfo);
-  initEnemies(stageInfo); */
+
+  // On récupère les informations sur la mapSheep courrante
+  currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
+
+  console.log('currentMapSheetDatas', currentMapSheetDatas);
+
+  // On selectionne le bon background
+  selectBackGroundImg(hero);
 }
 
 // On crée les obstacles
@@ -199,7 +199,7 @@ const loadImages = () => {
 
 
 loadImages();
-selectBackGroundImg();
+
 
 // Dessine l'image du menu
 const drawHomeMenu = ()=> {
@@ -304,8 +304,10 @@ const drawBackground = () => {
 
 const updateHero = (event) => {
 
+  console.log('event.keyCode', event.keyCode);
 
-	if (event.keyCode !== 13){ // Si la touche appuyée est différente d'entrée
+
+	if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
 		const x = hero.x;
 		const y = hero.y;
 		const centerX = hero.centerX;
@@ -315,7 +317,7 @@ const updateHero = (event) => {
 
 
     // On itère sur toutes les portes de la mapsheet
-    config.worlds[0].mapSheets[1].doors.forEach(item => {
+    currentMapSheetDatas.doors.forEach(item => {
 
       console.log('on itère sur les portes');
 
@@ -329,14 +331,12 @@ const updateHero = (event) => {
         hero.setHeroPosition(destinationX , destinationY);
       };
 
-    }
-
-      );
+    });
 
 
 
 		// On vérifie si le héros est sorti des limites
-		if(checkOutOfBounds(firstMap)){ // Si le héro est en dehors du terrain
+		if(checkOutOfBounds(currentMapSheetDatas)){ // Si le héro est en dehors du terrain
 			hero.x = x;
 			hero.y = y;
 			hero.centerX = centerX;
@@ -354,23 +354,29 @@ const updateHero = (event) => {
 				hero.shootedBullet += 1;
 			}
 		}) */
-	}
+	} else { // le joueur a appuyé sur la touche entrée
+
+    // On lance le jeu
+    launchGame();
+
+  }
 
 }
 
 const launchGame = (event) => {
 
-  if (event.keyCode === 13) { // si touche "Entrée"
+  // if (event.keyCode === 13) { // si touche "Entrée"
 
     // On initialise les sprites
-    setTimeout(initSprites, 1000);
+    setTimeout(initSprites, 2000);
+
+
+
+    console.log('par ici');
 
     // Méthode pour rafraichir le jeu
     config.setInterval = setInterval(drawAll, 1000 / config.fps);
 
-    // setTimeout(startRefresh, 5000);
-    // return startRefresh;
-  }
 };
 
 // Méthode qui met fin au jeu
@@ -380,13 +386,13 @@ const endGame = () => {
   // On reset les sprites
   hero = {};
   enemies = [];
-}
+};
 
 // On ajoute une évènement qui se déclenche dès qu'une touche du clavier est activée.
 window.addEventListener('keydown', updateHero);
 
 // On ajoute une évènement qui se déclenche dès qu'une touche du clavier est activée.
-window.addEventListener('keydown', launchGame);
+// window.addEventListener('keydown', launchGame);
 
 
 // Méthode pour dessiner tous les énnemis de la liste
@@ -411,6 +417,8 @@ const drawAll = () => {
 /* 	config.drawHeroLifeCredit(hero.getLifeCredit());
 	config.drawStageName();
 	config.drawRemainingBullet(hero.getRemainingBullet()); */
+
+  console.log('bam');
 	hero.drawHero();
 
 
@@ -495,7 +503,7 @@ const drawAll = () => {
 
 	} */
 
-}
+};
 
 // Méthode qui vérifie si le héro est sorti des limites autorisées
 export const checkOutOfBounds = (currentMap) => {
@@ -506,11 +514,9 @@ export const checkOutOfBounds = (currentMap) => {
 		// Si index du joueur vaut 0 sur la map il y a collision
 		if (currentMap.collisionArray[hero.mapIndexPosition] === 0) {
 			console.log('collision');
-			console.log('room.collisionArray[hero.mapIndexPosition]', currentMap.collisionArray[hero.mapIndexPosition]);
 			return true;
 		} else { // Sinon, pas de collision
 			console.log('pas de collision');
-			console.log('room.collisionArray[hero.mapIndexPosition]', currentMap.collisionArray[hero.mapIndexPosition]);
 			return false;
 		}
 
@@ -558,7 +564,7 @@ const drawMessages = (msg,x,y) => {
 }
 
 
-const playSound = (url)=> {
+const playSound = (url)  => {
   // audio.style.display = "none";
   const audio = document.getElementById('myPlayer');
   audio.src = url;
@@ -567,7 +573,7 @@ const playSound = (url)=> {
     audio.remove() //Remove when played.
   };
   audio.addEventListener('click', audio.play);
-}
+};
 
 playSound('../audio/soundtracks/far-east-kingdom.mp3');
 
