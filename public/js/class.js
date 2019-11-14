@@ -548,8 +548,8 @@ export class Hero {
     this.faceX = 70;
     this.faceY = 207;
     this.currentWorldPosition = {
-      wordlId:1,
-      mapSheetId:2
+      wordlId: 0 ,
+      mapSheetId: 1
     }
     this.currentLoopIndex = 0;
     this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
@@ -737,10 +737,10 @@ export class Hero {
 
   // Méthode pour retirer un point de vie au héro
   removeLifeCredit(){
-  this.lifeCredits -= 1;
-  if(this.lifeCredits < 0){
-    this.isDead = true;
-  }
+    this.lifeCredits -= 1;
+    if(this.lifeCredits < 0){
+      this.isDead = true;
+    }
   }
 
   // Méthode pour récupérer le nombre de crédit

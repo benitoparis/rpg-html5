@@ -91,18 +91,19 @@ export const checkCollision = (a, b) => {
 // Méthode pour connaitre l'image de fond à afficher
 const selectBackGroundImg = (hero)=> {
 
-  switch(hero){
+  console.log('la');
 
-    case (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1):
+    if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1){
       backgroundToDisplay = roomImg;
-      break;
+      console.log('entre');
+    }
 
-    case (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 2):
+    if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 2){
       backgroundToDisplay = roomImgLayer1;
-      break;
-      default:
-      backgroundToDisplay = roomImgLayer1;
-  }
+      console.log('ici');
+    }
+
+    backgroundToDisplay = roomImgLayer1;
 
 }
 
@@ -320,6 +321,7 @@ const updateHero = (event) => {
     currentMapSheetDatas.doors.forEach(item => {
 
       console.log('on itère sur les portes');
+      console.log('item',item);
 
       // On vérifie s'il y a une collision entre la porte et le héro
       if (checkCollision(item, hero)) { // Si passe par une porte
@@ -328,7 +330,13 @@ const updateHero = (event) => {
         const destinationY = item.destination.y;
 
         // On set la position du héro dans la pièce de destination
-        hero.setHeroPosition(destinationX , destinationY);
+        hero.setHeroPosition(item.destination);
+
+        // On récupère les informations sur la mapSheep courrante
+        currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
+
+        // On selectionne le bon background
+        selectBackGroundImg(hero);
       };
 
     });
@@ -336,13 +344,14 @@ const updateHero = (event) => {
 
 
 		// On vérifie si le héros est sorti des limites
-		if(checkOutOfBounds(currentMapSheetDatas)){ // Si le héro est en dehors du terrain
-			hero.x = x;
-			hero.y = y;
-			hero.centerX = centerX;
-			hero.centerY = centerY;
-			hero.setMapIndexPosition();
-		}
+
+  //   if(checkOutOfBounds(currentMapSheetDatas)){ // Si le héro est en dehors du terrain
+		// 	hero.x = x;
+		// 	hero.y = y;
+		// 	hero.centerX = centerX;
+		// 	hero.centerY = centerY;
+		// 	hero.setMapIndexPosition();
+		// }
 
 
 		// Si la/les balles volantes est sortie du terrain on change son statut
