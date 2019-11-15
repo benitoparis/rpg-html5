@@ -93,6 +93,8 @@ const selectBackGroundImg = (hero)=> {
 
   console.log('la');
 
+  backgroundToDisplay = roomImgLayer1;
+
     if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1){
       backgroundToDisplay = roomImg;
       console.log('entre');
@@ -102,8 +104,6 @@ const selectBackGroundImg = (hero)=> {
       backgroundToDisplay = roomImgLayer1;
       console.log('ici');
     }
-
-    backgroundToDisplay = roomImgLayer1;
 
 }
 

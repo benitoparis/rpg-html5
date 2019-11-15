@@ -548,8 +548,8 @@ export class Hero {
     this.faceX = 70;
     this.faceY = 207;
     this.currentWorldPosition = {
-      wordlId: 0 ,
-      mapSheetId: 1
+      wordlId: 1 ,
+      mapSheetId: 2
     }
     this.currentLoopIndex = 0;
     this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
