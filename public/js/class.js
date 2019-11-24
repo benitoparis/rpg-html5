@@ -121,7 +121,7 @@ export class GeneralConfig {
                 id: 3,
                 roomName:"couloir dans chateau inside",
                 x: 576,
-                y: 384,
+                y: 1650,
                 width: 46,
                 height: 46,
                 destination : {

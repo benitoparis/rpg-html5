@@ -20,8 +20,9 @@ const roomImgLayer1 = new Image();
 const roomImgLayer2 = new Image();
 const roomImgLayer3 = new Image();
 
-let backgroundToDisplay;
+let backgroundToDisplay = [];
 let currentMapSheetDatas;
+
 
 // Méthode pour trouver un chiffre compris entre a et b
 export const rangeNumber = (a,b)=> {
@@ -64,7 +65,7 @@ const initSprites = () => {
   // On récupère les informations sur la mapSheep courrante
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
-  console.log('currentMapSheetDatas', currentMapSheetDatas);
+  console.log('currentMapSheetDatas T', currentMapSheetDatas);
 
   // On selectionne le bon background
   selectBackGroundImg(hero);
@@ -89,20 +90,23 @@ export const checkCollision = (a, b) => {
 }
 
 // Méthode pour connaitre l'image de fond à afficher
-const selectBackGroundImg = (hero)=> {
+const selectBackGroundImg = (hero) => {
 
-  console.log('la');
+  console.log('entre dans selectBackGroundImg');
 
-  backgroundToDisplay = roomImgLayer1;
+  console.log('hero.currentWorldPosition.worldId', hero.currentWorldPosition.wordlId);
+  console.log('hero.currentWorldPosition.mapSheetId', hero.currentWorldPosition.mapSheetId);
+
 
     if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1){
-      backgroundToDisplay = roomImg;
-      console.log('entre');
+
+      backgroundToDisplay.push(roomImg);
+
     }
 
-    if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 2){
-      backgroundToDisplay = roomImgLayer1;
-      console.log('ici');
+    if(hero.currentWorldPosition.wordlId === 1 && hero.currentWorldPosition.mapSheetId === 2){
+      backgroundToDisplay.push(roomImgLayer1, roomImgLayer2, roomImgLayer3) ;
+
     }
 
 }
@@ -132,6 +136,8 @@ const loadImages = () => {
   charImg.onload = () => {
   // ctx.drawImage(charImg, 0, 0);
   };
+
+
 
   // // On charge une autre image
   // tileFloorHouseImg.src = '../img/sprites/complete-spritesheet.png';
@@ -206,6 +212,8 @@ loadImages();
 const drawHomeMenu = ()=> {
   // ctx.drawImage(backgroundImg,0,0,960,540,0,0,stage.width,stage.height);
 
+
+
   // On dessine une background d'accueil
   // ctx.drawImage(
   //   roomImgLayer1,
@@ -264,18 +272,54 @@ const drawHomeMenu = ()=> {
 // Dessine l'image de fond
 const drawBackground = () => {
 
-	// ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
-	ctx.drawImage(
-		backgroundToDisplay,
-		hero.x - 351, // Position X de la partie à croper
-		hero.y - 288.5, // Position Y de la partie à croper
-		750 , // Largeur de la partie à croper
-		625 , // Hauteur de la partie à corper
-		0, // Position x de l'image à croper sur le canvas
-		0,  // Position y de l'image à croper sur le canvas
-		750 , // Largeur de la partie cropée
-		625 // Hauteur de la partie cropée
-	);
+      console.log('drawBackground');
+      console.log('backgroundToDisplay', backgroundToDisplay);
+
+      backgroundToDisplay.forEach(item => {
+
+        console.log('limage', item);
+                // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
+        ctx.drawImage(
+          item,
+          hero.x - 351, // Position X de la partie à croper
+          hero.y - 288.5, // Position Y de la partie à croper
+          750 , // Largeur de la partie à croper
+          625 , // Hauteur de la partie à corper
+          0, // Position x de l'image à croper sur le canvas
+          0,  // Position y de l'image à croper sur le canvas
+          750 , // Largeur de la partie cropée
+          625 // Hauteur de la partie cropée
+        );
+      })
+
+
+
+
+  // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
+ //  ctx.drawImage(
+ //    backgroundToDisplay,
+ //    hero.x - 351, // Position X de la partie à croper
+ //    hero.y - 288.5, // Position Y de la partie à croper
+ //    750 , // Largeur de la partie à croper
+ //    625 , // Hauteur de la partie à corper
+ //    0, // Position x de l'image à croper sur le canvas
+ //    0,  // Position y de l'image à croper sur le canvas
+ //    750 , // Largeur de la partie cropée
+ //    625 // Hauteur de la partie cropée
+ //  );
+
+	// // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
+	// ctx.drawImage(
+	// 	backgroundToDisplay,
+	// 	hero.x - 351, // Position X de la partie à croper
+	// 	hero.y - 288.5, // Position Y de la partie à croper
+	// 	750 , // Largeur de la partie à croper
+	// 	625 , // Hauteur de la partie à corper
+	// 	0, // Position x de l'image à croper sur le canvas
+	// 	0,  // Position y de l'image à croper sur le canvas
+	// 	750 , // Largeur de la partie cropée
+	// 	625 // Hauteur de la partie cropée
+	// );
 
   // ctx.drawImage(
   //   roomImgLayer2,
@@ -300,7 +344,7 @@ const drawBackground = () => {
   //   750 , // Largeur de la partie cropée
   //   625 // Hauteur de la partie cropée
   // );
-}
+};
 
 
 const updateHero = (event) => {
