@@ -227,8 +227,11 @@ const drawHomeMenu = ()=> {
   //   625 // Hauteur de la partie cropée
   // );
 
-
-  drawMessages('Appuyez sur Entrée', 50, 50);
+  ctx.fillStyle="#000000";
+  ctx.fillRect(0,0, stage.width, stage.height);
+  drawMessages('RPG GAME', stage.width / 5 , stage.height / 3, 1);
+  drawMessages('push ENTER', stage.width / 5 , stage.height / 2, 2);
+  drawMessages(' ©2020    BG', stage.width / 4, 500, 2);
 }
 
 // Dessine l'image entre deux niveaux
@@ -610,8 +613,22 @@ fetch(url)
 
 
 // Méthode pour écrire des messages sur l'écran
-const drawMessages = (msg,x,y) => {
-  ctx.font = "40px Arial";
+const drawMessages = (msg,x,y, fontsize) => {
+  switch(fontsize) {
+    case 1:
+      ctx.font = "100px Arial";
+      break;
+    case 2:
+      ctx.font = "40px Arial";
+      break;
+    case 3:
+      ctx.font = "20px Arial";
+      break;
+  }
+
+
+
+
   ctx.fillStyle = "#FFFFFF";
   ctx.fillText(msg, x, y);
 }
