@@ -84,6 +84,7 @@ export class GeneralConfig {
                 roomName:"piece secrete arrière chateau",
                 x: 432,
                 y: 288,
+                y: 300,
                 width: 48,
                 height: 92,
                 destination : {
@@ -293,7 +294,7 @@ export class GeneralConfig {
                   mapSheetName: "castle inside",
                   mapSheetId: 1,
                   roomName: "piece secrete arrière chateau",
-                  x: 452,
+                  x: 437,
                   y: 398,
                   heroPosition: "down"
                 }
@@ -312,8 +313,8 @@ export class GeneralConfig {
                   mapSheetName: "castle inside",
                   mapSheetId: 1,
                   roomName: "salle secrete à droite chateau",
-                  x: 2481,
-                  y: 406,
+                  x: 2490,
+                  y: 390,
                   heroPosition: "left"
                 }
               },
@@ -596,7 +597,7 @@ export class Hero {
 
 
     // On détermine quel sprite afficher
-    if (this.frame % 15 === 0){ // on décide d'incrémenter l'index toutes les 15 frames
+    if (this.frame % 3 === 0){ // on décide d'incrémenter l'index toutes les 3 frames
       this.currentLoopIndex++;
     }
 

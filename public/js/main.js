@@ -38,7 +38,7 @@ let obstacle = [];
 // Méthode pour initialiser le héros
 const InitHero = () => {
   // On initialise le héros
-  hero = new Hero (1,1,30,30);
+  hero = new Hero (1,1,15,15);
 }
 
 // On initialise les énnemis
@@ -65,8 +65,6 @@ const initSprites = () => {
   // On récupère les informations sur la mapSheep courrante
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
-  console.log('currentMapSheetDatas T', currentMapSheetDatas);
-
   // On selectionne le bon background
   selectBackGroundImg(hero);
 }
@@ -92,22 +90,16 @@ export const checkCollision = (a, b) => {
 // Méthode pour connaitre l'image de fond à afficher
 const selectBackGroundImg = (hero) => {
 
-  console.log('entre dans selectBackGroundImg');
+  if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1){
 
-  console.log('hero.currentWorldPosition.worldId', hero.currentWorldPosition.wordlId);
-  console.log('hero.currentWorldPosition.mapSheetId', hero.currentWorldPosition.mapSheetId);
+    backgroundToDisplay.push(roomImg);
 
+  }
 
-    if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1){
+  if(hero.currentWorldPosition.wordlId === 1 && hero.currentWorldPosition.mapSheetId === 2){
+    backgroundToDisplay.push(roomImgLayer1, roomImgLayer2, roomImgLayer3) ;
 
-      backgroundToDisplay.push(roomImg);
-
-    }
-
-    if(hero.currentWorldPosition.wordlId === 1 && hero.currentWorldPosition.mapSheetId === 2){
-      backgroundToDisplay.push(roomImgLayer1, roomImgLayer2, roomImgLayer3) ;
-
-    }
+  }
 
 }
 
@@ -227,11 +219,15 @@ const drawHomeMenu = ()=> {
   //   625 // Hauteur de la partie cropée
   // );
 
+  // On dessine un fond noir sur l'écran d'accueil
   ctx.fillStyle="#000000";
   ctx.fillRect(0,0, stage.width, stage.height);
+  // On affiche les messages
   drawMessages('RPG GAME', stage.width / 5 , stage.height / 3, 1);
   drawMessages('push ENTER', stage.width / 5 , stage.height / 2, 2);
   drawMessages(' ©2020    BG', stage.width / 4, 500, 2);
+
+  dialogBox('storyTelling');
 }
 
 // Dessine l'image entre deux niveaux
@@ -275,12 +271,8 @@ const drawHomeMenu = ()=> {
 // Dessine l'image de fond
 const drawBackground = () => {
 
-      console.log('drawBackground');
-      console.log('backgroundToDisplay', backgroundToDisplay);
-
       backgroundToDisplay.forEach(item => {
 
-        console.log('limage', item);
                 // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
         ctx.drawImage(
           item,
@@ -352,9 +344,6 @@ const drawBackground = () => {
 
 const updateHero = (event) => {
 
-  console.log('event.keyCode', event.keyCode);
-
-
 	if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
 		const x = hero.x;
 		const y = hero.y;
@@ -366,9 +355,6 @@ const updateHero = (event) => {
 
     // On itère sur toutes les portes de la mapsheet
     currentMapSheetDatas.doors.forEach(item => {
-
-      console.log('on itère sur les portes');
-      console.log('item',item);
 
       // On vérifie s'il y a une collision entre la porte et le héro
       if (checkCollision(item, hero)) { // Si passe par une porte
@@ -391,25 +377,14 @@ const updateHero = (event) => {
 
 
 		// On vérifie si le héros est sorti des limites
+    if(checkOutOfBounds(currentMapSheetDatas)){ // Si le héro est en dehors du terrain
+			hero.x = x;
+			hero.y = y;
+			hero.centerX = centerX;
+			hero.centerY = centerY;
+			hero.setMapIndexPosition();
+		}
 
-  //   if(checkOutOfBounds(currentMapSheetDatas)){ // Si le héro est en dehors du terrain
-		// 	hero.x = x;
-		// 	hero.y = y;
-		// 	hero.centerX = centerX;
-		// 	hero.centerY = centerY;
-		// 	hero.setMapIndexPosition();
-		// }
-
-
-		// Si la/les balles volantes est sortie du terrain on change son statut
-/* 		hero.bulletsList.forEach(item => {
-			if(item.isFlying && checkOutOfBounds(item)){
-				item.isFlying = false;
-
-				// On inrémente le nombre de balle tirée
-				hero.shootedBullet += 1;
-			}
-		}) */
 	} else { // le joueur a appuyé sur la touche entrée
 
     // On lance le jeu
@@ -425,10 +400,6 @@ const launchGame = (event) => {
 
     // On initialise les sprites
     setTimeout(initSprites, 2000);
-
-
-
-    console.log('par ici');
 
     // Méthode pour rafraichir le jeu
     config.setInterval = setInterval(drawAll, 1000 / config.fps);
@@ -474,7 +445,6 @@ const drawAll = () => {
 	config.drawStageName();
 	config.drawRemainingBullet(hero.getRemainingBullet()); */
 
-  console.log('bam');
 	hero.drawHero();
 
 
@@ -564,9 +534,6 @@ const drawAll = () => {
 // Méthode qui vérifie si le héro est sorti des limites autorisées
 export const checkOutOfBounds = (currentMap) => {
 
-    console.log('entre dans checkOutOfBounds');
-    console.log('currentMap', currentMap);
-
 		// Si index du joueur vaut 0 sur la map il y a collision
 		if (currentMap.collisionArray[hero.mapIndexPosition] === 0) {
 			console.log('collision');
@@ -646,6 +613,34 @@ const playSound = (url)  => {
 };
 
 playSound('../audio/soundtracks/far-east-kingdom.mp3');
+
+// Pour dessiner un cadre de dialogue
+const dialogBox = style => {
+
+  switch(style){
+    case 'storyTelling':
+      // On dessine un fond noir sur l'écran d'accueil
+      ctx.fillStyle="#E5E8E8";
+      ctx.fillRect(50, 50, stage.width - 100, 200);
+      // On dessine le border sur le rectangle
+      ctx.strokeStyle = "#D2B4DE";
+      ctx.lineWidth = 10;
+      ctx.strokeRect(50, 400, stage.width - 100, 200);
+    break;
+
+    case 'dialog':
+      // On dessine un fond noir sur l'écran d'accueil
+      ctx.fillStyle="#D2B4DE";
+      ctx.fillRect(50, 50, stage.width - 100 , 200);
+      // On dessine le border sur le rectangle
+      ctx.strokeStyle = "#D2B4DE";
+      ctx.lineWidth = 10;
+      ctx.strokeRect(50, 400, stage.width - 100, 200);
+    break;
+  }
+
+
+}
 
 
 
