@@ -205,30 +205,16 @@ const drawHomeMenu = ()=> {
   // ctx.drawImage(backgroundImg,0,0,960,540,0,0,stage.width,stage.height);
 
 
-
-  // On dessine une background d'accueil
-  // ctx.drawImage(
-  //   roomImgLayer1,
-  //   0 , // Position X de la partie à croper
-  //   0 , // Position Y de la partie à croper
-  //   750 , // Largeur de la partie à croper
-  //   625 , // Hauteur de la partie à corper
-  //   0, // Position x de l'image à croper sur le canvas
-  //   0,  // Position y de l'image à croper sur le canvas
-  //   750 , // Largeur de la partie cropée
-  //   625 // Hauteur de la partie cropée
-  // );
-
   // On dessine un fond noir sur l'écran d'accueil
   ctx.fillStyle="#000000";
   ctx.fillRect(0,0, stage.width, stage.height);
   // On affiche les messages
   drawMessages('RPG GAME', stage.width / 5 , stage.height / 3, 1);
-  drawMessages('push ENTER', stage.width / 5 , stage.height / 2, 2);
+  drawMessages('Press ENTER', stage.width / 5 , stage.height / 2, 2);
   drawMessages(' ©2020    BG', stage.width / 4, 500, 2);
 
   dialogBox('storyTelling');
-}
+};
 
 // Dessine l'image entre deux niveaux
 /* const drawInterStage = ()=> {
@@ -592,12 +578,10 @@ const drawMessages = (msg,x,y, fontsize) => {
       ctx.font = "20px Arial";
       break;
   }
-
-
-
-
   ctx.fillStyle = "#FFFFFF";
   ctx.fillText(msg, x, y);
+
+
 }
 
 
@@ -620,25 +604,37 @@ const dialogBox = style => {
   switch(style){
     case 'storyTelling':
       // On dessine un fond noir sur l'écran d'accueil
-      ctx.fillStyle="#E5E8E8";
-      ctx.fillRect(50, 50, stage.width - 100, 200);
+      ctx.fillStyle="#5858BA";
+      ctx.fillRect(50, 400, stage.width - 100, 200);
       // On dessine le border sur le rectangle
-      ctx.strokeStyle = "#D2B4DE";
-      ctx.lineWidth = 10;
+      ctx.strokeStyle = "#FFFFFF";
+      ctx.lineWidth = 3;
       ctx.strokeRect(50, 400, stage.width - 100, 200);
+
+      drawMessages("Fusce eu nunc non tortor dignissim elementum quis eget justo. Mauris scelerisque eu justo sed pulvinar. Sed at hendrerit leo. Vivamus ut tortor viverra, vestibulum lorem non, accumsan dui.", 70, 450, 3);
     break;
 
     case 'dialog':
       // On dessine un fond noir sur l'écran d'accueil
-      ctx.fillStyle="#D2B4DE";
-      ctx.fillRect(50, 50, stage.width - 100 , 200);
+      ctx.fillStyle="#5858BA";
+      ctx.fillRect(50, 400, stage.width - 100 , 200);
       // On dessine le border sur le rectangle
-      ctx.strokeStyle = "#D2B4DE";
-      ctx.lineWidth = 10;
+      ctx.strokeStyle = "#FFFFFF";
+      ctx.lineWidth = 3;
       ctx.strokeRect(50, 400, stage.width - 100, 200);
+
+      drawMessages("Fusce eu nunc non tortor dignissim elementum quis eget justo. Mauris scelerisque eu justo sed pulvinar. Sed at hendrerit leo. Vivamus ut tortor viverra, vestibulum lorem non, accumsan dui.", 70, 450, 3);
     break;
   }
 
+  // function fillTextMultiLine(ctx, text, x, y) {
+  //   var lineHeight = ctx.measureText("M").width * 1.2;
+  //   var lines = text.split("\n");
+  //   for (var i = 0; i < lines.length; ++i) {
+  //     ctx.fillText(lines[i], x, y);
+  //     y += lineHeight;
+  //   }
+  // }
 
 }
 
