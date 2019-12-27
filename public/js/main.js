@@ -579,7 +579,19 @@ const drawMessages = (msg,x,y, fontsize) => {
       break;
   }
   ctx.fillStyle = "#FFFFFF";
-  ctx.fillText(msg, x, y);
+
+  console.log('msg.length', msg.length);
+
+  for(let i = 0; i <= msg.length; i += 60){
+    let start = i;
+    let end = i  + 60;
+    y += 25;
+
+    let cuttedMsg = msg.slice(start, end);
+    console.log(start,end, y, cuttedMsg);
+    ctx.fillText(cuttedMsg, x, y);
+
+  }
 
 
 }
