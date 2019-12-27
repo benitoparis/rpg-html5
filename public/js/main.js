@@ -1,5 +1,8 @@
-import { Hero, Obstacles, Enemies, GeneralConfig} from './class.js';
-
+import { Hero } from './class/hero.js';
+import { Obstacles } from './class/obstacles.js';
+import { Enemies } from './class/enemies.js';
+import { GeneralConfig } from './class/general-config.js';
+import { Bullet } from './class/bullet.js';
 
 // Déclaration des variables
 const stage = document.getElementById("stage");
