@@ -3,6 +3,7 @@ import { Obstacles } from './class/obstacles.js';
 import { Enemies } from './class/enemies.js';
 import { GeneralConfig } from './class/general-config.js';
 import { Bullet } from './class/bullet.js';
+import { People } from './class/people.js';
 
 // Déclaration des variables
 const stage = document.getElementById("stage");
@@ -33,6 +34,7 @@ export const rangeNumber = (a,b)=> {
 }
 
 let hero = {};
+let people = {};
 // let enemies = [];
 let obstacle = [];
 
@@ -42,6 +44,12 @@ let obstacle = [];
 const InitHero = () => {
   // On initialise le héros
   hero = new Hero (1,1,15,15);
+}
+
+// Méthode pour Initialiser le people
+const initPeople = ()=> {
+  people = new People (500, 400, 5, 5);
+  console.log('people', people);
 }
 
 // On initialise les énnemis
@@ -64,6 +72,7 @@ const initSprites = () => {
   console.log('par la');
 
   InitHero();
+  initPeople();
 
   // On récupère les informations sur la mapSheep courrante
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
@@ -330,6 +339,16 @@ const drawBackground = () => {
   // );
 };
 
+// On met à jour la position du people
+const updatePeople = ()=>{
+  people.update();
+}
+
+// On dessine le people
+const drawPeople = ()=> {
+  people.draw();
+}
+
 
 const updateHero = (event) => {
 
@@ -435,6 +454,11 @@ const drawAll = () => {
 	config.drawRemainingBullet(hero.getRemainingBullet()); */
 
 	hero.drawHero();
+
+  updatePeople();
+  drawPeople();
+
+
 
 
 
