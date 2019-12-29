@@ -1,4 +1,4 @@
-import {ctx, charImg} from '../main.js';
+import { ctx, charImg } from '../main.js';
 import { Bullet } from './bullet.js';
 
 // classe du héros
@@ -42,6 +42,9 @@ export class Hero {
 
   // Méthode pour afficher le sprite du héros
   drawHero() {
+
+    console.log('hero x');
+
     ctx.drawImage(
       charImg,
       this.faceX , // Position X de la partie à croper

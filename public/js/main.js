@@ -33,8 +33,8 @@ export const rangeNumber = (a,b)=> {
   return Math.floor((Math.random() * b)) + a;
 }
 
-let hero = {};
-let people = {};
+export let hero = {};
+export let people = {};
 // let enemies = [];
 let obstacle = [];
 
@@ -48,7 +48,7 @@ const InitHero = () => {
 
 // Méthode pour Initialiser le people
 const initPeople = ()=> {
-  people = new People (500, 400, 5, 5);
+  people = new People (300, 300, 1, 1);
   console.log('people', people);
 }
 

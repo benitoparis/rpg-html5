@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, charImg } from '../main.js';
+import { ctx, rangeNumber, charImg, hero} from '../main.js';
 
 // classe d'un people
 export class People {
@@ -19,7 +19,7 @@ export class People {
     this.speedY = speedY;
     this.faceX = 70;
     this.faceY = 207;
-    this.target = {x: null, y: null, direction: null};
+    this.target = {x: 300, y: 800, direction: 'south'};
     this.currentLoopIndex = 0;
     this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
     this.leftCycleLoop = [{faceX:8,faceY:310},{faceX:70,faceY:310},{faceX:8,faceY:310},{faceX:140,faceY:310}];
@@ -46,8 +46,8 @@ export class People {
       95 , // Hauteur de la partie à corper
       //this.x, // Position x de l'image à croper sur le canvas
       // this.y,  // Position y de l'image à croper sur le canvas
-      500, // on l'affiche toujours au milieu du canvas // Position x de l'image à croper sur le canvas
-      400, // on l'affiche toujours au milieu du canvas // Position y de l'image à croper sur le canvas
+      351 - (hero.x - this.x),
+      288.5 - (hero.y - this.y),
       this.width, // Largeur de la partie cropée
       this.height // Hauteur de la partie cropée
     );
@@ -55,6 +55,10 @@ export class People {
 
   // Méthode qui va modifier les coordonnées du people.
   update() {
+
+    console.log('target', this.target);
+    console.log('this.x', this.x);
+    console.log('this.y', this.y);
 
     // On reiseigne une nouvelle cible
     //this.setTarget();
@@ -78,18 +82,11 @@ export class People {
     }
 
 
-
-    if(this.reachTarget()){ // S'il a atteint sa cible
-
-      // On renseigne une nouvelle cible
-      this.setTarget();
-
-
-      switch (this.target.direction) {
-      case "East":
+    switch (this.target.direction) {
+      case "east":
 
         if (this.faceY === 310) {
-          this.speedX = 5;
+          this.speedX = 1;
           this.speedY = 0;
         }
         this.x = (this.x + this.speedX);
@@ -101,10 +98,10 @@ export class People {
 
         break;
 
-      case "West":
+      case "west":
 
         if (this.faceY === 120) {
-          this.speedX -= 5;
+          this.speedX -= 1;
           this.speedY = 0;
         }
         this.x = this.x - this.speedX;
@@ -116,11 +113,11 @@ export class People {
         // this.shootDirection = 'left';
         break;
 
-      case "North":
+      case "north":
 
         if(this.faceY === 210) {
           this.speedX = 0;
-          this.speedY -= 5;
+          this.speedY -= 1;
         }
         this.y = this.y - this.speedY;
 
@@ -133,11 +130,11 @@ export class People {
         // this.shootDirection = 'up';
         break;
 
-      case "South":
+      case "south":
 
         if (this.faceY === 22) {
           this.speedX = 0;
-          this.speedY = 5;
+          this.speedY = 1;
         }
         this.y = this.y + this.speedY;
 
@@ -149,19 +146,23 @@ export class People {
         // this.shootDirection = 'down';
         break;
 
-      default:
-        break;
+        default:
+          break;
     }
 
 
-    }
-
-    // On recalcule le centre du héros
+    // On recalcule le centre du people
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
 
-    // On recalcule la position de l'index du héros sur la map
+    // On recalcule la position de l'index du people sur la map
     this.setMapIndexPosition();
+
+    if(this.reachTarget()){ // S'il a atteint sa cible
+       // On renseigne une nouvelle cible
+       this.setTarget();
+    }
+
 
   }
 
@@ -211,19 +212,20 @@ export class People {
 
     switch(rangeNumber(1,4)){
       case 1 : // A l'est
-        this.target = {x: this.x + 20 , y: this.y , direction : 'East'};
+        this.target = {x: this.x + 50 , y: this.y , direction : 'east'};
       break;
       case 2 : // A l'ouest
-        this.target = {x: this.x - 20 , y: this.y, direction : 'West' };
+        this.target = {x: this.x - 50 , y: this.y, direction : 'west' };
       break;
       case 3 : // Au nord
-        this.target = {x: this.x , y: this.y - 20, direction : 'North' };
+        this.target = {x: this.x, y: this.y - 50, direction : 'north' };
       break;
       case 4 : // Au sud
-        this.target = {x: this.x, y: this.y + 20, direction : 'South' };
+        this.target = {x: this.x, y: this.y + 50, direction : 'south' };
       break;
 
       default:
+      alert('default direction');
       break;
 
       return this.target;
@@ -234,7 +236,8 @@ export class People {
 
   // Est-ce qu'il a atteint sa cible
   reachTarget(){
-    if (this.x === this.target.x && this.x === target.y){
+    if (this.x === this.target.x && this.y === this.target.y){
+      alert('cible atteinte');
       return true;
     } else {
       return false;
