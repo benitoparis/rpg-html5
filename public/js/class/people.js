@@ -6,8 +6,8 @@ export class People {
  // Constructeur de la classe people...
  constructor(dx, dy, speedX, speedY) {
 
-    this.x = 300; // Position X sur la map
-    this.y = 300; // Position Y sur la map
+    this.x = 400; // Position X sur la map
+    this.y = 400; // Position Y sur la map
     this.dx = dx;
     this.dy = dy;
     this.width = 48;
@@ -19,7 +19,7 @@ export class People {
     this.speedY = speedY;
     this.faceX = 70;
     this.faceY = 207;
-    this.target = {x: 300, y: 800, direction: 'south'};
+    this.target = {x: 400, y: 800, direction: 'south'};
     this.currentLoopIndex = 0;
     this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
     this.leftCycleLoop = [{faceX:8,faceY:310},{faceX:70,faceY:310},{faceX:8,faceY:310},{faceX:140,faceY:310}];
@@ -55,10 +55,6 @@ export class People {
 
   // Méthode qui va modifier les coordonnées du people.
   update() {
-
-    console.log('target', this.target);
-    console.log('this.x', this.x);
-    console.log('this.y', this.y);
 
     // On reiseigne une nouvelle cible
     //this.setTarget();
@@ -101,10 +97,10 @@ export class People {
       case "west":
 
         if (this.faceY === 120) {
-          this.speedX -= 1;
+          this.speedX = 1;
           this.speedY = 0;
         }
-        this.x = this.x - this.speedX;
+        this.x = (this.x - this.speedX);
 
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.leftCycleLoop[this.currentLoopIndex].faceX;
@@ -117,9 +113,9 @@ export class People {
 
         if(this.faceY === 210) {
           this.speedX = 0;
-          this.speedY -= 1;
+          this.speedY = 1;
         }
-        this.y = this.y - this.speedY;
+        this.y = (this.y - this.speedY);
 
         this.faceX = 8;
         this.faceY = 22;
@@ -136,7 +132,7 @@ export class People {
           this.speedX = 0;
           this.speedY = 1;
         }
-        this.y = this.y + this.speedY;
+        this.y = (this.y + this.speedY);
 
         this.faceX = 8;
         this.faceY = 210;
@@ -156,7 +152,10 @@ export class People {
     this.centerY = ((this.y + this.height) - (this.height / 2));
 
     // On recalcule la position de l'index du people sur la map
-    this.setMapIndexPosition();
+    // this.setMapIndexPosition();
+
+    console.log('this.x', this.x);
+    console.log('this.y', this.y);
 
     if(this.reachTarget()){ // S'il a atteint sa cible
        // On renseigne une nouvelle cible
@@ -202,42 +201,50 @@ export class People {
   // Méthode pour setter l'index du héros sur la map
   setMapIndexPosition(){
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-    console.log('mapIndexPosition', this.mapIndexPosition);
+
   }
 
   // Méthode qui détermine la position cible du people
   setTarget(){
 
+    const randomNumber = rangeNumber(1,4);
+    console.log('randomNumber', randomNumber);
 
-
-    switch(rangeNumber(1,4)){
+    switch(randomNumber){
       case 1 : // A l'est
-        this.target = {x: this.x + 50 , y: this.y , direction : 'east'};
+        this.target = {x: this.x + 200 , y: this.y , direction : 'east'};
+        console.log('1');
+        console.log('this.target', this.target);
       break;
       case 2 : // A l'ouest
-        this.target = {x: this.x - 50 , y: this.y, direction : 'west' };
+        this.target = {x: this.x - 200 , y: this.y, direction : 'west' };
+        console.log('2');
+        console.log('this.target', this.target);
       break;
       case 3 : // Au nord
-        this.target = {x: this.x, y: this.y - 50, direction : 'north' };
+        this.target = {x: this.x, y: this.y - 200, direction : 'north' };
+        console.log('3');
+        console.log('this.target', this.target);
       break;
       case 4 : // Au sud
-        this.target = {x: this.x, y: this.y + 50, direction : 'south' };
+        this.target = {x: this.x, y: this.y + 200, direction : 'south' };
+      console.log('4');
+      console.log('this.target', this.target);
       break;
 
       default:
       alert('default direction');
+      this.target = {x: this.x + 200 , y: this.y , direction : 'east'};
       break;
-
-      return this.target;
 
     };
 
   }
 
   // Est-ce qu'il a atteint sa cible
-  reachTarget(){
+  reachTarget() {
+
     if (this.x === this.target.x && this.y === this.target.y){
-      alert('cible atteinte');
       return true;
     } else {
       return false;

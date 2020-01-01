@@ -48,9 +48,9 @@ const InitHero = () => {
 
 // Méthode pour Initialiser le people
 const initPeople = ()=> {
-  people = new People (300, 300, 1, 1);
+  people = new People (400, 400, 1, 1);
   console.log('people', people);
-}
+};
 
 // On initialise les énnemis
 /* const initEnemies = (stageInformation) => {
@@ -342,6 +342,18 @@ const drawBackground = () => {
 // On met à jour la position du people
 const updatePeople = ()=>{
   people.update();
+  people.setMapIndexPosition();
+
+  console.log('a', checkOutOfBounds(currentMapSheetDatas, people));
+
+  // On vérifie si le people est sorti des limites
+  if(checkOutOfBounds(currentMapSheetDatas, people)){ // Si le people est en dehors du terrain
+    // people.x = x;
+    // people.y = y;
+    // people.centerX = centerX;
+    // poeple.centerY = centerY;
+    people.setTarget();
+  }
 }
 
 // On dessine le people
@@ -385,7 +397,7 @@ const updateHero = (event) => {
 
 
 		// On vérifie si le héros est sorti des limites
-    if(checkOutOfBounds(currentMapSheetDatas)){ // Si le héro est en dehors du terrain
+    if(checkOutOfBounds(currentMapSheetDatas, hero)){ // Si le héro est en dehors du terrain
 			hero.x = x;
 			hero.y = y;
 			hero.centerX = centerX;
@@ -545,10 +557,10 @@ const drawAll = () => {
 };
 
 // Méthode qui vérifie si le héro est sorti des limites autorisées
-export const checkOutOfBounds = (currentMap) => {
+export const checkOutOfBounds = (currentMap, someOne) => {
 
 		// Si index du joueur vaut 0 sur la map il y a collision
-		if (currentMap.collisionArray[hero.mapIndexPosition] === 0) {
+		if (currentMap.collisionArray[someOne.mapIndexPosition] === 0) {
 			console.log('collision');
 			return true;
 		} else { // Sinon, pas de collision
