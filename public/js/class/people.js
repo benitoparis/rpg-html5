@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, charImg, hero } from '../main.js';
+import { ctx, rangeNumber, charImg, hero, imgPersoFigurant1, imgPersoFigurant2, imgPersoFigurant3 } from '../main.js';
 
 // classe d'un people
 export class People {
@@ -6,6 +6,8 @@ export class People {
  // Constructeur de la classe people...
  constructor(dx, dy, speedX, speedY) {
 
+    this.peopleType = `imgPersoFigurant${rangeNumber(1, 5)}`;
+    this.characterImg = charImg;
     this.x = 400; // Position X sur la map
     this.y = 400; // Position Y sur la map
     this.dx = dx;
@@ -40,7 +42,7 @@ export class People {
   // Méthode pour afficher le sprite du people
   draw() {
     ctx.drawImage(
-      charImg,
+      this.characterImg,
       this.faceX , // Position X de la partie à croper
       this.faceY , // Position Y de la partie à croper
       74 , // Largeur de la partie à croper
@@ -61,6 +63,7 @@ export class People {
     console.log(' this.y', this.y);
     console.log(' this.centerX', this.centerX);
     console.log(' this.centerY', this.centerY);
+    console.log('this.peopleType', this.peopleType);
 
 
 

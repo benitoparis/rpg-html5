@@ -24,6 +24,11 @@ const roomImgLayer1 = new Image();
 const roomImgLayer2 = new Image();
 const roomImgLayer3 = new Image();
 
+//images des people
+export const imgPersoFigurant1 = new Image();
+export const imgPersoFigurant2 = new Image();
+export const imgPersoFigurant3 = new Image();
+
 let backgroundToDisplay = [];
 let currentMapSheetDatas;
 
@@ -204,6 +209,23 @@ const loadImages = () => {
   // ctx.drawImage(roomImg, 0, 0);
   };
 
+  // On charge l'image du figurant 1
+  imgPersoFigurant1.src = '../img/sprites/persofigurant1.png';
+  imgPersoFigurant1.onload = () => {
+  // ctx.drawImage(roomImg, 0, 0);
+  };
+
+  // On charge l'image du figurant 2
+  imgPersoFigurant2.src = '../img/sprites/persofigurant2.png';
+  imgPersoFigurant2.onload = () => {
+  // ctx.drawImage(roomImg, 0, 0);
+  };
+
+  // On charge l'image du figurant 3
+  imgPersoFigurant3.src = '../img/sprites/persofigurant3.png';
+  imgPersoFigurant3.onload = () => {
+  // ctx.drawImage(roomImg, 0, 0);
+  };
 }
 
 
