@@ -69,7 +69,7 @@ const initPeople = ()=> {
 // Méthode pour initialiser les sprites animés
 const initSprites = () => {
 
-  console.log('par la');
+  // console.log('par la');
 
   InitHero();
   initPeople();
@@ -121,10 +121,10 @@ export const checkCollisionByMapIndex = (room) => {
 
 	// Si index du joueur vaut 0 sur la map il y a collision
 	if (room.collisionArray[hero.mapIndexPosition] === 0) {
-		console.log('collision');
+
 		console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 	} else { // Sinon, pas de collision
-		console.log('pas de collision');
+
 		console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 	}
 
@@ -341,17 +341,27 @@ const drawBackground = () => {
 
 // On met à jour la position du people
 const updatePeople = ()=>{
+
+  const x = people.x;
+  const y = people.y;
+  const centerX = people.centerX;
+  const centerY = people.centerY;
+
   people.update();
   people.setMapIndexPosition();
 
-  console.log('a', checkOutOfBounds(currentMapSheetDatas, people));
 
-  // On vérifie si le people est sorti des limites
+
+
+
+  //console.log('a', checkOutOfBounds(currentMapSheetDatas, people));
+
+  //On vérifie si le people est sorti des limites
   if(checkOutOfBounds(currentMapSheetDatas, people)){ // Si le people est en dehors du terrain
     // people.x = x;
     // people.y = y;
     // people.centerX = centerX;
-    // poeple.centerY = centerY;
+    //poeple.centerY = centerY;
     people.setTarget();
   }
 }
@@ -379,6 +389,7 @@ const updateHero = (event) => {
       // On vérifie s'il y a une collision entre la porte et le héro
       if (checkCollision(item, hero)) { // Si passe par une porte
         console.log('passe par une porte');
+
         const destinationX = item.destination.x;
         const destinationY = item.destination.y;
 
@@ -469,6 +480,7 @@ const drawAll = () => {
 
   updatePeople();
   drawPeople();
+  people.drawTarget();
 
 
 
@@ -561,10 +573,10 @@ export const checkOutOfBounds = (currentMap, someOne) => {
 
 		// Si index du joueur vaut 0 sur la map il y a collision
 		if (currentMap.collisionArray[someOne.mapIndexPosition] === 0) {
-			console.log('collision');
+			//console.log('collision');
 			return true;
 		} else { // Sinon, pas de collision
-			console.log('pas de collision');
+			//console.log('pas de collision');
 			return false;
 		}
 

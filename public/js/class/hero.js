@@ -43,7 +43,6 @@ export class Hero {
   // Méthode pour afficher le sprite du héros
   drawHero() {
 
-    console.log('hero x');
 
     ctx.drawImage(
       charImg,
@@ -242,9 +241,7 @@ export class Hero {
   // Méthode pour setter l'index du héros sur la map
   setMapIndexPosition(){
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-    console.log('mapIndexPosition', this.mapIndexPosition);
-    console.log('hero.x', this.centerX);
-    console.log('hero.y', this.centerY);
+
   }
 
 }

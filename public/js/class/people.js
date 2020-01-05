@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, charImg, hero} from '../main.js';
+import { ctx, rangeNumber, charImg, hero } from '../main.js';
 
 // classe d'un people
 export class People {
@@ -19,9 +19,10 @@ export class People {
     this.speedY = speedY;
     this.faceX = 70;
     this.faceY = 207;
-    this.target = {x: 400, y: 800, direction: 'south'};
+    this.target = {x: 388, width: 100, y: 800, height:100, direction: 'south'};
     this.currentLoopIndex = 0;
-    this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
+    // this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
+    this.rightCycleLoop = [{faceX:8,faceY:120}, {faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120}];
     this.leftCycleLoop = [{faceX:8,faceY:310},{faceX:70,faceY:310},{faceX:8,faceY:310},{faceX:140,faceY:310}];
     this.upCycleLoop = [{faceX:8,faceY:22},{faceX:70,faceY:22},{faceX:8,faceY:22},{faceX:140,faceY:22}];
     this.downCycleLoop = [{faceX:8,faceY:210},{faceX:70,faceY:210},{faceX:8,faceY:210},{faceX:140,faceY:210}];
@@ -56,8 +57,12 @@ export class People {
   // Méthode qui va modifier les coordonnées du people.
   update() {
 
-    // On reiseigne une nouvelle cible
-    //this.setTarget();
+    console.log(' this.x', this.x);
+    console.log(' this.y', this.y);
+    console.log(' this.centerX', this.centerX);
+    console.log(' this.centerY', this.centerY);
+
+
 
     if(this.frame === this.fps){
       this.frame = 0;
@@ -79,12 +84,14 @@ export class People {
 
 
     switch (this.target.direction) {
-      case "east":
+      case 'east':
 
-        if (this.faceY === 310) {
-          this.speedX = 1;
-          this.speedY = 0;
-        }
+        // if (this.faceY === 310) {
+        //   this.speedX = 2;
+        //   this.speedY = 0;
+        // }
+        this.speedX = 2;
+        // this.speedY = 0;
         this.x = (this.x + this.speedX);
 
         // On détermine la positon x/y du crop du personnage
@@ -94,12 +101,15 @@ export class People {
 
         break;
 
-      case "west":
+      case 'west':
 
-        if (this.faceY === 120) {
-          this.speedX = 1;
-          this.speedY = 0;
-        }
+        // if (this.faceY === 120) {
+        //   this.speedX = 2;
+        //   this.speedY = 0;
+        // }
+        this.speedX = 2;
+        // this.speedY = 0;
+
         this.x = (this.x - this.speedX);
 
         // On détermine la positon x/y du crop du personnage
@@ -109,16 +119,19 @@ export class People {
         // this.shootDirection = 'left';
         break;
 
-      case "north":
+      case 'north':
 
-        if(this.faceY === 210) {
-          this.speedX = 0;
-          this.speedY = 1;
-        }
+        // if(this.faceY === 210) {
+        //   this.speedX = 0;
+        //   this.speedY = 2;
+        // }
+        // this.speedX = 0;
+        this.speedY = 2;
+
         this.y = (this.y - this.speedY);
 
-        this.faceX = 8;
-        this.faceY = 22;
+        //this.faceX = 8;
+        //this.faceY = 22;
 
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.upCycleLoop[this.currentLoopIndex].faceX;
@@ -126,16 +139,18 @@ export class People {
         // this.shootDirection = 'up';
         break;
 
-      case "south":
+      case 'south':
 
-        if (this.faceY === 22) {
-          this.speedX = 0;
-          this.speedY = 1;
-        }
+        // if (this.faceY === 22) {
+        //   this.speedX = 0;
+        //   this.speedY = 2;
+        // }
+        //this.speedX = 0;
+        this.speedY = 2;
         this.y = (this.y + this.speedY);
 
-        this.faceX = 8;
-        this.faceY = 210;
+        //this.faceX = 8;
+        //this.faceY = 210;
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.downCycleLoop[this.currentLoopIndex].faceX;
         this.faceY = this.downCycleLoop[this.currentLoopIndex].faceY;
@@ -143,6 +158,7 @@ export class People {
         break;
 
         default:
+          alert('default update');
           break;
     }
 
@@ -151,17 +167,10 @@ export class People {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
 
-    // On recalcule la position de l'index du people sur la map
-    // this.setMapIndexPosition();
+    if(this.checkTargetCollision()){ // Si il a atteint sa cible on définit une nouvelle cible
 
-    console.log('this.x', this.x);
-    console.log('this.y', this.y);
-
-    if(this.reachTarget()){ // S'il a atteint sa cible
-       // On renseigne une nouvelle cible
-       this.setTarget();
+      this.setTarget();
     }
-
 
   }
 
@@ -207,48 +216,79 @@ export class People {
   // Méthode qui détermine la position cible du people
   setTarget(){
 
+    console.log('dans_set_target');
+
     const randomNumber = rangeNumber(1,4);
-    console.log('randomNumber', randomNumber);
+    console.log('this.target avant', this.target);
+    alert('this.target avant');
+
+    this.target = {};
 
     switch(randomNumber){
       case 1 : // A l'est
-        this.target = {x: this.x + 200 , y: this.y , direction : 'east'};
-        console.log('1');
-        console.log('this.target', this.target);
+        this.target = {x: this.x + 200 ,width: 100, y: this.y - 25, height: 100, direction : 'east'};
+        //alert('1');
+        //alert(this.target.x);
+        //alert(this.target.y);
       break;
-      case 2 : // A l'ouest
-        this.target = {x: this.x - 200 , y: this.y, direction : 'west' };
-        console.log('2');
-        console.log('this.target', this.target);
+      case 2 : // A l'ouesté
+        this.target = {x: this.x - 200 , width: 100, y: this.y - 25, height: 100, direction : 'west' };
+        //alert('2'); ;
+        //alert(this.target.x);
+        //alert(this.target.y);
       break;
       case 3 : // Au nord
-        this.target = {x: this.x, y: this.y - 200, direction : 'north' };
-        console.log('3');
-        console.log('this.target', this.target);
+        this.target = {x: this.x - 25, width: 100, y: this.y - 200, height: 100,  direction : 'north' };
+        //alert('3');
+        // alert(this.target.x);
+        // alert(this.target.y);
       break;
       case 4 : // Au sud
-        this.target = {x: this.x, y: this.y + 200, direction : 'south' };
-      console.log('4');
-      console.log('this.target', this.target);
+        this.target = {x: this.x - 25, width: 100, y: this.y + 200, height: 100, direction : 'south' };
+        //alert('4') ;
+        //alert(this.target.x);
+        // alert(this.target.y);
       break;
 
       default:
-      alert('default direction');
-      this.target = {x: this.x + 200 , y: this.y , direction : 'east'};
+      this.target = {x: this.x + 200, width: 100 , y: this.y - 25,height: 100, direction : 'east'};
+        //alert('autre');
+        //alert(this.target.x);
+        //alert(this.target.y);
       break;
 
+
+
     };
+
 
   }
 
   // Est-ce qu'il a atteint sa cible
-  reachTarget() {
+  checkTargetCollision() {
 
-    if (this.x === this.target.x && this.y === this.target.y){
-      return true;
+   if((this.target.x < this.centerX) && (this.centerX < (this.target.x + this.target.width))
+     && (this.target.y < this.centerY)
+     && (this.centerY < (this.target.y + this.target.height))) {
+       //alert('collision');
+       //alert(this.target.x);
+       //alert(this.target.y);
+       //alert(this.centerX);
+       //alert(this.centerY);
+       return true;
     } else {
       return false;
     }
+  }
+
+  drawTarget(){
+      ctx.fillStyle = "#FFFFFF";
+      ctx.fillRect(
+        351 - (hero.x - this.target.x),
+        288.5 - (hero.y - this.target.y),
+        100,
+        100
+      );
   }
 
 }
