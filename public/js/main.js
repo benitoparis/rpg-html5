@@ -12,19 +12,18 @@ stage.height = 625;
 // On utilise la méthode getContext pour aller chercher les methodes et les propriétés du canvas
 export const ctx = stage.getContext("2d");
 export const config = new GeneralConfig();
+// Déclaration des images
 export const charImg = new Image();
 export const enemyDragonImg = new Image();
 export const enemyKnightImg = new Image();
 export const enemySkeletonImg = new Image();
-const backgroundImg = new Image();
-const tileFloorHouseImg = new Image();
-const tileChairHouseImg = new Image();
-const roomImg = new Image();
-const roomImgLayer1 = new Image();
-const roomImgLayer2 = new Image();
-const roomImgLayer3 = new Image();
-
-//images des people
+export const backgroundImg = new Image();
+export const tileFloorHouseImg = new Image();
+export const tileChairHouseImg = new Image();
+export const roomImg = new Image();
+export const roomImgLayer1 = new Image();
+export const roomImgLayer2 = new Image();
+export const roomImgLayer3 = new Image();
 export const imgPersoFigurant1 = new Image();
 export const imgPersoFigurant2 = new Image();
 export const imgPersoFigurant3 = new Image();
@@ -137,6 +136,21 @@ export const checkCollisionByMapIndex = (room) => {
 
 
 
+
+// const imagesAssets = [
+//   {charImg: '../img/sprites/spritesheet2.png'},
+//   {backgroundImg: '../img/background/1.png'},
+//   {roomImg: '../img/rooms/room1.png'},
+//   {roomImgLayer1 : '../img/rooms/layer_01.png'},
+//   {roomImgLayer2 : '../img/rooms/layer_02.png'},
+//   {roomImgLayer3: '../img/rooms/layer_03.png'},
+//   {imgPersoFigurant1: '../img/sprites/persofigurant1.png'},
+//   {imgPersoFigurant2: '../img/rooms/layer_02.png'},
+//   {imgPersoFigurant3: '../img/sprites/persofigurant3.png'},
+// ];
+
+
+
 // Méthode pour charger les images
 const loadImages = () => {
 
@@ -167,23 +181,23 @@ const loadImages = () => {
     drawHomeMenu();
   };
 
-  // On charge l'image du premier ennemie (dragon)
-  enemyDragonImg.src = '../img/sprites/dragon.png';
-  enemyDragonImg.onload = () => {
-  // ctx.drawImage(charImg, 0, 0);
-  };
+  // // On charge l'image du premier ennemie (dragon)
+  // enemyDragonImg.src = '../img/sprites/dragon.png';
+  // enemyDragonImg.onload = () => {
+  // // ctx.drawImage(charImg, 0, 0);
+  // };
 
-  // On charge l'image du second ennemi (chevalier)
-  enemyKnightImg.src = '../img/sprites/knight.png';
-  enemyKnightImg.onload = () => {
-  // ctx.drawImage(charImg, 0, 0);
-  };
+  // // On charge l'image du second ennemi (chevalier)
+  // enemyKnightImg.src = '../img/sprites/knight.png';
+  // enemyKnightImg.onload = () => {
+  // // ctx.drawImage(charImg, 0, 0);
+  // };
 
-  // On charge l'image du troisième (squelette)
-  enemySkeletonImg.src = '../img/sprites/squelette.png';
-  enemySkeletonImg.onload = () => {
-  // ctx.drawImage(charImg, 0, 0);
-  };
+  // // On charge l'image du troisième (squelette)
+  // enemySkeletonImg.src = '../img/sprites/squelette.png';
+  // enemySkeletonImg.onload = () => {
+  // // ctx.drawImage(charImg, 0, 0);
+  // };
 
   // On charge l'image de la room
   roomImg.src = '../img/rooms/room1.png';
