@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, charImg, hero, imgPersoFigurant1, imgPersoFigurant2, imgPersoFigurant3 } from '../main.js';
+import { ctx, rangeNumber, hero, config} from '../main.js';
 
 // classe d'un people
 export class People {
@@ -6,8 +6,8 @@ export class People {
  // Constructeur de la classe people...
  constructor(dx, dy, speedX, speedY) {
 
-    this.peopleType = `imgPersoFigurant${rangeNumber(1, 5)}`;
-    this.characterImg = charImg;
+    this.reference = 'persofigurant1';
+    this.characterImg = config.getImage(this.reference);
     this.x = 400; // Position X sur la map
     this.y = 400; // Position Y sur la map
     this.dx = dx;
@@ -59,21 +59,11 @@ export class People {
   // Méthode qui va modifier les coordonnées du people.
   update() {
 
-    console.log(' this.x', this.x);
-    console.log(' this.y', this.y);
-    console.log(' this.centerX', this.centerX);
-    console.log(' this.centerY', this.centerY);
-    console.log('this.peopleType', this.peopleType);
-
-
-
     if(this.frame === this.fps){
       this.frame = 0;
     } else {
       this.frame++;
     }
-
-
 
     // On détermine quel sprite afficher
     if (this.frame % 3 === 0){ // on décide d'incrémenter l'index toutes les 3 frames
@@ -85,16 +75,10 @@ export class People {
       this.currentLoopIndex = 0;
     }
 
-
     switch (this.target.direction) {
       case 'east':
-
-        // if (this.faceY === 310) {
-        //   this.speedX = 2;
-        //   this.speedY = 0;
-        // }
         this.speedX = 2;
-        // this.speedY = 0;
+
         this.x = (this.x + this.speedX);
 
         // On détermine la positon x/y du crop du personnage
@@ -105,36 +89,19 @@ export class People {
         break;
 
       case 'west':
-
-        // if (this.faceY === 120) {
-        //   this.speedX = 2;
-        //   this.speedY = 0;
-        // }
         this.speedX = 2;
-        // this.speedY = 0;
 
         this.x = (this.x - this.speedX);
 
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.leftCycleLoop[this.currentLoopIndex].faceX;
         this.faceY = this.leftCycleLoop[this.currentLoopIndex].faceY;
-
-        // this.shootDirection = 'left';
         break;
 
       case 'north':
-
-        // if(this.faceY === 210) {
-        //   this.speedX = 0;
-        //   this.speedY = 2;
-        // }
-        // this.speedX = 0;
         this.speedY = 2;
 
         this.y = (this.y - this.speedY);
-
-        //this.faceX = 8;
-        //this.faceY = 22;
 
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.upCycleLoop[this.currentLoopIndex].faceX;
@@ -144,16 +111,8 @@ export class People {
 
       case 'south':
 
-        // if (this.faceY === 22) {
-        //   this.speedX = 0;
-        //   this.speedY = 2;
-        // }
-        //this.speedX = 0;
         this.speedY = 2;
         this.y = (this.y + this.speedY);
-
-        //this.faceX = 8;
-        //this.faceY = 210;
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.downCycleLoop[this.currentLoopIndex].faceX;
         this.faceY = this.downCycleLoop[this.currentLoopIndex].faceY;
@@ -219,49 +178,27 @@ export class People {
   // Méthode qui détermine la position cible du people
   setTarget(){
 
-    console.log('dans_set_target');
-
     const randomNumber = rangeNumber(1,4);
-    console.log('this.target avant', this.target);
-    alert('this.target avant');
 
     this.target = {};
 
     switch(randomNumber){
       case 1 : // A l'est
         this.target = {x: this.x + 200 ,width: 100, y: this.y - 25, height: 100, direction : 'east'};
-        //alert('1');
-        //alert(this.target.x);
-        //alert(this.target.y);
       break;
       case 2 : // A l'ouesté
         this.target = {x: this.x - 200 , width: 100, y: this.y - 25, height: 100, direction : 'west' };
-        //alert('2'); ;
-        //alert(this.target.x);
-        //alert(this.target.y);
       break;
       case 3 : // Au nord
         this.target = {x: this.x - 25, width: 100, y: this.y - 200, height: 100,  direction : 'north' };
-        //alert('3');
-        // alert(this.target.x);
-        // alert(this.target.y);
       break;
       case 4 : // Au sud
         this.target = {x: this.x - 25, width: 100, y: this.y + 200, height: 100, direction : 'south' };
-        //alert('4') ;
-        //alert(this.target.x);
-        // alert(this.target.y);
       break;
 
       default:
       this.target = {x: this.x + 200, width: 100 , y: this.y - 25,height: 100, direction : 'east'};
-        //alert('autre');
-        //alert(this.target.x);
-        //alert(this.target.y);
       break;
-
-
-
     };
 
 
@@ -273,17 +210,13 @@ export class People {
    if((this.target.x < this.centerX) && (this.centerX < (this.target.x + this.target.width))
      && (this.target.y < this.centerY)
      && (this.centerY < (this.target.y + this.target.height))) {
-       //alert('collision');
-       //alert(this.target.x);
-       //alert(this.target.y);
-       //alert(this.centerX);
-       //alert(this.centerY);
        return true;
     } else {
       return false;
     }
   }
 
+  // Dessine la cible courante du people sur le canvas
   drawTarget(){
       ctx.fillStyle = "#FFFFFF";
       ctx.fillRect(

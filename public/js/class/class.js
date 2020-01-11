@@ -1,4 +1,4 @@
-import {ctx, charImg, rangeNumber, enemyDragonImg, enemyKnightImg, enemySkeletonImg} from './main.js';
+import {ctx, rangeNumber, config} from './main.js';
 
 
 

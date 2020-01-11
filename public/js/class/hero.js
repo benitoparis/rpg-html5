@@ -1,4 +1,4 @@
-import { ctx, charImg } from '../main.js';
+import { ctx, config } from '../main.js';
 import { Bullet } from './bullet.js';
 
 // classe du héros
@@ -7,6 +7,8 @@ export class Hero {
  // Constructeur de la classe du héros...
  constructor(dx, dy, speedX, speedY) {
 
+    this.reference = 'spritesheet2';
+    this.characterImg = config.getImage(this.reference);
     this.x = 400; // Position X sur la map
     this.y = 400; // Position Y sur la map
     this.dx = dx;
@@ -43,9 +45,8 @@ export class Hero {
   // Méthode pour afficher le sprite du héros
   drawHero() {
 
-
     ctx.drawImage(
-      charImg,
+      this.characterImg,
       this.faceX , // Position X de la partie à croper
       this.faceY , // Position Y de la partie à croper
       74 , // Largeur de la partie à croper
@@ -151,7 +152,6 @@ export class Hero {
 
       case "a":
         console.log('touche a');
-        // this.fire();
         break;
 
       default:

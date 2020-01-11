@@ -343,7 +343,19 @@ export class GeneralConfig {
           }
         ]
       }
-    ]
+    ];
+    this.imagesSet = [
+      {type: 'background', reference: '1',  filePath: '../img/background/1.png'},
+      {type: 'background', reference: 'room1',  filePath: '../img/rooms/room1.png'},
+      {type: 'background', reference: 'room2_layer_01',  filePath: '../img/rooms/layer_01.png'},
+      {type: 'background', reference: 'room2_layer_02',  filePath: '../img/rooms/layer_02.png'},
+      {type: 'background', reference: 'room2_layer_03',  filePath: '../img/rooms/layer_03.png'},
+      {type: 'character', reference: 'spritesheet2',  filePath: '../img/sprites/spritesheet2.png'},
+      {type: 'character', reference: 'persofigurant1',  filePath: '../img/sprites/persofigurant1.png'},
+      {type: 'character', reference: 'persofigurant2',  filePath: '../img/sprites/persofigurant2.png'},
+      {type: 'character', reference: 'persofigurant3',  filePath: '../img/sprites/persofigurant3.png'},
+    ];
+    this.imagesAssets = [];
 
   } // fin constructeur
 
@@ -515,6 +527,29 @@ export class GeneralConfig {
   getCurrentMapSheetDatas(hero){
     return this.worlds[0].mapSheets.find(data => {
       return data.mapSheetId === hero.currentWorldPosition.mapSheetId;
+    });
+  }
+
+  // Récupère l'objet image correspondant à une reference
+  getImage(reference) {
+    const id = this.imagesSet.findIndex(item => {
+      return item.reference === reference;
+    });
+    return this.imagesAssets[id];
+  }
+
+  // Charge les images du jeu
+  loadImages (drawHomeMenu) {
+    // On créer les objets images et on le met dans un tableau
+    this.imagesSet.forEach((item, index)=> {
+        this.imagesAssets.push(new Image());
+        this.imagesAssets[index].src = item.filePath;
+        this.imagesAssets[index].onload = ()=> {
+          if(index === 4){ // Au chargement de la dernière image de background
+            // On affiche l'écran d'accueil du jeu
+            drawHomeMenu();
+          }
+        };
     });
   }
 }

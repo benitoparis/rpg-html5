@@ -32,38 +32,55 @@ let backgroundToDisplay = [];
 let currentMapSheetDatas;
 
 
-export const images = [
-  {type: 'background', reference: '1',  filePath: '../img/background/1.png'},
-  {type: 'background', reference: 'room1',  filePath: '../img/rooms/room1.png'},
-  {type: 'background', reference: 'layer_01',  filePath: '../img/rooms/layer_01.png'},
-  {type: 'background', reference: 'layer_02',  filePath: '../img/rooms/layer_02.png'},
-  {type: 'background', reference: 'layer_03',  filePath: '../img/rooms/layer_03.png'},
-  {type: 'character', reference: 'spritesheet2',  filePath: '../img/sprites/spritesheet2.png'},
-  {type: 'character', reference: 'persofigurant1',  filePath: '../img/sprites/persofigurant1.png'},
-  {type: 'character', reference: 'persofigurant2',  filePath: '../img/sprites/persofigurant2.png'},
-  {type: 'character', reference: 'persofigurant3',  filePath: '../img/sprites/persofigurant3.png'},
-];
+// Méthode pour écrire des messages sur l'écran
+const drawMessages = (msg,x,y, fontsize) => {
+  switch(fontsize) {
+    case 1:
+      ctx.font = "100px Arial";
+      break;
+    case 2:
+      ctx.font = "40px Arial";
+      break;
+    case 3:
+      ctx.font = "20px Arial";
+      break;
+  }
+  ctx.fillStyle = "#FFFFFF";
 
-// Tableau contenant des objets de type image
-export const imagesAssets = [];
+  console.log('msg.length', msg.length);
 
-// Chargement de toutes les images du jeu en amont
-const loadImages = () => {
+  for(let i = 0; i <= msg.length; i += 60){
+    let start = i;
+    let end = i  + 60;
+    y += 25;
 
-  // On créer les objets images et on le met dans un tableau
-  images.forEach((item, index)=> {
-      imagesAssets.push(new Image());
-      imagesAssets[index].src = item.filePath;
-      imagesAssets[index].onload = ()=> {
-        if(index === 4){ // Au chargement de la dernière image de background
-          // On affiche l'écran d'accueil du jeu
-          drawHomeMenu();
-        }
-      };
-  });
+    let cuttedMsg = msg.slice(start, end);
+    console.log(start,end, y, cuttedMsg);
+    ctx.fillText(cuttedMsg, x, y);
 
-  console.log('imagesAssets', imagesAssets);
+  }
+
 };
+
+
+// Dessine l'image du menu
+const drawHomeMenu = ()=> {
+
+
+  // On dessine un fond noir sur l'écran d'accueil
+  ctx.fillStyle="#000000";
+  ctx.fillRect(0,0, stage.width, stage.height);
+  // On affiche les messages
+  drawMessages('RPG GAME', stage.width / 5 , stage.height / 3, 1);
+  drawMessages('Press ENTER', stage.width / 5 , stage.height / 2, 2);
+  drawMessages(' ©2020    BG', stage.width / 4, 500, 2);
+
+  dialogBox('storyTelling');
+};
+
+
+// On charge les images du jeu
+config.loadImages(drawHomeMenu);
 
 
 // Méthode pour trouver un chiffre compris entre a et b
@@ -142,12 +159,12 @@ const selectBackGroundImg = (hero) => {
 
   if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1){
 
-    backgroundToDisplay.push(roomImg);
+    backgroundToDisplay.push(config.getImage('room1'));
 
   }
 
   if(hero.currentWorldPosition.wordlId === 1 && hero.currentWorldPosition.mapSheetId === 2){
-    backgroundToDisplay.push(roomImgLayer1, roomImgLayer2, roomImgLayer3) ;
+    backgroundToDisplay.push(config.getImage('room2_layer_01'), config.getImage('room2_layer_02'), config.getImage('room2_layer_03')) ;
 
   }
 
@@ -173,234 +190,28 @@ export const checkCollisionByMapIndex = (room) => {
 
 
 
-
-
-// Méthode pour charger les images
-// const loadImages = () => {
-
-  // On charge l'image du héro.
-  // charImg.src = '../img/sprites/spritesheet2.png';
-  // charImg.onload = () => {
-  // // ctx.drawImage(charImg, 0, 0);
-  // };
-
-
-
-  // // On charge une autre image
-  // tileFloorHouseImg.src = '../img/sprites/complete-spritesheet.png';
-  // tileFloorHouseImg.onload = () => {
-  // // ctx.drawImage(charImg, 0, 0);
-  // };
-
-  // // On charge une autre image
-  // tileChairHouseImg.src = '../img/sprites/complete-spritesheet.png';
-  // tileChairHouseImg.onload = () => {
-  // // ctx.drawImage(charImg, 0, 0);
-  // };
-
-  // On charge le background complet image
-  // backgroundImg.src = '../img/background/1.png';
-  // backgroundImg.onload = () => {
-  // //ctx.drawImage(charImg, 0, 0);
-  //   drawHomeMenu();
-  // };
-
-  // // On charge l'image du premier ennemie (dragon)
-  // enemyDragonImg.src = '../img/sprites/dragon.png';
-  // enemyDragonImg.onload = () => {
-  // // ctx.drawImage(charImg, 0, 0);
-  // };
-
-  // // On charge l'image du second ennemi (chevalier)
-  // enemyKnightImg.src = '../img/sprites/knight.png';
-  // enemyKnightImg.onload = () => {
-  // // ctx.drawImage(charImg, 0, 0);
-  // };
-
-  // // On charge l'image du troisième (squelette)
-  // enemySkeletonImg.src = '../img/sprites/squelette.png';
-  // enemySkeletonImg.onload = () => {
-  // // ctx.drawImage(charImg, 0, 0);
-  // };
-
-  // On charge l'image de la room
-  // roomImg.src = '../img/rooms/room1.png';
-  // roomImg.onload = () => {
-  // ctx.drawImage(roomImg, 0, 0);
-  // };
-
-  // // On charge l'image de la room
-  // roomImgLayer1.src = '../img/rooms/layer_01.png';
-  // roomImgLayer1.onload = () => {
-  // // ctx.drawImage(roomImg, 0, 0);
-  // };
-
-  // // On charge l'image de la room
-  // roomImgLayer2.src = '../img/rooms/layer_02.png';
-  // roomImgLayer2.onload = () => {
-  // // ctx.drawImage(roomImg, 0, 0);
-  // };
-
-  // // On charge l'image de la room
-  // roomImgLayer3.src = '../img/rooms/layer_03.png';
-  // roomImgLayer3.onload = () => {
-  // // ctx.drawImage(roomImg, 0, 0);
-  // };
-
-  // On charge l'image du figurant 1
-  // imgPersoFigurant1.src = '../img/sprites/persofigurant1.png';
-  // imgPersoFigurant1.onload = () => {
-  // // ctx.drawImage(roomImg, 0, 0);
-  // };
-
-  // // On charge l'image du figurant 2
-  // imgPersoFigurant2.src = '../img/sprites/persofigurant2.png';
-  // imgPersoFigurant2.onload = () => {
-  // // ctx.drawImage(roomImg, 0, 0);
-  // };
-
-  // // On charge l'image du figurant 3
-  // imgPersoFigurant3.src = '../img/sprites/persofigurant3.png';
-  // imgPersoFigurant3.onload = () => {
-  // // ctx.drawImage(roomImg, 0, 0);
-  // };
-// }
-
-
-
-
-loadImages();
-
-
-// Dessine l'image du menu
-const drawHomeMenu = ()=> {
-  // ctx.drawImage(backgroundImg,0,0,960,540,0,0,stage.width,stage.height);
-
-
-  // On dessine un fond noir sur l'écran d'accueil
-  ctx.fillStyle="#000000";
-  ctx.fillRect(0,0, stage.width, stage.height);
-  // On affiche les messages
-  drawMessages('RPG GAME', stage.width / 5 , stage.height / 3, 1);
-  drawMessages('Press ENTER', stage.width / 5 , stage.height / 2, 2);
-  drawMessages(' ©2020    BG', stage.width / 4, 500, 2);
-
-  dialogBox('storyTelling');
-};
-
-// Dessine l'image entre deux niveaux
-/* const drawInterStage = ()=> {
-  ctx.drawImage(backgroundImg,0,0,960,540,0,0,stage.width,stage.height);
-  drawMessages(`Niveau ${config.playerProgress.currentStage}`);
-  drawMessages('Appuyez sur Entrée pour jouer', 50, 300);
-} */
-
-// Dessine l'image entre deux niveaux
-/* const drawFinishedGame = ()=> {
-  ctx.drawImage(backgroundImg,0,0,960,540,0,0,stage.width,stage.height);
-  drawMessages(`LE JEU EST TERMINE`, 50, 50);
-  drawMessages(`vous terminez avec ${config.playerProgress.totalPoints} points`, 50, 100);
-  drawMessages('Appuyez sur Entrée pour rejouer', 50, 300);
-} */
-
-// Dessine l'image de classement des joueurs
-/* const drawRanking = () => {
-  // On affiche une image de fond
-  ctx.drawImage(backgroundImg,0,0,960,540,0,0,stage.width,stage.height);
-
-  // On dessine le rectangle on l'on va écrire les noms au classement
-  ctx.fillStyle="#151348";
-  ctx.fillRect(50,50,860,320);
-  // On dessine le border blanc sur le rectangle
-  ctx.strokeStyle = "#FFFFFF"
-  ctx.strokeRect(50, 50, 860, 320);
-  // Les coordonnées d'affichage du nom des joueurs du classement
-  let x = 50;
-  let y = 50;
-  // On affiche le nom des joueurs du classement
-  config.playersRanking.forEach(player => {
-    let msg = `${player.nickname} - ${player.nickname}`;
-    drawMessages(msg,x,y);
-    y +=20;
-  })
-} */
-
-
 // Dessine l'image de fond
 const drawBackground = () => {
 
-      backgroundToDisplay.forEach(item => {
+  backgroundToDisplay.forEach(item => {
 
-                // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
-        ctx.drawImage(
-          item,
-          hero.x - 351, // Position X de la partie à croper
-          hero.y - 288.5, // Position Y de la partie à croper
-          750 , // Largeur de la partie à croper
-          625 , // Hauteur de la partie à corper
-          0, // Position x de l'image à croper sur le canvas
-          0,  // Position y de l'image à croper sur le canvas
-          750 , // Largeur de la partie cropée
-          625 // Hauteur de la partie cropée
-        );
-      })
-
-
-
-
-  // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
- //  ctx.drawImage(
- //    backgroundToDisplay,
- //    hero.x - 351, // Position X de la partie à croper
- //    hero.y - 288.5, // Position Y de la partie à croper
- //    750 , // Largeur de la partie à croper
- //    625 , // Hauteur de la partie à corper
- //    0, // Position x de l'image à croper sur le canvas
- //    0,  // Position y de l'image à croper sur le canvas
- //    750 , // Largeur de la partie cropée
- //    625 // Hauteur de la partie cropée
- //  );
-
-	// // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
-	// ctx.drawImage(
-	// 	backgroundToDisplay,
-	// 	hero.x - 351, // Position X de la partie à croper
-	// 	hero.y - 288.5, // Position Y de la partie à croper
-	// 	750 , // Largeur de la partie à croper
-	// 	625 , // Hauteur de la partie à corper
-	// 	0, // Position x de l'image à croper sur le canvas
-	// 	0,  // Position y de l'image à croper sur le canvas
-	// 	750 , // Largeur de la partie cropée
-	// 	625 // Hauteur de la partie cropée
-	// );
-
-  // ctx.drawImage(
-  //   roomImgLayer2,
-  //   hero.x - 351, // Position X de la partie à croper
-  //   hero.y - 288.5, // Position Y de la partie à croper
-  //   750 , // Largeur de la partie à croper
-  //   625 , // Hauteur de la partie à corper
-  //   0, // Position x de l'image à croper sur le canvas
-  //   0,  // Position y de l'image à croper sur le canvas
-  //   750 , // Largeur de la partie cropée
-  //   625 // Hauteur de la partie cropée
-  // );
-
-  // ctx.drawImage(
-  //   roomImgLayer3,
-  //   hero.x - 351, // Position X de la partie à croper
-  //   hero.y - 288.5, // Position Y de la partie à croper
-  //   750 , // Largeur de la partie à croper
-  //   625 , // Hauteur de la partie à corper
-  //   0, // Position x de l'image à croper sur le canvas
-  //   0,  // Position y de l'image à croper sur le canvas
-  //   750 , // Largeur de la partie cropée
-  //   625 // Hauteur de la partie cropée
-  // );
+    // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
+    ctx.drawImage(
+      item,
+      hero.x - 351, // Position X de la partie à croper
+      hero.y - 288.5, // Position Y de la partie à croper
+      750 , // Largeur de la partie à croper
+      625 , // Hauteur de la partie à corper
+      0, // Position x de l'image à croper sur le canvas
+      0,  // Position y de l'image à croper sur le canvas
+      750 , // Largeur de la partie cropée
+      625 // Hauteur de la partie cropée
+    );
+  })
 };
 
 // On met à jour la position du people
-const updatePeople = ()=>{
+const updatePeople = () =>{
 
   const x = people.x;
   const y = people.y;
@@ -409,12 +220,6 @@ const updatePeople = ()=>{
 
   people.update();
   people.setMapIndexPosition();
-
-
-
-
-
-  //console.log('a', checkOutOfBounds(currentMapSheetDatas, people));
 
   //On vérifie si le people est sorti des limites
   if(checkOutOfBounds(currentMapSheetDatas, people)){ // Si le people est en dehors du terrain
@@ -509,24 +314,6 @@ const endGame = () => {
 // On ajoute une évènement qui se déclenche dès qu'une touche du clavier est activée.
 window.addEventListener('keydown', updateHero);
 
-// On ajoute une évènement qui se déclenche dès qu'une touche du clavier est activée.
-// window.addEventListener('keydown', launchGame);
-
-
-// Méthode pour dessiner tous les énnemis de la liste
-/* const drawEnemies = () => {
-  // On intère sur chaque énnemies de la liste
-  enemies.forEach(enemy => {
-    enemy.draw();
-  });
-} */
-
-// Méthode pour mettre à jour les coordonnées des énnemis
-/* const updateEnemies = () => {
-  enemies.forEach(enemy=> {
-    enemy.update();
-  });
-} */
 
 // Méthode pour afficher tous les éléments dans l'animation
 const drawAll = () => {
@@ -555,13 +342,7 @@ const drawAll = () => {
 	// checkCollisionByMapIndex(room);
 
 
-	// On vérifie s'il y a collision entre la balle et un ennemi
-/* 	enemies.forEach(enemy => {
-		if (checkCollision(enemy, hero.bulletsList[hero.shootedBullet])){
-			console.log('colision entre une balle et un ennemi');
-			killEnemy(enemy);
-		};
-	}); */
+
 
 	// On vérifie s'il y a collision entre le héro et un ennemi
 /* 	enemies.forEach(enemy => {
@@ -676,36 +457,6 @@ fetch(url)
 
 
 
-// Méthode pour écrire des messages sur l'écran
-const drawMessages = (msg,x,y, fontsize) => {
-  switch(fontsize) {
-    case 1:
-      ctx.font = "100px Arial";
-      break;
-    case 2:
-      ctx.font = "40px Arial";
-      break;
-    case 3:
-      ctx.font = "20px Arial";
-      break;
-  }
-  ctx.fillStyle = "#FFFFFF";
-
-  console.log('msg.length', msg.length);
-
-  for(let i = 0; i <= msg.length; i += 60){
-    let start = i;
-    let end = i  + 60;
-    y += 25;
-
-    let cuttedMsg = msg.slice(start, end);
-    console.log(start,end, y, cuttedMsg);
-    ctx.fillText(cuttedMsg, x, y);
-
-  }
-
-
-}
 
 
 const playSound = (url)  => {
