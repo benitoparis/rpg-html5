@@ -32,6 +32,40 @@ let backgroundToDisplay = [];
 let currentMapSheetDatas;
 
 
+export const images = [
+  {type: 'background', reference: '1',  filePath: '../img/background/1.png'},
+  {type: 'background', reference: 'room1',  filePath: '../img/rooms/room1.png'},
+  {type: 'background', reference: 'layer_01',  filePath: '../img/rooms/layer_01.png'},
+  {type: 'background', reference: 'layer_02',  filePath: '../img/rooms/layer_02.png'},
+  {type: 'background', reference: 'layer_03',  filePath: '../img/rooms/layer_03.png'},
+  {type: 'character', reference: 'spritesheet2',  filePath: '../img/sprites/spritesheet2.png'},
+  {type: 'character', reference: 'persofigurant1',  filePath: '../img/sprites/persofigurant1.png'},
+  {type: 'character', reference: 'persofigurant2',  filePath: '../img/sprites/persofigurant2.png'},
+  {type: 'character', reference: 'persofigurant3',  filePath: '../img/sprites/persofigurant3.png'},
+];
+
+// Tableau contenant des objets de type image
+export const imagesAssets = [];
+
+// Chargement de toutes les images du jeu en amont
+const loadImages = () => {
+
+  // On créer les objets images et on le met dans un tableau
+  images.forEach((item, index)=> {
+      imagesAssets.push(new Image());
+      imagesAssets[index].src = item.filePath;
+      imagesAssets[index].onload = ()=> {
+        if(index === 4){ // Au chargement de la dernière image de background
+          // On affiche l'écran d'accueil du jeu
+          drawHomeMenu();
+        }
+      };
+  });
+
+  console.log('imagesAssets', imagesAssets);
+};
+
+
 // Méthode pour trouver un chiffre compris entre a et b
 export const rangeNumber = (a,b)=> {
   return Math.floor((Math.random() * b)) + a;
@@ -137,28 +171,18 @@ export const checkCollisionByMapIndex = (room) => {
 
 
 
-// const imagesAssets = [
-//   {charImg: '../img/sprites/spritesheet2.png'},
-//   {backgroundImg: '../img/background/1.png'},
-//   {roomImg: '../img/rooms/room1.png'},
-//   {roomImgLayer1 : '../img/rooms/layer_01.png'},
-//   {roomImgLayer2 : '../img/rooms/layer_02.png'},
-//   {roomImgLayer3: '../img/rooms/layer_03.png'},
-//   {imgPersoFigurant1: '../img/sprites/persofigurant1.png'},
-//   {imgPersoFigurant2: '../img/rooms/layer_02.png'},
-//   {imgPersoFigurant3: '../img/sprites/persofigurant3.png'},
-// ];
+
 
 
 
 // Méthode pour charger les images
-const loadImages = () => {
+// const loadImages = () => {
 
   // On charge l'image du héro.
-  charImg.src = '../img/sprites/spritesheet2.png';
-  charImg.onload = () => {
-  // ctx.drawImage(charImg, 0, 0);
-  };
+  // charImg.src = '../img/sprites/spritesheet2.png';
+  // charImg.onload = () => {
+  // // ctx.drawImage(charImg, 0, 0);
+  // };
 
 
 
@@ -175,11 +199,11 @@ const loadImages = () => {
   // };
 
   // On charge le background complet image
-  backgroundImg.src = '../img/background/1.png';
-  backgroundImg.onload = () => {
-  //ctx.drawImage(charImg, 0, 0);
-    drawHomeMenu();
-  };
+  // backgroundImg.src = '../img/background/1.png';
+  // backgroundImg.onload = () => {
+  // //ctx.drawImage(charImg, 0, 0);
+  //   drawHomeMenu();
+  // };
 
   // // On charge l'image du premier ennemie (dragon)
   // enemyDragonImg.src = '../img/sprites/dragon.png';
@@ -200,47 +224,47 @@ const loadImages = () => {
   // };
 
   // On charge l'image de la room
-  roomImg.src = '../img/rooms/room1.png';
-  roomImg.onload = () => {
-  ctx.drawImage(roomImg, 0, 0);
-  };
-
-  // On charge l'image de la room
-  roomImgLayer1.src = '../img/rooms/layer_01.png';
-  roomImgLayer1.onload = () => {
+  // roomImg.src = '../img/rooms/room1.png';
+  // roomImg.onload = () => {
   // ctx.drawImage(roomImg, 0, 0);
-  };
+  // };
 
-  // On charge l'image de la room
-  roomImgLayer2.src = '../img/rooms/layer_02.png';
-  roomImgLayer2.onload = () => {
-  // ctx.drawImage(roomImg, 0, 0);
-  };
+  // // On charge l'image de la room
+  // roomImgLayer1.src = '../img/rooms/layer_01.png';
+  // roomImgLayer1.onload = () => {
+  // // ctx.drawImage(roomImg, 0, 0);
+  // };
 
-  // On charge l'image de la room
-  roomImgLayer3.src = '../img/rooms/layer_03.png';
-  roomImgLayer3.onload = () => {
-  // ctx.drawImage(roomImg, 0, 0);
-  };
+  // // On charge l'image de la room
+  // roomImgLayer2.src = '../img/rooms/layer_02.png';
+  // roomImgLayer2.onload = () => {
+  // // ctx.drawImage(roomImg, 0, 0);
+  // };
+
+  // // On charge l'image de la room
+  // roomImgLayer3.src = '../img/rooms/layer_03.png';
+  // roomImgLayer3.onload = () => {
+  // // ctx.drawImage(roomImg, 0, 0);
+  // };
 
   // On charge l'image du figurant 1
-  imgPersoFigurant1.src = '../img/sprites/persofigurant1.png';
-  imgPersoFigurant1.onload = () => {
-  // ctx.drawImage(roomImg, 0, 0);
-  };
+  // imgPersoFigurant1.src = '../img/sprites/persofigurant1.png';
+  // imgPersoFigurant1.onload = () => {
+  // // ctx.drawImage(roomImg, 0, 0);
+  // };
 
-  // On charge l'image du figurant 2
-  imgPersoFigurant2.src = '../img/sprites/persofigurant2.png';
-  imgPersoFigurant2.onload = () => {
-  // ctx.drawImage(roomImg, 0, 0);
-  };
+  // // On charge l'image du figurant 2
+  // imgPersoFigurant2.src = '../img/sprites/persofigurant2.png';
+  // imgPersoFigurant2.onload = () => {
+  // // ctx.drawImage(roomImg, 0, 0);
+  // };
 
-  // On charge l'image du figurant 3
-  imgPersoFigurant3.src = '../img/sprites/persofigurant3.png';
-  imgPersoFigurant3.onload = () => {
-  // ctx.drawImage(roomImg, 0, 0);
-  };
-}
+  // // On charge l'image du figurant 3
+  // imgPersoFigurant3.src = '../img/sprites/persofigurant3.png';
+  // imgPersoFigurant3.onload = () => {
+  // // ctx.drawImage(roomImg, 0, 0);
+  // };
+// }
 
 
 
@@ -734,6 +758,9 @@ const dialogBox = style => {
   //     y += lineHeight;
   //   }
   // }
+
+
+
 
 }
 
