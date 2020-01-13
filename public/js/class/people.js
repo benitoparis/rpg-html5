@@ -4,14 +4,14 @@ import { ctx, rangeNumber, hero, config} from '../main.js';
 export class People {
 
  // Constructeur de la classe people...
- constructor(dx, dy, speedX, speedY) {
+ constructor(x, y, speedX, speedY) {
 
     this.reference = 'persofigurant3';
     this.characterImg = config.getImage(this.reference);
-    this.x = 400; // Position X sur la map
-    this.y = 400; // Position Y sur la map
-    this.dx = dx;
-    this.dy = dy;
+    this.x = x; // Position X sur la map
+    this.y = y; // Position Y sur la map
+    this.dx = 0;
+    this.dy = 0;
     this.width = 48;
     this.height = 48;
     this.centerX = ((this.x + this.width) - (this.width / 2));
@@ -23,9 +23,8 @@ export class People {
     this.faceY = 30;
     this.target = {x: 388, width: 100, y: 800, height:100, direction: 'south'};
     this.currentLoopIndex = 0;
-    // this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
     this.rightCycleLoop = [{faceX:0,faceY:64}, {faceX:32,faceY:64},{faceX:0,faceY:64},{faceX:64,faceY:64}];
-    this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:64},{faceX:64,faceY:64}];
+    this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:32},{faceX:64,faceY:32}];
     this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
     this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
     //this.lifeCredits = 3;

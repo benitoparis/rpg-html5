@@ -7,7 +7,7 @@ export class Hero {
  // Constructeur de la classe du héros...
  constructor(dx, dy, speedX, speedY) {
 
-    this.reference = 'spritesheet2';
+    this.reference = 'persofigurant1';
     this.characterImg = config.getImage(this.reference);
     this.x = 400; // Position X sur la map
     this.y = 400; // Position Y sur la map
@@ -20,17 +20,17 @@ export class Hero {
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.speedX = speedX;
     this.speedY = speedY;
-    this.faceX = 70;
-    this.faceY = 207;
+    this.faceX = 0;
+    this.faceY = 64;
     this.currentWorldPosition = {
       wordlId: 1 ,
       mapSheetId: 2
     }
     this.currentLoopIndex = 0;
-    this.rightCycleLoop = [{faceX:70,faceY:120},{faceX:8,faceY:120},{faceX:140,faceY:120},{faceX:8,faceY:120}];
-    this.leftCycleLoop = [{faceX:8,faceY:310},{faceX:70,faceY:310},{faceX:8,faceY:310},{faceX:140,faceY:310}];
-    this.upCycleLoop = [{faceX:8,faceY:22},{faceX:70,faceY:22},{faceX:8,faceY:22},{faceX:140,faceY:22}];
-    this.downCycleLoop = [{faceX:8,faceY:210},{faceX:70,faceY:210},{faceX:8,faceY:210},{faceX:140,faceY:210}];
+    this.rightCycleLoop = [{faceX:0,faceY:64}, {faceX:32,faceY:64},{faceX:0,faceY:64},{faceX:64,faceY:64}];
+    this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:32},{faceX:64,faceY:32}];
+    this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
+    this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
     this.lifeCredits = 3;
     this.isDead = false;
     this.shootedBullet = 0;
@@ -49,13 +49,13 @@ export class Hero {
       this.characterImg,
       this.faceX , // Position X de la partie à croper
       this.faceY , // Position Y de la partie à croper
-      74 , // Largeur de la partie à croper
-      95 , // Hauteur de la partie à corper
+      32 , // Largeur de la partie à croper
+      32 , // Hauteur de la partie à corper
       // this.x, // Position x de l'image à croper sur le canvas
       // this.y,  // Position y de l'image à croper sur le canvas
       351, // on l'affiche toujours au milieu du canvas // Position x de l'image à croper sur le canvas
       288.5, // on l'affiche toujours au milieu du canvas // Position y de l'image à croper sur le canvas
-      this.width , // Largeur de la partie cropée
+      this.width, // Largeur de la partie cropée
       this.height // Hauteur de la partie cropée
     );
   }

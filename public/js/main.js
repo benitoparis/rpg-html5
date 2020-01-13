@@ -31,6 +31,14 @@ export const imgPersoFigurant3 = new Image();
 let backgroundToDisplay = [];
 let currentMapSheetDatas;
 
+export let hero = {};
+export let people = {};
+// let enemies = [];
+let obstacle = [];
+
+// Liste de people
+let peopleList = [];
+
 
 // Méthode pour écrire des messages sur l'écran
 const drawMessages = (msg,x,y, fontsize) => {
@@ -73,7 +81,7 @@ const drawHomeMenu = ()=> {
   // On affiche les messages
   drawMessages('RPG GAME', stage.width / 5 , stage.height / 3, 1);
   drawMessages('Press ENTER', stage.width / 5 , stage.height / 2, 2);
-  drawMessages(' ©2020    BG', stage.width / 4, 500, 2);
+  drawMessages(' ©2020 BG', stage.width / 4, 500, 2);
 
   dialogBox('storyTelling');
 };
@@ -88,10 +96,7 @@ export const rangeNumber = (a,b)=> {
   return Math.floor((Math.random() * b)) + a;
 }
 
-export let hero = {};
-export let people = {};
-// let enemies = [];
-let obstacle = [];
+
 
 
 
@@ -102,9 +107,26 @@ const InitHero = () => {
 }
 
 // Méthode pour Initialiser le people
-const initPeople = ()=> {
-  people = new People (400, 400, 1, 1);
-  console.log('people', people);
+const initPeople = (nb)=> {
+  const num = nb;
+
+  let x;
+  let y;
+
+
+
+  // On crée plusieurs people
+  for(let i =  0; i <= num ; i++){
+
+    x = rangeNumber(400, 1000);
+    y = rangeNumber(350, 1000);
+     console.log(x, y);
+
+    let people = new People (x, y, 1, 1);
+    peopleList.push(people);
+  }
+
+  console.log('peopleList', peopleList);
 };
 
 // On initialise les énnemis
@@ -124,10 +146,8 @@ const initPeople = ()=> {
 // Méthode pour initialiser les sprites animés
 const initSprites = () => {
 
-  // console.log('par la');
-
   InitHero();
-  initPeople();
+  initPeople(3);
 
   // On récupère les informations sur la mapSheep courrante
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
@@ -211,7 +231,7 @@ const drawBackground = () => {
 };
 
 // On met à jour la position du people
-const updatePeople = () =>{
+const updatePeople = (people) => {
 
   const x = people.x;
   const y = people.y;
@@ -229,12 +249,17 @@ const updatePeople = () =>{
     //poeple.centerY = centerY;
     people.setTarget();
   }
-}
+};
 
 // On dessine le people
 const drawPeople = ()=> {
-  people.draw();
-}
+
+  // On itère sur la liste des people
+  peopleList.forEach(item => {
+    item.draw();
+  });
+
+};
 
 
 const updateHero = (event) => {
@@ -319,15 +344,18 @@ window.addEventListener('keydown', updateHero);
 const drawAll = () => {
 
 	drawBackground();
-/* 	config.drawHeroLifeCredit(hero.getLifeCredit());
-	config.drawStageName();
-	config.drawRemainingBullet(hero.getRemainingBullet()); */
 
 	hero.drawHero();
 
-  updatePeople();
+
+  peopleList.forEach(item => {
+    updatePeople(item);
+
+  });
   drawPeople();
-  people.drawTarget();
+
+
+
 
 
 
