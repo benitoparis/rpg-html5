@@ -6,7 +6,7 @@ export class People {
  // Constructeur de la classe people...
  constructor(x, y, speedX, speedY) {
 
-    this.reference = 'persofigurant3';
+    this.reference = this.setReference();
     this.characterImg = config.getImage(this.reference);
     this.x = x; // Position X sur la map
     this.y = y; // Position Y sur la map
@@ -224,6 +224,12 @@ export class People {
         100,
         100
       );
+  }
+
+  // Méthode qui renvoie une reference de people
+  setReference(){
+    const randomId = rangeNumber(1,12);
+    return `persofigurant${randomId}`;
   }
 
 }

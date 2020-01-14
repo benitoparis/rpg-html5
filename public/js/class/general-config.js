@@ -354,6 +354,26 @@ export class GeneralConfig {
       {type: 'character', reference: 'persofigurant1',  filePath: '../img/sprites/persofigurant1.png'},
       {type: 'character', reference: 'persofigurant2',  filePath: '../img/sprites/persofigurant2.png'},
       {type: 'character', reference: 'persofigurant3',  filePath: '../img/sprites/persofigurant3.png'},
+      {type: 'character', reference: 'persofigurant4',  filePath: '../img/sprites/persofigurant4.png'},
+      {type: 'character', reference: 'persofigurant5',  filePath: '../img/sprites/persofigurant5.png'},
+      {type: 'character', reference: 'persofigurant6',  filePath: '../img/sprites/persofigurant6.png'},
+      {type: 'character', reference: 'persofigurant7',  filePath: '../img/sprites/persofigurant7.png'},
+      {type: 'character', reference: 'persofigurant8',  filePath: '../img/sprites/persofigurant8.png'},
+      {type: 'character', reference: 'persofigurant9',  filePath: '../img/sprites/persofigurant9.png'},
+      {type: 'character', reference: 'persofigurant10',  filePath: '../img/sprites/persofigurant10.png'},
+      {type: 'character', reference: 'persofigurant11',  filePath: '../img/sprites/persofigurant11.png'},
+      {type: 'character', reference: 'persofigurant12',  filePath: '../img/sprites/persofigurant12.png'},
+      {type: 'character', reference: 'persofigurant12',  filePath: '../img/sprites/persofigurant13.png'},
+      {type: 'character', reference: 'perso1',  filePath: '../img/sprites/perso1.png'},
+      {type: 'character', reference: 'perso2',  filePath: '../img/sprites/perso2.png'},
+      {type: 'character', reference: 'perso3',  filePath: '../img/sprites/perso3.png'},
+      {type: 'character', reference: 'perso4',  filePath: '../img/sprites/perso4.png'},
+      {type: 'character', reference: 'perso5',  filePath: '../img/sprites/perso5.png'},
+      {type: 'character', reference: 'perso6',  filePath: '../img/sprites/perso6.png'},
+      {type: 'character', reference: 'perso7',  filePath: '../img/sprites/perso7.png'},
+      {type: 'character', reference: 'perso8',  filePath: '../img/sprites/perso8.png'},
+      {type: 'character', reference: 'perso9',  filePath: '../img/sprites/perso9.png'},
+      {type: 'character', reference: 'perso10',  filePath: '../img/sprites/perso10.png'}
     ];
     this.imagesAssets = [];
 

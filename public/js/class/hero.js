@@ -7,7 +7,7 @@ export class Hero {
  // Constructeur de la classe du héros...
  constructor(dx, dy, speedX, speedY) {
 
-    this.reference = 'persofigurant1';
+    this.reference = 'perso1';
     this.characterImg = config.getImage(this.reference);
     this.x = 400; // Position X sur la map
     this.y = 400; // Position Y sur la map
