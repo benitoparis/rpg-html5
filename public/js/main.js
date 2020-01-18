@@ -4,6 +4,7 @@ import { Enemies } from './class/enemies.js';
 import { GeneralConfig } from './class/general-config.js';
 import { Bullet } from './class/bullet.js';
 import { People } from './class/people.js';
+import { Scenario } from './class/scenario.js';
 
 // Déclaration des variables
 const stage = document.getElementById("stage");
@@ -12,6 +13,7 @@ stage.height = 625;
 // On utilise la méthode getContext pour aller chercher les methodes et les propriétés du canvas
 export const ctx = stage.getContext("2d");
 export const config = new GeneralConfig();
+export const scenario = new Scenario();
 // Déclaration des images
 export const charImg = new Image();
 export const enemyDragonImg = new Image();
@@ -40,50 +42,21 @@ let obstacle = [];
 let peopleList = [];
 
 
-// Méthode pour écrire des messages sur l'écran
-const drawMessages = (msg,x,y, fontsize) => {
-  switch(fontsize) {
-    case 1:
-      ctx.font = "100px Arial";
-      break;
-    case 2:
-      ctx.font = "40px Arial";
-      break;
-    case 3:
-      ctx.font = "20px Arial";
-      break;
-  }
-  ctx.fillStyle = "#FFFFFF";
 
-  console.log('msg.length', msg.length);
-
-  for(let i = 0; i <= msg.length; i += 60){
-    let start = i;
-    let end = i  + 60;
-    y += 25;
-
-    let cuttedMsg = msg.slice(start, end);
-    console.log(start,end, y, cuttedMsg);
-    ctx.fillText(cuttedMsg, x, y);
-
-  }
-
-};
 
 
 // Dessine l'image du menu
 const drawHomeMenu = ()=> {
 
-
   // On dessine un fond noir sur l'écran d'accueil
   ctx.fillStyle="#000000";
   ctx.fillRect(0,0, stage.width, stage.height);
   // On affiche les messages
-  drawMessages('RPG GAME', stage.width / 5 , stage.height / 3, 1);
-  drawMessages('Press ENTER', stage.width / 5 , stage.height / 2, 2);
-  drawMessages(' ©2020 BG', stage.width / 4, 500, 2);
+  scenario.drawMessages('RPG GAME', stage.width / 5 , stage.height / 3, 1);
+  scenario.drawMessages('Press ENTER', stage.width / 5 , stage.height / 2, 2);
+  scenario.drawMessages(' ©2020 BG', stage.width / 4, 500, 2);
 
-  dialogBox('storyTelling');
+
 };
 
 
@@ -264,7 +237,32 @@ const drawPeople = ()=> {
 
 const updateHero = (event) => {
 
-	if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
+  if (event.code === 'Space'){ // Si la touche appuyée est Espace
+
+    if(hero.isTalking === false){
+      // On vérifie s'il y a collision entre le héro et un people
+      peopleList.forEach(people => {
+
+        if(checkCollision(hero, people)){
+            console.log('people hero collision');
+            hero.setTalkMode();
+        }
+      })
+    } else {
+
+      if(scenario.dialogEnd()){ // Si le dialoge doit se terminer
+        hero.removeTalkMode();
+      } else {
+        // On passe au message suivant
+        scenario.selectMessage();
+      }
+
+    }
+
+
+
+
+  } else if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
 		const x = hero.x;
 		const y = hero.y;
 		const centerX = hero.centerX;
@@ -305,8 +303,7 @@ const updateHero = (event) => {
 			hero.centerY = centerY;
 			hero.setMapIndexPosition();
 		}
-
-	} else { // le joueur a appuyé sur la touche entrée
+	}  else { // le joueur a appuyé sur la touche entrée
 
     // On lance le jeu
     launchGame();
@@ -347,12 +344,15 @@ const drawAll = () => {
 
 	hero.drawHero();
 
-
   peopleList.forEach(item => {
     updatePeople(item);
-
   });
+
   drawPeople();
+
+  if(hero.isTalking === true){ // Si le hero ne peut plus bouger
+    scenario.drawDialogs('dialog');
+  }
 
 
 
@@ -500,48 +500,6 @@ const playSound = (url)  => {
 
 playSound('../audio/soundtracks/far-east-kingdom.mp3');
 
-// Pour dessiner un cadre de dialogue
-const dialogBox = style => {
-
-  switch(style){
-    case 'storyTelling':
-      // On dessine un fond noir sur l'écran d'accueil
-      ctx.fillStyle="#5858BA";
-      ctx.fillRect(50, 400, stage.width - 100, 200);
-      // On dessine le border sur le rectangle
-      ctx.strokeStyle = "#FFFFFF";
-      ctx.lineWidth = 3;
-      ctx.strokeRect(50, 400, stage.width - 100, 200);
-
-      drawMessages("Fusce eu nunc non tortor dignissim elementum quis eget justo. Mauris scelerisque eu justo sed pulvinar. Sed at hendrerit leo. Vivamus ut tortor viverra, vestibulum lorem non, accumsan dui.", 70, 450, 3);
-    break;
-
-    case 'dialog':
-      // On dessine un fond noir sur l'écran d'accueil
-      ctx.fillStyle="#5858BA";
-      ctx.fillRect(50, 400, stage.width - 100 , 200);
-      // On dessine le border sur le rectangle
-      ctx.strokeStyle = "#FFFFFF";
-      ctx.lineWidth = 3;
-      ctx.strokeRect(50, 400, stage.width - 100, 200);
-
-      drawMessages("Fusce eu nunc non tortor dignissim elementum quis eget justo. Mauris scelerisque eu justo sed pulvinar. Sed at hendrerit leo. Vivamus ut tortor viverra, vestibulum lorem non, accumsan dui.", 70, 450, 3);
-    break;
-  }
-
-  // function fillTextMultiLine(ctx, text, x, y) {
-  //   var lineHeight = ctx.measureText("M").width * 1.2;
-  //   var lines = text.split("\n");
-  //   for (var i = 0; i < lines.length; ++i) {
-  //     ctx.fillText(lines[i], x, y);
-  //     y += lineHeight;
-  //   }
-  // }
-
-
-
-
-}
 
 
 

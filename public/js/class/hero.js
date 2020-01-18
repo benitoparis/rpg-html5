@@ -40,6 +40,8 @@ export class Hero {
     for(let i = 0; i < this.bulletCredits; i++){
       this.bulletsList[i] = new Bullet(1,1);
     }
+    this.moveStatus = true;
+    this.isTalking = false;
   }
 
   // Méthode pour afficher le sprite du héros
@@ -242,6 +244,18 @@ export class Hero {
   setMapIndexPosition(){
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
 
+  }
+
+  // On indique que le hero est en train de parler
+  setTalkMode(){
+    this.isTalking = true;
+    this.moveStatus = true;
+  }
+
+  // On retire le mode talk
+  removeTalkMode(){
+    this.isTalking = false;
+    this.moveStatus = false;
   }
 
 }

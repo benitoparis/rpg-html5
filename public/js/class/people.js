@@ -27,6 +27,7 @@ export class People {
     this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:32},{faceX:64,faceY:32}];
     this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
     this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
+    this.moveStatus = true;
     //this.lifeCredits = 3;
     //this.isDead = false;
     //this.shootedBullet = 0;
@@ -58,71 +59,79 @@ export class People {
   // Méthode qui va modifier les coordonnées du people.
   update() {
 
-    if(this.frame === this.fps){
-      this.frame = 0;
-    } else {
-      this.frame++;
-    }
+    if(this.moveStatus){ // S'il a le droit de bouger
 
-    // On détermine quel sprite afficher
-    if (this.frame % 3 === 0){ // on décide d'incrémenter l'index toutes les 3 frames
-      this.currentLoopIndex++;
-    }
 
-    // Si l'index est supérieur au nombre de position possible on le repositionne à zero
-    if (this.currentLoopIndex >= this.rightCycleLoop.length) {
-      this.currentLoopIndex = 0;
-    }
+      if(this.frame === this.fps){
+        this.frame = 0;
+      } else {
+        this.frame++;
+      }
 
-    switch (this.target.direction) {
-      case 'east':
-        this.speedX = 2;
+      // On détermine quel sprite afficher
+      if (this.frame % 3 === 0){ // on décide d'incrémenter l'index toutes les 3 frames
+        this.currentLoopIndex++;
+      }
 
-        this.x = (this.x + this.speedX);
+      // Si l'index est supérieur au nombre de position possible on le repositionne à zero
+      if (this.currentLoopIndex >= this.rightCycleLoop.length) {
+        this.currentLoopIndex = 0;
+      }
 
-        // On détermine la positon x/y du crop du personnage
-        this.faceX = this.rightCycleLoop[this.currentLoopIndex].faceX;
-        this.faceY = this.rightCycleLoop[this.currentLoopIndex].faceY;
-        // this.shootDirection = 'right';
+      switch (this.target.direction) {
+        case 'east':
+          this.speedX = 2;
 
-        break;
+          this.x = (this.x + this.speedX);
 
-      case 'west':
-        this.speedX = 2;
+          // On détermine la positon x/y du crop du personnage
+          this.faceX = this.rightCycleLoop[this.currentLoopIndex].faceX;
+          this.faceY = this.rightCycleLoop[this.currentLoopIndex].faceY;
+          // this.shootDirection = 'right';
 
-        this.x = (this.x - this.speedX);
-
-        // On détermine la positon x/y du crop du personnage
-        this.faceX = this.leftCycleLoop[this.currentLoopIndex].faceX;
-        this.faceY = this.leftCycleLoop[this.currentLoopIndex].faceY;
-        break;
-
-      case 'north':
-        this.speedY = 2;
-
-        this.y = (this.y - this.speedY);
-
-        // On détermine la positon x/y du crop du personnage
-        this.faceX = this.upCycleLoop[this.currentLoopIndex].faceX;
-        this.faceY = this.upCycleLoop[this.currentLoopIndex].faceY;
-        // this.shootDirection = 'up';
-        break;
-
-      case 'south':
-
-        this.speedY = 2;
-        this.y = (this.y + this.speedY);
-        // On détermine la positon x/y du crop du personnage
-        this.faceX = this.downCycleLoop[this.currentLoopIndex].faceX;
-        this.faceY = this.downCycleLoop[this.currentLoopIndex].faceY;
-        // this.shootDirection = 'down';
-        break;
-
-        default:
-          alert('default update');
           break;
-    }
 
+        case 'west':
+          this.speedX = 2;
+
+          this.x = (this.x - this.speedX);
+
+          // On détermine la positon x/y du crop du personnage
+          this.faceX = this.leftCycleLoop[this.currentLoopIndex].faceX;
+          this.faceY = this.leftCycleLoop[this.currentLoopIndex].faceY;
+          break;
+
+        case 'north':
+          this.speedY = 2;
+
+          this.y = (this.y - this.speedY);
+
+          // On détermine la positon x/y du crop du personnage
+          this.faceX = this.upCycleLoop[this.currentLoopIndex].faceX;
+          this.faceY = this.upCycleLoop[this.currentLoopIndex].faceY;
+          // this.shootDirection = 'up';
+          break;
+
+        case 'south':
+
+          this.speedY = 2;
+          this.y = (this.y + this.speedY);
+          // On détermine la positon x/y du crop du personnage
+          this.faceX = this.downCycleLoop[this.currentLoopIndex].faceX;
+          this.faceY = this.downCycleLoop[this.currentLoopIndex].faceY;
+          // this.shootDirection = 'down';
+          break;
+
+          default:
+            alert('default update');
+            break;
+      }
+
+    } else {
+
+      this.speedX = 0;
+      this.speedY = 0;
+    }
 
     // On recalcule le centre du people
     this.centerX = ((this.x + this.width) - (this.width / 2));
@@ -177,6 +186,7 @@ export class People {
   // Méthode qui détermine la position cible du people
   setTarget(){
 
+
     const randomNumber = rangeNumber(1,4);
 
     this.target = {};
@@ -199,7 +209,6 @@ export class People {
       this.target = {x: this.x + 200, width: 100 , y: this.y - 25,height: 100, direction : 'east'};
       break;
     };
-
 
   }
 
