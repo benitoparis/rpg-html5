@@ -35,13 +35,8 @@ let currentMapSheetDatas;
 
 export let hero = {};
 export let people = {};
-// let enemies = [];
 let obstacle = [];
-
-// Liste de people
 let peopleList = [];
-
-
 
 
 
@@ -63,13 +58,10 @@ const drawHomeMenu = ()=> {
 // On charge les images du jeu
 config.loadImages(drawHomeMenu);
 
-
 // Méthode pour trouver un chiffre compris entre a et b
 export const rangeNumber = (a,b)=> {
   return Math.floor((Math.random() * b)) + a;
 }
-
-
 
 
 
@@ -79,42 +71,24 @@ const InitHero = () => {
   hero = new Hero (1,1,15,15);
 }
 
-// Méthode pour Initialiser le people
+// Méthode pour Initialiser les people
 const initPeople = (nb)=> {
   const num = nb;
 
   let x;
   let y;
 
-
-
   // On crée plusieurs people
   for(let i =  0; i <= num ; i++){
 
     x = rangeNumber(400, 1000);
     y = rangeNumber(350, 1000);
-     console.log(x, y);
 
     let people = new People (x, y, 1, 1);
     peopleList.push(people);
   }
-
-  console.log('peopleList', peopleList);
 };
 
-// On initialise les énnemis
-/* const initEnemies = (stageInformation) => {
-  console.log('stageInformation', stageInformation);
-  for (let i = 0; i < stageInformation.maxEnemies; i++) {
-    enemies[i] = new Enemies(
-      rangeNumber(100, 500),
-      rangeNumber(50, 200),
-      50,
-      50,
-      stageInformation
-    );
-  }
-}; */
 
 // Méthode pour initialiser les sprites animés
 const initSprites = () => {
@@ -127,7 +101,7 @@ const initSprites = () => {
 
   // On selectionne le bon background
   selectBackGroundImg(hero);
-}
+};
 
 // On crée les obstacles
 const initObstacles = () => {
@@ -145,27 +119,23 @@ export const checkCollision = (a, b) => {
   } else {
     return false;
   }
-}
+};
 
 // Méthode pour connaitre l'image de fond à afficher
 const selectBackGroundImg = (hero) => {
 
   if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1){
-
     backgroundToDisplay.push(config.getImage('room1'));
 
   }
 
   if(hero.currentWorldPosition.wordlId === 1 && hero.currentWorldPosition.mapSheetId === 2){
     backgroundToDisplay.push(config.getImage('room2_layer_01'), config.getImage('room2_layer_02'), config.getImage('room2_layer_03')) ;
-
   }
-
-}
+};
 
 // Méthode pour vérifier la collision entre un élément a et b en prenant en compte les index sur la map
 export const checkCollisionByMapIndex = (room) => {
-
 
 	// Si index du joueur vaut 0 sur la map il y a collision
 	if (room.collisionArray[hero.mapIndexPosition] === 0) {
@@ -176,29 +146,24 @@ export const checkCollisionByMapIndex = (room) => {
 		console.log('room.collisionArray[hero.mapIndexPosition]', room.collisionArray[hero.mapIndexPosition]);
 	}
 
-}
-
-
-
-
+};
 
 
 // Dessine l'image de fond
 const drawBackground = () => {
 
-  backgroundToDisplay.forEach(item => {
+  backgroundToDisplay.forEach(background => {
 
-    // ctx.drawImage(backgroundImg, 0 , 0 ,960, 540, 0 , 0, stage.width , stage.height);
     ctx.drawImage(
-      item,
+      background,
       hero.x - 351, // Position X de la partie à croper
       hero.y - 288.5, // Position Y de la partie à croper
       750 , // Largeur de la partie à croper
       625 , // Hauteur de la partie à corper
-      0, // Position x de l'image à croper sur le canvas
-      0,  // Position y de l'image à croper sur le canvas
-      750 , // Largeur de la partie cropée
-      625 // Hauteur de la partie cropée
+      0, // Position X sur le canvas de l'image cropée
+      0,  // Position X sur le canvas de l'image cropée
+      750 , // Largeur de l'image cropée sur le canvas
+      625 // Hauteur de l'image cropée sur le canvas
     );
   })
 };
@@ -235,41 +200,13 @@ const drawPeople = ()=> {
 };
 
 
-const updateHero = (event) => {
+const updateHero = ()=> {
+    const x = hero.x;
+    const y = hero.y;
+    const centerX = hero.centerX;
+    const centerY = hero.centerY;
 
-  if (event.code === 'Space'){ // Si la touche appuyée est Espace
-
-    if(hero.isTalking === false){
-      // On vérifie s'il y a collision entre le héro et un people
-      peopleList.forEach(people => {
-
-        if(checkCollision(hero, people)){
-            console.log('people hero collision');
-            hero.setTalkMode();
-        }
-      })
-    } else {
-
-      if(scenario.dialogEnd()){ // Si le dialoge doit se terminer
-        hero.removeTalkMode();
-      } else {
-        // On passe au message suivant
-        scenario.selectMessage();
-      }
-
-    }
-
-
-
-
-  } else if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
-		const x = hero.x;
-		const y = hero.y;
-		const centerX = hero.centerX;
-		const centerY = hero.centerY;
-
-		hero.update(event);
-
+    hero.update(event);
 
     // On itère sur toutes les portes de la mapsheet
     currentMapSheetDatas.doors.forEach(item => {
@@ -277,6 +214,12 @@ const updateHero = (event) => {
       // On vérifie s'il y a une collision entre la porte et le héro
       if (checkCollision(item, hero)) { // Si passe par une porte
         console.log('passe par une porte');
+
+        // On supprime les people
+        removePeople();
+
+        // On ajoute des poeple
+        initPeople(10);
 
         const destinationX = item.destination.x;
         const destinationY = item.destination.y;
@@ -295,15 +238,30 @@ const updateHero = (event) => {
 
 
 
-		// On vérifie si le héros est sorti des limites
+    // On vérifie si le héro est sorti des limites
     if(checkOutOfBounds(currentMapSheetDatas, hero)){ // Si le héro est en dehors du terrain
-			hero.x = x;
-			hero.y = y;
-			hero.centerX = centerX;
-			hero.centerY = centerY;
-			hero.setMapIndexPosition();
-		}
-	}  else { // le joueur a appuyé sur la touche entrée
+      hero.x = x;
+      hero.y = y;
+      hero.centerX = centerX;
+      hero.centerY = centerY;
+      hero.setMapIndexPosition();
+    }
+}
+
+// Méthode qui réagit aux évènements du clavier
+const handleInput = (event) => {
+
+  if (event.code === 'Space'){ // Si la touche appuyée est Espace
+
+    // On active le mode dialogue
+    setDialogBox();
+
+  } else if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
+
+    // on met à jour le hero
+    updateHero();
+
+	}  else { // le joueur a appuyé sur la touche Entrée
 
     // On lance le jeu
     launchGame();
@@ -312,29 +270,31 @@ const updateHero = (event) => {
 
 }
 
+// On initialise tous les élémets du jeu
 const launchGame = (event) => {
 
-  // if (event.keyCode === 13) { // si touche "Entrée"
-
-    // On initialise les sprites
+    // On initialise les sprites après un délai de deux secondes
     setTimeout(initSprites, 2000);
 
-    // Méthode pour rafraichir le jeu
+    // Méthode pour rafraichir tous les éléments du jeu toutes les secondes
     config.setInterval = setInterval(drawAll, 1000 / config.fps);
 
 };
 
 // Méthode qui met fin au jeu
 const endGame = () => {
+
+  // On met fin au cycle de rafraichissement
   clearInterval(config.setInterval);
 
   // On reset les sprites
   hero = {};
   enemies = [];
+  peopleList = [];
 };
 
-// On ajoute une évènement qui se déclenche dès qu'une touche du clavier est activée.
-window.addEventListener('keydown', updateHero);
+// On ajoute une évènement qui se déclenche dès qu'une touche du clavier est enfoncée.
+window.addEventListener('keydown', handleInput);
 
 
 // Méthode pour afficher tous les éléments dans l'animation
@@ -353,87 +313,6 @@ const drawAll = () => {
   if(hero.isTalking === true){ // Si le hero ne peut plus bouger
     scenario.drawDialogs('dialog');
   }
-
-
-
-
-
-
-
-
-	// On renseigne l'index du joueur sur la map à l'aide des ses coordonnées x/y
-	// hero.setMapIndexPosition();
-
-
-
-	// On vérifie la collision entre le héro et les obstacles
-	// checkCollisionByMapIndex(room);
-
-
-
-
-	// On vérifie s'il y a collision entre le héro et un ennemi
-/* 	enemies.forEach(enemy => {
-		if (checkCollision(enemy, hero)){
-			console.log('colision entre une balle et un ennemi');
-			if(hero.isHeroDead()){ // Si le héro est mort
-				// On arrete la partie
-				endGame();
-				// On indique un message
-				drawMessages('Perdu ! La partie est terminée', 50, 300);
-				// On affiche le classement général des joueurs
-				drawRanking();
-				setTimeout(drawHomeMenu, 5000);
-			} else {
-				hero.removeLifeCredit();
-				hero.resetHeroPosition();
-			}
-
-		};
-	}); */
-
-/* 	if(hero.bulletsList[hero.shootedBullet].isFlying === true){
-		hero.bulletsList[hero.shootedBullet].drawBullet();
-		hero.bulletsList[hero.shootedBullet].update();
-	} */
-	// drawEnemies();
-	// updateEnemies();
-
-	// Si tous les énnemis sont morts
-/* 	if (enemies.length === 0) {
-
-		// On arrete la partie
-		endGame();
-		// On indique un message
-		drawMessages('Bravo, la partie est terminée', 50, 300);
-
-		// On passe au tableau suivant
-		if(config.stageConfig.length > config.playerProgress.currentStage){
-			config.playerProgress.currentStage++
-
-			// On enregistre la progression du héros
-			config.updateHero();
-
-		} else {
-			drawFinishedGame()
-		}
-
-
-		// On relance le jeu
-		setTimeout(drawInterStage, 1000);
-	} */
-
-	// Si plus de balle
-/* 	if(hero.getRemainingBullet() === 0){
-		// On arrete la partie
-		endGame();
-		// On indique un message
-		drawMessages('Perdu, la partie est terminée', 50, 300);
-
-		// On relance le jeu
-		setTimeout(drawInterStage, 1000);
-
-	} */
 
 };
 
@@ -486,7 +365,7 @@ fetch(url)
 
 
 
-
+// Méthode qui joue une piste sonore
 const playSound = (url)  => {
   // audio.style.display = "none";
   const audio = document.getElementById('myPlayer');
@@ -501,5 +380,33 @@ const playSound = (url)  => {
 playSound('../audio/soundtracks/far-east-kingdom.mp3');
 
 
+// On délenche le mode dialogue
+const setDialogBox = () => {
+    if(hero.isTalking === false){
+      // On vérifie s'il y a collision entre le héro et un people
+      peopleList.forEach(people => {
 
+        if(checkCollision(hero, people)){
+            console.log('people hero collision');
+            hero.setTalkMode();
+            // On passe au message suivant
+            scenario.selectMessage();
+        }
+      })
+    } else {
+
+      if(scenario.dialogEnd()){ // Si le dialogue doit se terminer
+        hero.removeTalkMode();
+      } else {
+        // On passe au message suivant
+        scenario.selectMessage();
+      }
+
+    }
+}
+
+// Méthode pour supprimer les people
+const removePeople = ()=> {
+  peopleList = [];
+}
 

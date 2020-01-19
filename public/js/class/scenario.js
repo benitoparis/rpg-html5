@@ -8,7 +8,7 @@ export class Scenario {
     this.dialogBoxActive = true;
     this.dialogIndex = 0;
     this.msg = '';
-       this.currentDialog = ['bjr comment allez-vous?', 'je vais faire quelques courses', 'a tres bientot jèspère'];
+    this.currentDialog = ['bjr comment allez-vous?', 'je vais faire quelques courses', 'a tres bientot jèspère'];
   }
 
   // Dessine le dialogue
@@ -31,11 +31,12 @@ export class Scenario {
       // On dessine un fond noir sur l'écran d'accueil
       ctx.fillStyle="#5858BA";
       ctx.fillRect(50, 400, stage.width - 100 , 200);
-      // On dessine le border sur le rectangle
+      // On dessine une bordure blanche
       ctx.strokeStyle = "#FFFFFF";
       ctx.lineWidth = 3;
       ctx.strokeRect(50, 400, stage.width - 100, 200);
 
+      // On affiche le message au centre de la boite de dialogue
       this.drawMessages(70, 450, 3);
     break;
   }
@@ -99,6 +100,7 @@ export class Scenario {
    if(this.dialogIndex <= this.currentDialog.length - 1){
      return false;
    } else {
+     this.dialogIndex = 0;
      return true;
    }
  }
