@@ -212,7 +212,19 @@ export class GeneralConfig {
                   heroPosition: "up"
                 }
               },
-
+            ],
+            possibleItemPosition: [
+              {x:319, y: 550},
+              {x:501 , y:435 },
+              {x:1194 , y:484 },
+              {x:1760 , y:512 },
+              {x:2321 , y:501 },
+              {x:440 , y:1161 },
+              {x:330 , y:1573 },
+              {x:534 , y:2420 },
+              {x:1579 , y:1975 },
+              {x:1634 , y:2525 },
+              {x:2272 , y:2305 },
             ]
           },
           {
@@ -299,7 +311,6 @@ export class GeneralConfig {
                   heroPosition: "down"
                 }
               },
-
               {
                 id: 2,
                 roomName:"les remparts",
@@ -318,7 +329,6 @@ export class GeneralConfig {
                   heroPosition: "left"
                 }
               },
-
               {
                 id: 3,
                 roomName:"parvis chateau",
@@ -337,8 +347,10 @@ export class GeneralConfig {
                   heroPosition: "left"
                 }
               },
-
-
+            ],
+            possibleItemPosition: [
+              { x: 500, y: 800},
+              { x: 500, y: 1500}
             ]
           }
         ]
@@ -373,7 +385,8 @@ export class GeneralConfig {
       {type: 'character', reference: 'perso7',  filePath: '../img/sprites/perso7.png'},
       {type: 'character', reference: 'perso8',  filePath: '../img/sprites/perso8.png'},
       {type: 'character', reference: 'perso9',  filePath: '../img/sprites/perso9.png'},
-      {type: 'character', reference: 'perso10',  filePath: '../img/sprites/perso10.png'}
+      {type: 'character', reference: 'perso10',  filePath: '../img/sprites/perso10.png'},
+      {type: 'item', reference: 'treasure',  filePath: '../img/treasure.png'}
     ];
     this.imagesAssets = [];
 

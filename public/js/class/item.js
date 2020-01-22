@@ -1,15 +1,15 @@
-import { ctx, rangeNumber, config} from '../main.js';
+import { ctx, rangeNumber, config, hero} from '../main.js';
 
 // classe d'un Item
 export class Item {
 
  // Constructeur de la classe Item
- constructor(type) {
+ constructor(type, coordinate) {
     this.type = type; // exemple 'treasure'
     this.reference = this.setReference();
     this.itemImg = config.getImage(this.reference);
-    this.x = setCoordinate().x // Position X sur la map
-    this.y = setCoordinate().y; // Position Y sur la map
+    this.x = coordinate.x // Position X sur la map
+    this.y = coordinate.y; // Position Y sur la map
     this.width = 48;
     this.height = 48;
     this.centerX = ((this.x + this.width) - (this.width / 2));
@@ -17,11 +17,6 @@ export class Item {
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
   }
 
-  // Renseigne les coordonnées à partir des emplacements possibles
-  setCoordinate(){
-    const index = rangeNumber(0, config.availableCoordinates.length);
-    return config.availableCoordinates[index];
-  }
 
   // Méthode pour afficher l'item sur le canvas
   draw() {

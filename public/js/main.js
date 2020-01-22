@@ -5,6 +5,8 @@ import { GeneralConfig } from './class/general-config.js';
 import { Bullet } from './class/bullet.js';
 import { People } from './class/people.js';
 import { Scenario } from './class/scenario.js';
+import { Item } from './class/item.js';
+import { MainCharacter } from './class/main-character.js';
 
 // Déclaration des variables
 const stage = document.getElementById("stage");
@@ -35,8 +37,10 @@ let currentMapSheetDatas;
 
 export let hero = {};
 export let people = {};
-let obstacle = [];
-let peopleList = [];
+export let obstacle = [];
+export let peopleList = [];
+export let itemList = [];
+export let darius = {};
 
 
 
@@ -89,15 +93,32 @@ const initPeople = (nb)=> {
   }
 };
 
+const initItems = (nb)=> {
+
+  const index = rangeNumber(0, currentMapSheetDatas.possibleItemPosition.length)
+  const coordinate = currentMapSheetDatas.possibleItemPosition[index];
+
+  // On crée plusieurs people
+  for(let i =  0; i <= nb ; i++){
+
+    let item = new Item ('treasure', coordinate);
+    itemList.push(item);
+  }
+};
+
 
 // Méthode pour initialiser les sprites animés
 const initSprites = () => {
 
   InitHero();
-  initPeople(3);
 
-  // On récupère les informations sur la mapSheep courrante
+   // On récupère les informations sur la mapSheep courrante
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
+
+  initPeople(3);
+  initItems(5);
+
+
 
   // On selectionne le bon background
   selectBackGroundImg(hero);
@@ -199,6 +220,14 @@ const drawPeople = ()=> {
 
 };
 
+// On dessine les items
+const drawItems = ()=> {
+   // On itère sur la liste des item
+  itemList.forEach(item => {
+    item.draw();
+  });
+}
+
 
 const updateHero = ()=> {
     const x = hero.x;
@@ -291,6 +320,7 @@ const endGame = () => {
   hero = {};
   enemies = [];
   peopleList = [];
+  itemList = [];
 };
 
 // On ajoute une évènement qui se déclenche dès qu'une touche du clavier est enfoncée.
@@ -309,6 +339,8 @@ const drawAll = () => {
   });
 
   drawPeople();
+
+  drawItems();
 
   if(hero.isTalking === true){ // Si le hero ne peut plus bouger
     scenario.drawDialogs();

@@ -42,6 +42,7 @@ export class Hero {
     }
     this.moveStatus = true;
     this.isTalking = false;
+    this.items = 0
   }
 
   // Méthode pour afficher le sprite du héros
@@ -256,6 +257,11 @@ export class Hero {
   removeTalkMode(){
     this.isTalking = false;
     this.moveStatus = false;
+  }
+
+  // On ajoute un item
+  addItem(){
+    this.item++ ;
   }
 
 }
