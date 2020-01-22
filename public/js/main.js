@@ -311,7 +311,7 @@ const drawAll = () => {
   drawPeople();
 
   if(hero.isTalking === true){ // Si le hero ne peut plus bouger
-    scenario.drawDialogs('dialog');
+    scenario.drawDialogs();
   }
 
 };
@@ -390,16 +390,16 @@ const setDialogBox = () => {
             console.log('people hero collision');
             hero.setTalkMode();
             // On passe au message suivant
-            scenario.selectMessage();
+            scenario.msgToDisplay = people.selectMessage();
         }
       })
     } else {
 
-      if(scenario.dialogEnd()){ // Si le dialogue doit se terminer
+      if(false){ // Si le dialogue doit se terminer
         hero.removeTalkMode();
       } else {
         // On passe au message suivant
-        scenario.selectMessage();
+        scenario.msgToDisplay = people.selectMessage();
       }
 
     }

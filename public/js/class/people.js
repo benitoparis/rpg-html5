@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, hero, config} from '../main.js';
+import { ctx, rangeNumber, hero, config, scenario} from '../main.js';
 
 // classe d'un people
 export class People {
@@ -28,15 +28,11 @@ export class People {
     this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
     this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
     this.moveStatus = true;
-    //this.lifeCredits = 3;
-    //this.isDead = false;
-    //this.shootedBullet = 0;
-    //this.bulletCredits = 10;
-    //this.bulletsList = new Array(this.bulletCredits);
-    //this.shootDirection = 'right';
-    // for(let i = 0; i < this.bulletCredits; i++){
-    //   this.bulletsList[i] = new Bullet(1,1);
-    // }
+    this.dialog = {
+        msgIndex: 0,
+        list: scenario.setCurrentDialog(),
+        currentMsg: ''
+    };
   }
 
   // Méthode pour afficher le sprite du people
@@ -240,5 +236,27 @@ export class People {
     const randomId = rangeNumber(1,12);
     return `persofigurant${randomId}`;
   }
+
+  // On vérifie si le dialogue est terminé
+  dialogEnd(){
+    if(this.dialog.msgIndex <= this.dialog.list.length - 1){
+       return false;
+    } else {
+       this.dialog.msgIndex = 0;
+       return true;
+    }
+  }
+
+// Méthode qui gère le contenu de la boite de dialogue
+ selectMessage() {
+
+   if(!this.dialogEnd()){ // Si le dialogue doit continuer
+    return this.dialog.list[this.dialog.msgIndex];
+    this.dialog.msgIndex++;
+   } else {
+     this.dialog.msgIndex = 0;
+   }
+
+ }
 
 }

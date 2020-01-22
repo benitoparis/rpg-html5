@@ -3,12 +3,27 @@ import { ctx, rangeNumber} from '../main.js';
 export class Scenario {
 
   constructor(){
-    this.dialogs = [{ characterId: 1, dialog : ['Bonjour comment allez-vous?']}];
     this.dialogStyle = 'dialog';
-    this.dialogBoxActive = true;
-    this.dialogIndex = 0;
-    this.msg = '';
-    this.currentDialog = ['bjr comment allez-vous?', 'je vais faire quelques courses', 'a tres bientot jèspère'];
+    this.dialogList = [
+      {
+        id: 1,
+        dialog: ['Bonjour, vous êtes pressé?','Il y a beaucoup de monde dans le chateau','Vous allez ou au juste?','Savez-vous que le roi organise une fête?','On se croise peu être là-bas?']
+      },
+      {
+        id: 2,
+        dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé']
+      },
+      {
+        id: 3,
+        dialog: ['Que faites vous ici','le temps est magnifique']
+      },
+      {
+        id: 4,
+        dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici']
+      }
+    ];
+    this.msgToDisplay = 'cdcdcdcd';
+
   }
 
   // Dessine le dialogue
@@ -52,7 +67,7 @@ export class Scenario {
   }
 
   // Méthode pour écrire des messages sur l'écran
-  drawMessages(x,y, fontsize){
+  drawMessages(x,y, fontsize) {
 
     switch(fontsize) {
       case 1:
@@ -67,12 +82,12 @@ export class Scenario {
     }
     ctx.fillStyle = "#FFFFFF";
 
-    for(let i = 0; i <= this.msg.length; i += 60){
+    for(let i = 0; i <= this.msgToDisplay.length; i += 60){
       let start = i;
       let end = i  + 60;
       y += 25;
 
-      let cuttedMsg = this.msg.slice(start, end);
+      let cuttedMsg = this.msgToDisplay.slice(start, end);
       console.log(start,end, y, cuttedMsg);
       ctx.fillText(cuttedMsg, x, y);
 
@@ -81,29 +96,13 @@ export class Scenario {
   };
 
 
- // Méthode qui gère le contenu de la boite de dialogue
- selectMessage() {
-
-   alert(this.dialogIndex);
-
-   if(!this.dialogEnd()){ // Si le dialogue doit continuer
-    this.msg = this.currentDialog[this.dialogIndex];
-    this.dialogIndex++;
-   } else {
-     this.dialogIndex = 0;
-   }
-
- }
-
- // On vérifie si le dialogue est terminé
- dialogEnd(){
-   if(this.dialogIndex <= this.currentDialog.length - 1){
-     return false;
-   } else {
-     this.dialogIndex = 0;
-     return true;
-   }
- }
+  // On renseigne le dialogue courant
+  setCurrentDialog(){
+    const id = rangeNumber(1, this.dialogList.length+1);
+    return this.dialogList.find(item=> {
+      return item.id === id;
+    })
+  }
 
 
 }
