@@ -292,15 +292,16 @@ const handleInput = (event) => {
 
 	}  else { // le joueur a appuyé sur la touche Entrée
 
+    scenario.launchStorytelling(1);
     // On lance le jeu
-    launchGame();
+    //launchGame();
 
   }
 
 }
 
 // On initialise tous les élémets du jeu
-const launchGame = (event) => {
+export const launchGame = (event) => {
 
     // On initialise les sprites après un délai de deux secondes
     setTimeout(initSprites, 2000);
@@ -441,4 +442,6 @@ const setDialogBox = () => {
 const removePeople = ()=> {
   peopleList = [];
 }
+
+
 

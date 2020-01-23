@@ -1,4 +1,4 @@
-import { ctx, rangeNumber} from '../main.js';
+import { ctx, rangeNumber, launchGame} from '../main.js';
 
 export class Scenario {
 
@@ -23,7 +23,27 @@ export class Scenario {
       }
     ];
     this.msgToDisplay = 'cdcdcdcd';
-
+    this.storyTelling = [
+      {
+        id: 1,
+        texts : [
+          'Contrairement à une opinion répandue, le Lorem Ipsum n\'est pas simplement du texte aléatoire.',
+          'et en étudiant tous les usages de ce mot dans la littérature classique',
+          'L\'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux.',
+          'à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum'
+        ]
+      },
+      {
+        id : 2,
+        texts : [
+          'questa apertura del Corriere dello Sport ',
+          'scambio di punte sullasse Inter-Napoli. Operazione in chiusura, anche il nerazzurro',
+          'del Bologna e il pallavolista di Modena: il tecnico si schiera con Salvini',
+          'Derby emiliano tra'
+        ]
+      },
+    ];
+    this.index = 0;
   }
 
   // Dessine le dialogue
@@ -67,7 +87,7 @@ export class Scenario {
   }
 
   // Méthode pour écrire des messages sur l'écran
-  drawMessages(x,y, fontsize) {
+  drawMessages(msg, x, y , fontsize) {
 
     switch(fontsize) {
       case 1:
@@ -82,12 +102,12 @@ export class Scenario {
     }
     ctx.fillStyle = "#FFFFFF";
 
-    for(let i = 0; i <= this.msgToDisplay.length; i += 60){
+    for(let i = 0; i <= msg.length; i += 60){
       let start = i;
       let end = i  + 60;
       y += 25;
 
-      let cuttedMsg = this.msgToDisplay.slice(start, end);
+      let cuttedMsg = msg.slice(start, end);
       console.log(start,end, y, cuttedMsg);
       ctx.fillText(cuttedMsg, x, y);
 
@@ -104,5 +124,28 @@ export class Scenario {
     })
   }
 
+ // Dessine l'image du menu
+ launchStorytelling = (id)=> {
+
+    const story = this.storyTelling.find(item=>{
+      return item.id === id;
+    });
+
+    if(this.index <= story.texts.length - 1){
+      const msg = story.texts[this.index];
+
+      // On dessine un fond noir sur l'écran d'accueil
+      ctx.fillStyle="#FF0000";
+      ctx.fillRect(0,0, stage.width, stage.height);
+
+      // On affiche les messages
+      this.drawMessages(msg, stage.width / 5 , stage.height / 3, 1);
+
+      this.index++;
+    } else {
+      launchGame();
+    }
+
+  };
 
 }
