@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, launchGame} from '../main.js';
+import { ctx, config, launchGame} from '../main.js';
 
 export class Scenario {
 
@@ -30,7 +30,13 @@ export class Scenario {
           'Contrairement à une opinion répandue, le Lorem Ipsum n\'est pas simplement du texte aléatoire.',
           'et en étudiant tous les usages de ce mot dans la littérature classique',
           'L\'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux.',
-          'à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum'
+          'à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum',
+          'Nam sole orto magnitudine angusti gurgitis sed profundi a transitu arcebantur et dum piscatorios quaerunt lenunculos ve',
+          'Adolescebat autem obstinatum propositum erga haec et similia multa',
+          'Advenit post multos Scudilo Scutariorum tribunus velamento subagrestis ingenii persuasionis opifex callidus. qui eum adulabili',
+          'Sed quid est quod in hac causa maxime homines admirentur et '
+
+
         ]
       },
       {
@@ -91,13 +97,13 @@ export class Scenario {
 
     switch(fontsize) {
       case 1:
-        ctx.font = "100px Arial";
+        ctx.font = "100px small-caption";
         break;
       case 2:
-        ctx.font = "40px Arial";
+        ctx.font = "40px small-caption";
         break;
       case 3:
-        ctx.font = "20px Arial";
+        ctx.font = "20px small-caption";
         break;
     }
     ctx.fillStyle = "#FFFFFF";
@@ -105,7 +111,7 @@ export class Scenario {
     for(let i = 0; i <= msg.length; i += 60){
       let start = i;
       let end = i  + 60;
-      y += 25;
+      y += 50;
 
       let cuttedMsg = msg.slice(start, end);
       console.log(start,end, y, cuttedMsg);
@@ -118,31 +124,34 @@ export class Scenario {
 
   // On renseigne le dialogue courant
   setCurrentDialog(){
-    const id = rangeNumber(1, this.dialogList.length+1);
+    const id = config.rangeNumber(1, this.dialogList.length+1);
     return this.dialogList.find(item=> {
       return item.id === id;
     })
   }
 
- // Dessine l'image du menu
- launchStorytelling = (id)=> {
+  // Dessine l'image du menu
+  launchStorytelling = (id)=> {
 
     const story = this.storyTelling.find(item=>{
       return item.id === id;
     });
 
-    if(this.index <= story.texts.length - 1){
+    if(this.index <= story.texts.length - 1){ // S'il reste un message dans la story on affiche la suite
       const msg = story.texts[this.index];
 
       // On dessine un fond noir sur l'écran d'accueil
-      ctx.fillStyle="#FF0000";
+      ctx.fillStyle="#000000";
       ctx.fillRect(0,0, stage.width, stage.height);
 
       // On affiche les messages
-      this.drawMessages(msg, stage.width / 5 , stage.height / 3, 1);
+      this.drawMessages(msg, 10 , stage.height / 3, 2);
+
+      // On affiche la commande "Press Enter"
+      this.drawMessages('Press Enter to continue', stage.width - 500 , stage.height - 100, 2);
 
       this.index++;
-    } else {
+    } else { // Si plus de messages dans la story on lance le début de l'aventure
       launchGame();
     }
 

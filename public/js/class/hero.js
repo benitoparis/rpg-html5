@@ -31,15 +31,7 @@ export class Hero {
     this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:32},{faceX:64,faceY:32}];
     this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
     this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
-    this.lifeCredits = 3;
-    this.isDead = false;
-    this.shootedBullet = 0;
-    this.bulletCredits = 10;
-    this.bulletsList = new Array(this.bulletCredits);
-    this.shootDirection = 'right';
-    for(let i = 0; i < this.bulletCredits; i++){
-      this.bulletsList[i] = new Bullet(1,1);
-    }
+    this.xp = 500200;
     this.moveStatus = true;
     this.isTalking = false;
     this.items = 0
@@ -261,7 +253,41 @@ export class Hero {
 
   // On ajoute un item
   addItem(){
-    this.item++ ;
+    this.items++ ;
   }
+
+   // Affiche des informations sur le héro
+  drawHeroDatas(x, y , fontsize) {
+
+    switch(fontsize) {
+      case 1:
+        ctx.font = "100px small-caption";
+        break;
+      case 2:
+        ctx.font = "40px small-caption";
+        break;
+      case 3:
+        ctx.font = "20px small-caption";
+        break;
+    }
+
+    const message = `Item : ${this.items}   XP : ${this.xp}`;
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText(message, x, y);
+
+    // for(let i = 0; i <= msg.length; i += 60){
+    //   let start = i;
+    //   let end = i  + 60;
+    //   y += 50;
+
+    //   let cuttedMsg = msg.slice(start, end);
+    //   console.log(start,end, y, cuttedMsg);
+    //   ctx.fillText(cuttedMsg, x, y);
+
+    // }
+
+
+
+  };
 
 }

@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, config} from '../main.js';
+import { ctx, config, hero} from '../main.js';
 
 // classe d'un MainCharacter
 export class MainCharacter {
@@ -6,12 +6,12 @@ export class MainCharacter {
  // Constructeur de la classe Item
  constructor(type, x, y) {
     this.name = name; // Exemple 'darius'
-    this.reference = this.setReference();
+    this.reference = type;
     this.characterImg = config.getImage(this.reference);
     this.x = x // Position X sur la map
     this.y = y; // Position Y sur la map
     this.faceX = 0;
-    this.faceY = 30;
+    this.faceY = 0;
     this.width = 48;
     this.height = 48;
     this.centerX = ((this.x + this.width) - (this.width / 2));
@@ -22,7 +22,7 @@ export class MainCharacter {
   // Méthode pour afficher le personnage sur le canvas
   draw() {
     ctx.drawImage(
-        this.characterImg,
+        this.characterImg, // Objet de l'image à croper
         this.faceX , // Position X de la partie à croper
         this.faceY , // Position Y de la partie à croper
         30 , // Largeur de la partie à croper
@@ -39,9 +39,6 @@ export class MainCharacter {
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
   }
 
-  // Méthode qui renvoie une reference de l'item
-  setReference(){
-    return `${this.name}`;
-  }
+
 
 }

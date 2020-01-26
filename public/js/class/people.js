@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, hero, config, scenario} from '../main.js';
+import { ctx, hero, config, scenario} from '../main.js';
 
 // classe d'un people
 export class People {
@@ -183,7 +183,7 @@ export class People {
   setTarget(){
 
 
-    const randomNumber = rangeNumber(1,4);
+    const randomNumber = config.rangeNumber(1,4);
 
     this.target = {};
 
@@ -233,7 +233,7 @@ export class People {
 
   // Méthode qui renvoie une reference de people
   setReference(){
-    const randomId = rangeNumber(1,12);
+    const randomId = config.rangeNumber(1,12);
     return `persofigurant${randomId}`;
   }
 
@@ -258,5 +258,7 @@ export class People {
    }
 
  }
+
+
 
 }

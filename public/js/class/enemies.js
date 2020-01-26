@@ -1,4 +1,4 @@
-import {ctx, rangeNumber, config} from '../main.js';
+import {ctx, config} from '../main.js';
 
 // classe des énnemis
 export class Enemies {
@@ -14,11 +14,11 @@ export class Enemies {
     this.speedX = stageInfo.enemyType.enemySpeedX;
     this.speedY = stageInfo.enemyType.enemySpeedY;
     this.enemyType = stageInfo.enemyType;
-    this.randomMoveTime = rangeNumber(1000,6000);
-    var that  = this;
+    this.randomMoveTime = config.rangeNumber(1000,6000);
+    let that  = this;
     this.move = setInterval(()=>{that.setTarget();}, this.randomMoveTime);
-    this.targetX = rangeNumber(50, stage.width - 50);
-    this.targetY = rangeNumber(50, stage.height - 50);
+    this.targetX = config.rangeNumber(50, stage.width - 50);
+    this.targetY = config.rangeNumber(50, stage.height - 50);
   }
 
   // Méthode pour afficher l'ennemi
@@ -44,8 +44,8 @@ export class Enemies {
   update() {
 
     if(this.centerX === this.targetX && this.centerY === this.targetY){
-      this.targetX = rangeNumber(50, stage.width - 50);
-      this.targetY = rangeNumber(50, stage.height - 50);
+      this.targetX = config.rangeNumber(50, stage.width - 50);
+      this.targetY = config.rangeNumber(50, stage.height - 50);
       this.centerX = ((this.x + this.width) - (this.width / 2));
       this.centerY = ((this.y + this.height) - (this.height / 2));
     }
@@ -70,8 +70,8 @@ export class Enemies {
 
   // Méthode qui change la cible de l'ennemi
   setTarget(){
-    this.targetX = rangeNumber(50, stage.width - 50);
-    this.targetY = rangeNumber(50, stage.height - 50);
+    this.targetX = config.rangeNumber(50, stage.width - 50);
+    this.targetY = config.rangeNumber(50, stage.height - 50);
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
   }

@@ -5,6 +5,7 @@ export class GeneralConfig {
 
   // constructeur
   constructor(setInterval){
+    this.gameActive = false;
     this.setInterval = setInterval;
     this.fps = 30;
     this.frame = 0;
@@ -224,7 +225,12 @@ export class GeneralConfig {
               {x:534 , y:2420 },
               {x:1579 , y:1975 },
               {x:1634 , y:2525 },
-              {x:2272 , y:2305 },
+              {x:2272 , y:2305 }
+            ],
+            secretPassagePosition: [
+            {x: 300, y:300 },
+            {x: 400, y: 400},
+            {x: 500, y: 500},
             ]
           },
           {
@@ -347,10 +353,41 @@ export class GeneralConfig {
                   heroPosition: "left"
                 }
               },
+              {
+                id: 4,
+                roomName: "Entree chateau",
+                x: 1300,
+                y: 2200,
+                width: 78,
+                height: 90,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "castle inside",
+                  mapSheetId: 1,
+                  roomName: "zone entrée chateau inside",
+                  x: 1680,
+                  y: 2500,
+                  heroPosition: "left"
+                }
+              },
             ],
             possibleItemPosition: [
-              { x: 500, y: 800},
-              { x: 500, y: 1500}
+              { x: 500, y: 800  },
+              { x: 500, y: 950  },
+              { x: 500, y: 1100 },
+              { x: 500, y: 1200 },
+              { x: 500, y: 1400 },
+              { x: 500, y: 1500 },
+              { x: 500, y: 1600 },
+              { x: 500, y: 1700 },
+              { x: 500, y: 1800 },
+              { x: 500, y: 1900 }
+            ],
+            secretPassagePosition: [
+              {x: 300, y: 300},
+              {x: 400, y: 400},
+              {x: 500, y: 500},
             ]
           }
         ]
@@ -386,13 +423,60 @@ export class GeneralConfig {
       {type: 'character', reference: 'perso8',  filePath: '../img/sprites/perso8.png'},
       {type: 'character', reference: 'perso9',  filePath: '../img/sprites/perso9.png'},
       {type: 'character', reference: 'perso10',  filePath: '../img/sprites/perso10.png'},
-      {type: 'item', reference: 'treasure',  filePath: '../img/treasure.png'}
+      {type: 'character', reference: 'persomonstre1',  filePath: '../img/sprites/persomonstre1.png'},
+      {type: 'character', reference: 'persomonstre2',  filePath: '../img/sprites/persomonstre2.png'},
+      {type: 'character', reference: 'persomonstre3',  filePath: '../img/sprites/persomonstre3.png'},
+      {type: 'character', reference: 'persomonstre4',  filePath: '../img/sprites/persomonstre4.png'},
+      {type: 'character', reference: 'persomonstre5',  filePath: '../img/sprites/persomonstre5.png'},
+      {type: 'character', reference: 'persomonstre6',  filePath: '../img/sprites/persomonstre6.png'},
+      {type: 'character', reference: 'persomonstre7',  filePath: '../img/sprites/persomonstre7.png'},
+      {type: 'character', reference: 'persomonstre8',  filePath: '../img/sprites/persomonstre8.png'},
+      {type: 'character', reference: 'persomonstre9',  filePath: '../img/sprites/persomonstre9.png'},
+      {type: 'character', reference: 'persomonstre10',  filePath: '../img/sprites/persomonstre10.png'},
+      {type: 'item', reference: 'treasure',  filePath: '../img/treasure.png'},
+      {type: 'sprite-sheet', reference: 'spitesheet',  filePath: '../img/complete-spritesheet.png'}
     ];
     this.imagesAssets = [];
 
-  } // fin constructeur
+  }
 
 
+  // Méthode qui retourne un chiffre compris entre a et b
+  rangeNumber (a,b){
+    return Math.floor((Math.random() * b)) + a;
+  }
+
+  // Méthode pour vérifier la collision entre un élément a et b
+  checkCollision = (a, b) => {
+
+    if((a.x < b.centerX) && (b.centerX < (a.x + a.width))
+     && (a.y < b.centerY)
+     && (b.centerY < (a.y + a.height))) {
+       return true;
+    } else {
+      return false;
+    }
+  };
+
+  // Méthode pour vérifier la collision entre un élément a et b en prenant en compte les index sur la map
+  checkCollisionByMapIndex = (room) => {
+    // Si index du joueur vaut 0 sur la map il y a collision
+    if (room.collisionArray[hero.mapIndexPosition] === 0) {
+
+    } else { // Sinon, pas de collision
+
+    }
+  };
+
+  // Méthode qui vérifie si le héro est sorti des limites autorisées
+  checkOutOfBounds = (currentMap, someOne) => {
+    // Si index du joueur vaut 0 sur la map il y a collision
+    if (currentMap.collisionArray[someOne.mapIndexPosition] === 0) {
+      return true;
+    } else { // Sinon, pas de collision
+      return false;
+    }
+  };
 
 
   // ***** Appels des Webservices ****** //
@@ -517,29 +601,6 @@ export class GeneralConfig {
 
   // ***** Fin des appels aux Webservices ****** //
 
-  // Dessiner le nombre de point de vie sur l'écran
-/*   drawHeroLifeCredit(playerCurrentLifeCredits){
-    ctx.font = "14px Arial";
-    ctx.fillStyle = "#F0C300";
-    const msg =`Crédit : ${playerCurrentLifeCredits}`;
-    ctx.strokeText(msg, 550, 20);
-  }; */
-
-  // Dessine le nombre de balle restante
-/*   drawRemainingBullet(playerRemainingBullet){
-    ctx.font = "14px Arial";
-    ctx.fillStyle = "#F0C300";
-    const msg =`Boullet : ${playerRemainingBullet}`;
-    ctx.strokeText(msg, 200, 20);
-  } */
-
-  // Dessiner le nom du stage
-/*   drawStageName(){
-    ctx.font = "14px Arial";
-    ctx.fillStyle = "#F0C300";
-    const msg =`Niveau ${this.playerProgress.currentStage}`;
-    ctx.strokeText(msg, 50, 20);
-  } */
 
   // Méthode pour afficher le viewport
   drawViewportBackground(roomImg) {
@@ -565,10 +626,10 @@ export class GeneralConfig {
 
   // Récupère l'objet image correspondant à une reference
   getImage(reference) {
-    const id = this.imagesSet.findIndex(item => {
+    const index = this.imagesSet.findIndex(item => {
       return item.reference === reference;
     });
-    return this.imagesAssets[id];
+    return this.imagesAssets[index];
   }
 
   // Charge les images du jeu

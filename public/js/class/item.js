@@ -1,4 +1,4 @@
-import { ctx, rangeNumber, config, hero} from '../main.js';
+import { ctx, config, hero} from '../main.js';
 
 // classe d'un Item
 export class Item {
