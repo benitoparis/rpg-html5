@@ -4,14 +4,13 @@ import { ctx, config, hero} from '../main.js';
 export class SecretPassage {
 
  // Constructeur de la classe secret passage
- constructor(type, coordinate) {
-    this.name = name; // Exemple 'darius'
-    this.reference = type;
+ constructor(reference, coordinate) {
+    this.reference = reference;
     this.img = config.getImage(this.reference);
     this.x = coordinate.x // Position X sur la map
     this.y = coordinate.y; // Position Y sur la map
-    this.faceX = 40;
-    this.faceY = 40;
+    this.faceX = 130;
+    this.faceY = 195;
     this.width = 48;
     this.height = 48;
     this.centerX = ((this.x + this.width) - (this.width / 2));

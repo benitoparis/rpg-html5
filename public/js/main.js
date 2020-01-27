@@ -85,7 +85,7 @@ const initItems = (nb)=> {
     const coordinate = currentMapSheetDatas.possibleItemPosition[index];
 
     console.log('coordinate', coordinate);
-    let item = new Item ('treasure', coordinate);
+    let item = new Item ('spritesheet', coordinate);
     itemList.push(item);
     console.log('item', item);
   }
@@ -95,7 +95,7 @@ const initItems = (nb)=> {
 const initSecretPassage = () => {
   // On crée plusieurs passages secrets
   currentMapSheetDatas.secretPassagePosition.forEach(elem => {
-    let secretPassage = new SecretPassage('sprite-sheet',elem);
+    let secretPassage = new SecretPassage('spritesheet',elem);
     secretPassageList.push(secretPassage);
   });
 };
@@ -185,6 +185,14 @@ const drawItems = ()=> {
   // On itère sur la liste des items
   itemList.forEach(item => {
     item.draw();
+  });
+};
+
+// On dessine les passages secrets
+const drawSecretPassage = ()=> {
+  // On itère sur la liste des passages secrets
+  secretPassageList.forEach(elem => {
+    elem.draw();
   });
 };
 
@@ -321,6 +329,7 @@ const drawAll = () => {
 
   drawPeople();
   drawItems();
+  drawSecretPassage();
 
 
 
