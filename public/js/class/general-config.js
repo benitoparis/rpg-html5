@@ -228,7 +228,7 @@ export class GeneralConfig {
               {x:2272 , y:2305 }
             ],
             secretPassagePosition: [
-            {x: 300, y:300 },
+            {x: 300, y: 300 },
             {x: 400, y: 400},
             {x: 500, y: 500},
             ]
@@ -373,19 +373,15 @@ export class GeneralConfig {
               },
             ],
             possibleItemPosition: [
-              { x: 500, y: 800  },
+              { x: 1400, y: 1050 },
               { x: 500, y: 950  },
               { x: 500, y: 1100 },
               { x: 500, y: 1200 },
               { x: 500, y: 1400 },
-              { x: 500, y: 1500 },
-              { x: 500, y: 1600 },
-              { x: 500, y: 1700 },
-              { x: 500, y: 1800 },
-              { x: 500, y: 1900 }
+              { x: 500, y: 1500 }
             ],
             secretPassagePosition: [
-              {x: 300, y: 300},
+              {x: 1344, y: 1136},
               {x: 400, y: 400},
               {x: 500, y: 500},
             ]

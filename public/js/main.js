@@ -7,6 +7,7 @@ import { Scenario } from './class/scenario.js';
 import { Item } from './class/item.js';
 import { MainCharacter } from './class/main-character.js';
 import { SecretPassage } from './class/secret-passage.js';
+import { SwitchButton } from './class/switch-button.js';
 
 // Déclaration des variables
 const stage = document.getElementById("stage");
@@ -27,6 +28,7 @@ export let peopleList = [];
 export let itemList = [];
 export let secretPassageList = [];
 export let darius = {};
+export let switchButton = {};
 
 
 // Dessine l'image du menu
@@ -79,7 +81,7 @@ const initPeople = (nb)=> {
 
 // Méthode pour initialiser les items
 const initItems = (nb)=> {
-  // On crée plusieurs people
+  // On crée plusieurs item
   for(let i =  0; i < nb ; i++){
     const index = config.rangeNumber(0, currentMapSheetDatas.possibleItemPosition.length - 1)
     const coordinate = currentMapSheetDatas.possibleItemPosition[index];
@@ -89,6 +91,11 @@ const initItems = (nb)=> {
     itemList.push(item);
     console.log('item', item);
   }
+};
+
+// On initialise un SwitchButton
+const initSwitchButton = () => {
+ switchButton = new SwitchButton('spritesheet', {x:2270, y:504});
 };
 
 // Méthode qui initialise les passages secrets
@@ -109,7 +116,7 @@ const initSprites = () => {
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
   initPeople(3);
-  initItems(4);
+  initItems(20);
   initMainCharacter();
   initSecretPassage();
 
@@ -215,7 +222,10 @@ const updateHero = ()=> {
         removePeople();
 
         // On ajoute des people
-        initPeople(10);
+        initPeople(5);
+
+        // On initialise le switch button
+        initSwitchButton();
 
         const destinationX = door.destination.x;
         const destinationY = door.destination.y;
@@ -321,6 +331,7 @@ const drawAll = () => {
 
 	hero.drawHero();
   darius.draw();
+  switchButton.draw();
   hero.drawHeroDatas(stage.width - 200, 30, 3);
 
   peopleList.forEach(item => {
