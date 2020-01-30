@@ -231,7 +231,14 @@ export class GeneralConfig {
             {x: 300, y: 300 },
             {x: 400, y: 400},
             {x: 500, y: 500},
-            ]
+            ],
+            sprites: {
+              item : {quantity: 2, positions : []},
+              people: {quantity: 5, positions : []},
+              switchButton: {quantity: 0, positions : []},
+              mainCharacter: {quantity: 0, positions : []},
+              secretPassage: {quantity: 1, positions : []}
+            }
           },
           {
             mapSheetId: 2,
@@ -331,7 +338,7 @@ export class GeneralConfig {
                   mapSheetId: 1,
                   roomName: "salle secrete à droite chateau",
                   x: 2490,
-                  y: 390,
+                  y: 383,
                   heroPosition: "left"
                 }
               },
@@ -384,7 +391,22 @@ export class GeneralConfig {
               {x: 1344, y: 1136},
               {x: 400, y: 400},
               {x: 500, y: 500},
-            ]
+            ],
+            sprites: {
+              item : {quantity: 2, positions : [{ x: 1400, y: 1050 },{ x: 500, y: 950  },{ x: 500, y: 1100 }]},
+              people: {quantity: 5, positions : [
+                { x: 500, y: 1500 },
+                { x: 500, y: 1600 },
+                { x: 500, y: 1700 },
+                { x: 500, y: 1800 },
+                { x: 500, y: 1900 },
+                ]},
+              switchButton: {quantity: 0, positions : []},
+              mainCharacter: {quantity: 0, positions : []},
+              secretPassage: {quantity: 1, positions : [
+                {x: 1344, y: 1136}
+              ]}
+            }
           }
         ]
       }
@@ -642,4 +664,19 @@ export class GeneralConfig {
         };
     });
   }
+
+  // Vérifie s'il reste des sprites à initialiser
+  checkRemainingSprites(object, currentMapSheet){
+    const wordsNb = this.worlds.length;
+    let sprites = [];
+    for(let i = 1; i < wordsNb; i++){
+        sprites = this.worlds.mapSheets.find(data=>{
+        return data.id === currentMapSheet;
+      })
+    }
+    return sprites['switchButton']['quantity'];
+
+  }
+
+
 }

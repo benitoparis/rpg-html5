@@ -46,7 +46,7 @@ export class SwitchButton {
 
       if(this.isOpen){ // Si bouton activé
         // On détermine les coordonnées de l'image à cropper
-        this.faceX = 60;
+        this.faceX = 62;
         this.faceY = 32;
       } else {
         this.faceX = 0;

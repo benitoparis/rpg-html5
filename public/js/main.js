@@ -95,7 +95,7 @@ const initItems = (nb)=> {
 
 // On initialise un SwitchButton
 const initSwitchButton = () => {
- switchButton = new SwitchButton('spritesheet', {x:2270, y:504});
+ switchButton = new SwitchButton('spritesheet', {x:2260, y:504});
 };
 
 // Méthode qui initialise les passages secrets
@@ -110,16 +110,28 @@ const initSecretPassage = () => {
 // Méthode pour initialiser les sprites animés
 const initSprites = () => {
 
-  InitHero();
+  if (typeof(hero.x) === 'undefined'){ // On vérifie si le héro n'a pas déjà été initialisé
+    InitHero();
+  };
 
   // On récupère les informations sur la mapSheep courrante
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
-  initPeople(3);
-  initItems(20);
+  console.log('la currentMapSheetDatas', currentMapSheetDatas);
+
+
+  const peopleQuantity = currentMapSheetDatas.sprites.people.quantity;
+  const itemQuantity = currentMapSheetDatas.sprites.item.quantity;
+  const mainCharacterQuantity = currentMapSheetDatas.sprites.mainCharacter.quantity;
+  const secretPassageQuantity =  currentMapSheetDatas.sprites.secretPassage.quantity;
+  const switchButtonQuantity = currentMapSheetDatas.sprites.switchButton.quantity;
+
+  // On initialise tous les sprites s'il y en a dans la mapsheet
+  initPeople(peopleQuantity);
+  initItems(itemQuantity);
   initMainCharacter();
   initSecretPassage();
-
+  initSwitchButton();
 
   // On selectionne le bon background
   selectBackGroundImg(hero);
@@ -218,19 +230,13 @@ const updateHero = ()=> {
       if (config.checkCollision(door, hero)) { // Si passe par une porte
         console.log('passe par une porte');
 
-        // On supprime les people
-        removePeople();
-
-        // On ajoute des people
-        initPeople(5);
-
-        // On initialise le switch button
-        initSwitchButton();
+        // On supprime tous les sprites sauf le héro
+        removeAllSprites();
 
         const destinationX = door.destination.x;
         const destinationY = door.destination.y;
 
-        // On set la position du héro dans la pièce de destination
+        // On renseigne la position du héro dans la pièce de destination
         hero.setHeroPosition(door.destination);
 
         // On récupère les informations sur la mapSheep courrante
@@ -238,10 +244,10 @@ const updateHero = ()=> {
 
         // On selectionne le bon background
         selectBackGroundImg(hero);
+
+        // On initalise à nouveau les sprites en fonction de la mapsheet
+        initSprites();
       };
-
-
-
 
     });
 
@@ -263,6 +269,10 @@ const updateHero = ()=> {
       }
     });
 
+    // On vérifie s'il y a collision entre le héro et le switchButton
+    if(config.checkCollision(switchButton, hero)){
+      switchButton.toogleOpen();
+    }
 
     // On vérifie si le héro est sorti des limites
     if(config.checkOutOfBounds(currentMapSheetDatas, hero)){ // Si le héro est en dehors du terrain
@@ -398,7 +408,34 @@ const removePeople = ()=> {
   peopleList = [];
 };
 
+// Méthode qui supprime les switchButton
+const removeSwitchButton = ()=>{
+  switchButton = {};
+};
 
+// Méthode qui supprime les passages secrets
+const removeSecretPassage = ()=>{
+  secretPassageList = [];
+};
+
+// Méthode qui supprime tous les items
+const removeItems = ()=>{
+  itemList = [];
+};
+
+// Méthode qui supprime le main character
+const removeMainCharacter = ()=>{
+  darius = {};
+}
+
+// On supprime tous les sprites sauf le héro
+const removeAllSprites = ()=> {
+  removePeople();
+  removeSwitchButton();
+  removeSecretPassage();
+  removeItems();
+  removeMainCharacter();
+}
 
 
 
