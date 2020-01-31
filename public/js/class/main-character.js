@@ -4,12 +4,12 @@ import { ctx, config, hero} from '../main.js';
 export class MainCharacter {
 
  // Constructeur de la classe Item
- constructor(type, x, y) {
+ constructor(type, coordinate) {
     this.name = name; // Exemple 'darius'
     this.reference = type;
     this.characterImg = config.getImage(this.reference);
-    this.x = x // Position X sur la map
-    this.y = y; // Position Y sur la map
+    this.x = coordinate.x // Position X sur la map
+    this.y = coordinate.y; // Position Y sur la map
     this.faceX = 0;
     this.faceY = 0;
     this.width = 48;

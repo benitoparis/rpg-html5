@@ -228,16 +228,36 @@ export class GeneralConfig {
               {x:2272 , y:2305 }
             ],
             secretPassagePosition: [
-            {x: 300, y: 300 },
-            {x: 400, y: 400},
-            {x: 500, y: 500},
+              {x: 300, y: 300 },
+              {x: 400, y: 400},
+              {x: 500, y: 500},
             ],
             sprites: {
-              item : {quantity: 2, positions : []},
-              people: {quantity: 5, positions : []},
-              switchButton: {quantity: 0, positions : []},
-              mainCharacter: {quantity: 0, positions : []},
-              secretPassage: {quantity: 1, positions : []}
+              item : [
+                {x: 704 , y:2409 },
+                {x: 336 , y:1557 },
+                {x: 490 , y:1117 },
+                {x: 1650 , y:462 }, // Salle du roi
+                {x: 1850, y: 2189 },
+                {x: 1463, y: 1232 }
+              ],
+              people: [
+               {x: 2283 , y:2222 },
+               {x:568  , y:1078 },
+               {x: 726 , y: 1562},
+               {x: 770 , y: 2338 },
+               {x: 985 , y: 1188}
+              ],
+              switchButton: [
+                {x: 2277 , y:501 },
+              ],
+              mainCharacter: [
+                {x: 358 , y: 440 },
+              ],
+              secretPassage: [
+                {x: 1111 , y:462 },
+                {x: 627 , y:1210 },
+              ]
             }
           },
           {
@@ -393,19 +413,24 @@ export class GeneralConfig {
               {x: 500, y: 500},
             ],
             sprites: {
-              item : {quantity: 2, positions : [{ x: 1400, y: 1050 },{ x: 500, y: 950  },{ x: 500, y: 1100 }]},
-              people: {quantity: 5, positions : [
+              item : [
+                { x: 1400, y: 1050 }, // En haut sur le dongeon
+                { x: 500, y: 950  },
+                { x: 500, y: 1100 }
+              ],
+              people: [
                 { x: 500, y: 1500 },
                 { x: 500, y: 1600 },
                 { x: 500, y: 1700 },
                 { x: 500, y: 1800 },
                 { x: 500, y: 1900 },
-                ]},
-              switchButton: {quantity: 0, positions : []},
-              mainCharacter: {quantity: 0, positions : []},
-              secretPassage: {quantity: 1, positions : [
-                {x: 1344, y: 1136}
-              ]}
+                ],
+              switchButton: [],
+              mainCharacter: [],
+              secretPassage: [
+                {x: 1344, y: 1136 }, // En haut sur le dongeon
+                {x: 1740, y: 2316 }
+              ]
             }
           }
         ]
@@ -667,11 +692,11 @@ export class GeneralConfig {
 
   // Vérifie s'il reste des sprites à initialiser
   checkRemainingSprites(object, currentMapSheet){
-    const wordsNb = this.worlds.length;
+    const worldsNb = this.worlds.length;
     let sprites = [];
-    for(let i = 1; i < wordsNb; i++){
+    for(let i = 1; i < worldsNb; i++){
         sprites = this.worlds.mapSheets.find(data=>{
-        return data.id === currentMapSheet;
+        return data.id === currentMapSheet.id;
       })
     }
     return sprites['switchButton']['quantity'];

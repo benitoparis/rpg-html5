@@ -23,12 +23,12 @@ let backgroundToDisplay = [];
 let currentMapSheetDatas;
 
 export let hero = {};
-export let people = {};
+// export let people = {};
 export let peopleList = [];
 export let itemList = [];
 export let secretPassageList = [];
-export let darius = {};
-export let switchButton = {};
+export let mainCharacterList = []; //darius
+export let switchButtonList = [];
 
 
 // Dessine l'image du menu
@@ -56,55 +56,69 @@ const InitHero = () => {
 };
 
 // On initialise un monstre
-const initMainCharacter = () => {
- darius = new MainCharacter('persomonstre2', 1000, 400);
- console.log('darius', darius);
+const initMainCharacter = (mainCharacterSet) => {
+
+  mainCharacterSet.forEach(elem=> {
+    let mainCharacter = new MainCharacter('persomonstre2', elem);
+    mainCharacterList.push(mainCharacter);
+  })
+
+
 };
 
 // Méthode pour Initialiser les people
-const initPeople = (nb)=> {
-  const num = nb;
-
-  let x;
-  let y;
+const initPeople = (peopleSet)=> {
 
   // On crée plusieurs people
-  for(let i =  0; i < num ; i++){
-
-    x = config.rangeNumber(400, 1000);
-    y = config.rangeNumber(350, 1000);
-
-    let people = new People (x, y, 1, 1);
+  peopleSet.forEach(elem =>{
+    let people = new People(elem);
     peopleList.push(people);
-  }
+  });
 };
 
 // Méthode pour initialiser les items
-const initItems = (nb)=> {
+const initItems = (itemSet)=> {
   // On crée plusieurs item
-  for(let i =  0; i < nb ; i++){
-    const index = config.rangeNumber(0, currentMapSheetDatas.possibleItemPosition.length - 1)
-    const coordinate = currentMapSheetDatas.possibleItemPosition[index];
+  // for(let i =  0; i < nb ; i++){
+  //   const index = config.rangeNumber(0, currentMapSheetDatas.possibleItemPosition.length - 1)
+  //   const coordinate = currentMapSheetDatas.possibleItemPosition[index];
 
-    console.log('coordinate', coordinate);
-    let item = new Item ('spritesheet', coordinate);
-    itemList.push(item);
-    console.log('item', item);
-  }
+  //   console.log('coordinate', coordinate);
+  //   let item = new Item ('spritesheet', coordinate);
+  //   itemList.push(item);
+  //   console.log('item', item);
+  // }
+  itemSet.forEach(elem => {
+   let item = new Item ('spritesheet', elem);
+   itemList.push(item);
+  });
+
 };
 
 // On initialise un SwitchButton
-const initSwitchButton = () => {
- switchButton = new SwitchButton('spritesheet', {x:2260, y:504});
+const initSwitchButton = (switchButtonSet) => {
+ // for(let i =  0; i < nb ; i++){
+ //   switchButton = new SwitchButton('spritesheet', {x:2260, y:504});
+ // }
+ switchButtonSet.forEach(elem => {
+   let switchButton = new SwitchButton('spritesheet', elem);
+   switchButtonList.push(switchButton);
+ });
+
 };
 
 // Méthode qui initialise les passages secrets
-const initSecretPassage = () => {
+const initSecretPassage = (secretPassageSet) => {
   // On crée plusieurs passages secrets
-  currentMapSheetDatas.secretPassagePosition.forEach(elem => {
+  // currentMapSheetDatas.secretPassagePosition.forEach(elem => {
+  //   let secretPassage = new SecretPassage('spritesheet',elem);
+  //   secretPassageList.push(secretPassage);
+  // });
+  secretPassageSet.forEach(elem => {
     let secretPassage = new SecretPassage('spritesheet',elem);
     secretPassageList.push(secretPassage);
   });
+
 };
 
 // Méthode pour initialiser les sprites animés
@@ -120,18 +134,18 @@ const initSprites = () => {
   console.log('la currentMapSheetDatas', currentMapSheetDatas);
 
 
-  const peopleQuantity = currentMapSheetDatas.sprites.people.quantity;
-  const itemQuantity = currentMapSheetDatas.sprites.item.quantity;
-  const mainCharacterQuantity = currentMapSheetDatas.sprites.mainCharacter.quantity;
-  const secretPassageQuantity =  currentMapSheetDatas.sprites.secretPassage.quantity;
-  const switchButtonQuantity = currentMapSheetDatas.sprites.switchButton.quantity;
+  const people = currentMapSheetDatas.sprites.people;
+  const item = currentMapSheetDatas.sprites.item;
+  const mainCharacter = currentMapSheetDatas.sprites.mainCharacter;
+  const secretPassage =  currentMapSheetDatas.sprites.secretPassage;
+  const switchButton = currentMapSheetDatas.sprites.switchButton;
 
   // On initialise tous les sprites s'il y en a dans la mapsheet
-  initPeople(peopleQuantity);
-  initItems(itemQuantity);
-  initMainCharacter();
-  initSecretPassage();
-  initSwitchButton();
+  initPeople(people);
+  initItems(item);
+  initMainCharacter(mainCharacter);
+  initSecretPassage(secretPassage);
+  initSwitchButton(switchButton);
 
   // On selectionne le bon background
   selectBackGroundImg(hero);
@@ -199,6 +213,26 @@ const drawPeople = ()=> {
   });
 };
 
+// Dessiner le héro
+const drawHero = ()=> {
+  hero.drawHero();
+  hero.drawHeroDatas(stage.width - 200, 30, 3);
+}
+
+// Méthode pour afficher les switchbutton
+const drawSwitchButton = ()=> {
+  switchButtonList.forEach(elem=> {
+    elem.draw();
+  })
+}
+
+const drawMainCharacter = ()=> {
+  mainCharacterList.forEach(elem=>{
+    elem.draw();
+  });
+};
+
+
 // On dessine les items
 const drawItems = ()=> {
   // On itère sur la liste des items
@@ -257,11 +291,11 @@ const updateHero = ()=> {
       if(config.checkCollision(item, hero)){ // Si collision
 
         // On indentifie l'index de l'item en collision
-        const index = itemList.findIndex(elem => {
+        const itemIndex = itemList.findIndex(elem => {
           return elem === item;
         });
         // On supprime l'item de la liste
-        itemList.splice(index, 1);
+        itemList.splice(itemIndex, 1);
 
         // On incrémente ne nombre d'item collectés par le héro
         hero.addItem();
@@ -270,9 +304,11 @@ const updateHero = ()=> {
     });
 
     // On vérifie s'il y a collision entre le héro et le switchButton
-    if(config.checkCollision(switchButton, hero)){
-      switchButton.toogleOpen();
-    }
+    switchButtonList.forEach(elem=> {
+      if(config.checkCollision(elem, hero)){
+          elem.toogleOpen();
+      };
+    });
 
     // On vérifie si le héro est sorti des limites
     if(config.checkOutOfBounds(currentMapSheetDatas, hero)){ // Si le héro est en dehors du terrain
@@ -339,20 +375,16 @@ const drawAll = () => {
 
 	drawBackground();
 
-	hero.drawHero();
-  darius.draw();
-  switchButton.draw();
-  hero.drawHeroDatas(stage.width - 200, 30, 3);
-
   peopleList.forEach(item => {
     updatePeople(item);
   });
 
+  drawHero();
   drawPeople();
   drawItems();
   drawSecretPassage();
-
-
+  drawMainCharacter();
+  drawSwitchButton();
 
   if(hero.isTalking === true){ // Si le hero ne peut plus bouger
     scenario.drawDialogs();
@@ -410,7 +442,7 @@ const removePeople = ()=> {
 
 // Méthode qui supprime les switchButton
 const removeSwitchButton = ()=>{
-  switchButton = {};
+  switchButtonList = [];
 };
 
 // Méthode qui supprime les passages secrets
@@ -425,7 +457,7 @@ const removeItems = ()=>{
 
 // Méthode qui supprime le main character
 const removeMainCharacter = ()=>{
-  darius = {};
+  mainCharacterList = [];
 }
 
 // On supprime tous les sprites sauf le héro
