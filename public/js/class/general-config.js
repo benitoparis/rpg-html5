@@ -258,7 +258,8 @@ export class GeneralConfig {
                 {x: 1111 , y:462 },
                 {x: 627 , y:1210 },
               ]
-            }
+            },
+            belongsToWorldId: 1
           },
           {
             mapSheetId: 2,
@@ -416,7 +417,7 @@ export class GeneralConfig {
               item : [
                 { x: 1400, y: 1050 }, // En haut sur le dongeon
                 { x: 500, y: 950  },
-                { x: 500, y: 1100 }
+                { x: 500, y: 1200 }
               ],
               people: [
                 { x: 500, y: 1500 },
@@ -431,7 +432,8 @@ export class GeneralConfig {
                 {x: 1344, y: 1136 }, // En haut sur le dongeon
                 {x: 1740, y: 2316 }
               ]
-            }
+            },
+            belongsToWorldId: 1
           }
         ]
       }
@@ -703,5 +705,27 @@ export class GeneralConfig {
 
   }
 
+  // Méthode qui supprime définitivement un élément du monde
+  permanentlyRemoveFromWorld(currentMapSheet, sprite, item){
 
+    console.log('currentMapSheet LA', currentMapSheet);
+
+    // this.worlds[currentMapSheet.belongsToWorldId].mapSheets[currentMapSheet.mapSheetId].sprites[sprite].splice(index, 1);
+    const world = this.worlds.find(elem=>{
+      return elem.worldId === currentMapSheet.belongsToWorldId;
+    });
+
+    console.log('le world', world);
+
+    const mapsheet = world.mapSheets.find(item => {
+      return item.mapSheetId === currentMapSheet.mapSheetId
+    })
+
+    const index = mapsheet.sprites[sprite].findIndex(elem=>{
+      return (elem.x === item.x && elem.y === item.y);
+    });
+
+    mapsheet.sprites[sprite].splice(index, 1);
+
+  }
 }

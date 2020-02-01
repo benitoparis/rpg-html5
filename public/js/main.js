@@ -133,7 +133,6 @@ const initSprites = () => {
 
   console.log('la currentMapSheetDatas', currentMapSheetDatas);
 
-
   const people = currentMapSheetDatas.sprites.people;
   const item = currentMapSheetDatas.sprites.item;
   const mainCharacter = currentMapSheetDatas.sprites.mainCharacter;
@@ -281,6 +280,8 @@ const updateHero = ()=> {
 
         // On initalise à nouveau les sprites en fonction de la mapsheet
         initSprites();
+
+        console.log('itemList', itemList);
       };
 
     });
@@ -299,7 +300,13 @@ const updateHero = ()=> {
 
         // On incrémente ne nombre d'item collectés par le héro
         hero.addItem();
+
+        // On supprime définitivement cet élément du jeu
+        config.permanentlyRemoveFromWorld(currentMapSheetDatas,'item', item);
+
         index++;
+
+
       }
     });
 
