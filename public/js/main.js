@@ -68,26 +68,15 @@ const initMainCharacter = (mainCharacterSet) => {
 
 // Méthode pour Initialiser les people
 const initPeople = (peopleSet)=> {
-
-  // On crée plusieurs people
   peopleSet.forEach(elem =>{
     let people = new People(elem);
     peopleList.push(people);
   });
+  console.log('peopleList bonne', peopleList);
 };
 
 // Méthode pour initialiser les items
 const initItems = (itemSet)=> {
-  // On crée plusieurs item
-  // for(let i =  0; i < nb ; i++){
-  //   const index = config.rangeNumber(0, currentMapSheetDatas.possibleItemPosition.length - 1)
-  //   const coordinate = currentMapSheetDatas.possibleItemPosition[index];
-
-  //   console.log('coordinate', coordinate);
-  //   let item = new Item ('spritesheet', coordinate);
-  //   itemList.push(item);
-  //   console.log('item', item);
-  // }
   itemSet.forEach(elem => {
    let item = new Item ('spritesheet', elem);
    itemList.push(item);
@@ -97,9 +86,6 @@ const initItems = (itemSet)=> {
 
 // On initialise un SwitchButton
 const initSwitchButton = (switchButtonSet) => {
- // for(let i =  0; i < nb ; i++){
- //   switchButton = new SwitchButton('spritesheet', {x:2260, y:504});
- // }
  switchButtonSet.forEach(elem => {
    let switchButton = new SwitchButton('spritesheet', elem);
    switchButtonList.push(switchButton);
@@ -109,11 +95,6 @@ const initSwitchButton = (switchButtonSet) => {
 
 // Méthode qui initialise les passages secrets
 const initSecretPassage = (secretPassageSet) => {
-  // On crée plusieurs passages secrets
-  // currentMapSheetDatas.secretPassagePosition.forEach(elem => {
-  //   let secretPassage = new SecretPassage('spritesheet',elem);
-  //   secretPassageList.push(secretPassage);
-  // });
   secretPassageSet.forEach(elem => {
     let secretPassage = new SecretPassage('spritesheet',elem);
     secretPassageList.push(secretPassage);
@@ -343,6 +324,7 @@ const handleKeyboardInput = (event) => {
 	}  else { // le joueur a appuyé sur la touche Entrée
 
     if(!config.gameActive){ // On on n'est pas en phase de jeu
+
       scenario.launchStorytelling(1);
     }
 
@@ -420,23 +402,24 @@ playSound('../audio/soundtracks/far-east-kingdom.mp3');
 // On délenche le mode dialogue
 const setDialogBox = () => {
     if(hero.isTalking === false){
-      // On vérifie s'il y a collision entre le héro et un people
-      peopleList.forEach(people => {
 
-        if(config.checkCollision(hero, people)){
-            console.log('people hero collision');
-            hero.setTalkMode();
-            // On passe au message suivant
-            scenario.msgToDisplay = people.selectMessage();
+      peopleList.forEach(people => {
+        // On vérifie s'il y a collision entre le héro et un people
+        if(config.checkCollision(hero, people)){ // Si collision
+          hero.setTalkMode();
+          // On récupère le dialogue du poeple
+          scenario.getMsgSet(people.dialog);
+          console.log('scenario', scenario);
         }
       })
-    } else {
+    } else { // S'il est en train de parler
 
-      if(false){ // Si le dialogue doit se terminer
-        hero.removeTalkMode();
-      } else {
+      if(scenario.checkDialogContinue()){ // Si le dialogue doit se terminer
         // On passe au message suivant
-        scenario.msgToDisplay = people.selectMessage();
+        scenario.setMsgToDisplay();
+      } else {
+        // On stop la conversation
+        hero.removeTalkMode();
       }
 
     }

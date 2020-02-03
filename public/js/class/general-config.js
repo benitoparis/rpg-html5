@@ -214,24 +214,6 @@ export class GeneralConfig {
                 }
               },
             ],
-            possibleItemPosition: [
-              {x:319, y: 550},
-              {x:501 , y:435 },
-              {x:1194 , y:484 },
-              {x:1760 , y:512 },
-              {x:2321 , y:501 },
-              {x:440 , y:1161 },
-              {x:330 , y:1573 },
-              {x:534 , y:2420 },
-              {x:1579 , y:1975 },
-              {x:1634 , y:2525 },
-              {x:2272 , y:2305 }
-            ],
-            secretPassagePosition: [
-              {x: 300, y: 300 },
-              {x: 400, y: 400},
-              {x: 500, y: 500},
-            ],
             sprites: {
               item : [
                 {x: 704 , y:2409 },
@@ -242,11 +224,36 @@ export class GeneralConfig {
                 {x: 1463, y: 1232 }
               ],
               people: [
-               {x: 2283 , y:2222 },
-               {x:568  , y:1078 },
-               {x: 726 , y: 1562},
-               {x: 770 , y: 2338 },
-               {x: 985 , y: 1188}
+               {
+                 x: 2283,
+                 y: 2222,
+                 reference: 'persofigurant6',
+                 dialog:['Super de vous voir là?', 'Je suis disponible', 'on peut aller au spectacle']
+               },
+               {
+                 x: 568,
+                 y: 1078,
+                 reference: 'persofigurant7',
+                 dialog:['heuhh, je suis pressé', 'que faites vous ici',' je pars']
+               },
+               {
+                 x: 726,
+                 y: 1562,
+                 reference: 'persofigurant8',
+                 dialog:['Je vais acheter des légumes','ou allez-vous faire vos course']
+               },
+               {
+                 x: 770,
+                 y: 2338,
+                 reference: 'persofigurant9',
+                 dialog:['Je nai rien à vous dire', 'on m accuse de vol']
+               },
+               {
+                 x: 985,
+                 y: 1188,
+                 reference: 'persofigurant10',
+                 dialog:['Le roi est-il au chateau?', 'Je dois le voir']
+                }
               ],
               switchButton: [
                 {x: 2277 , y:501 },
@@ -400,19 +407,6 @@ export class GeneralConfig {
                 }
               },
             ],
-            possibleItemPosition: [
-              { x: 1400, y: 1050 },
-              { x: 500, y: 950  },
-              { x: 500, y: 1100 },
-              { x: 500, y: 1200 },
-              { x: 500, y: 1400 },
-              { x: 500, y: 1500 }
-            ],
-            secretPassagePosition: [
-              {x: 1344, y: 1136},
-              {x: 400, y: 400},
-              {x: 500, y: 500},
-            ],
             sprites: {
               item : [
                 { x: 1400, y: 1050 }, // En haut sur le dongeon
@@ -420,12 +414,37 @@ export class GeneralConfig {
                 { x: 500, y: 1200 }
               ],
               people: [
-                { x: 500, y: 1500 },
-                { x: 500, y: 1600 },
-                { x: 500, y: 1700 },
-                { x: 500, y: 1800 },
-                { x: 500, y: 1900 },
-                ],
+                {
+                  x: 500,
+                  y: 1500,
+                  reference: 'persofigurant1',
+                  dialog:['Bonjour, vous êtes pressé?','Il y a beaucoup de monde dans le chateau','Vous allez ou au juste?','Savez-vous que le roi organise une fête?','On se croise peu être là-bas?'],
+                },
+                {
+                  x: 500,
+                  y: 1600,
+                  reference: 'persofigurant2',
+                  dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé']
+                },
+                {
+                  x: 500,
+                  y: 1700,
+                  reference: 'persofigurant3',
+                  dialog: ['Que faites vous ici','le temps est magnifique']
+                },
+                {
+                  x: 500,
+                  y: 1800,
+                  reference: 'persofigurant4',
+                  dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici']
+                },
+                {
+                  x: 500,
+                  y: 1900,
+                  reference: 'persofigurant5',
+                  dialog: ['Hello','content de vous voir']
+                },
+              ],
               switchButton: [],
               mainCharacter: [],
               secretPassage: [

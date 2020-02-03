@@ -4,12 +4,13 @@ import { ctx, hero, config, scenario} from '../main.js';
 export class People {
 
  // Constructeur de la classe people...
- constructor(coordinate) {
+ constructor(params) {
 
-    this.reference = this.setReference();
+    // this.reference = this.setReference();
+    this.reference = params.reference;
+    this.x = params.x; // Position X sur la map
+    this.y = params.y; // Position Y sur la map
     this.characterImg = config.getImage(this.reference);
-    this.x = coordinate.x; // Position X sur la map
-    this.y = coordinate.y; // Position Y sur la map
     this.dx = 0;
     this.dy = 0;
     this.width = 48;
@@ -28,11 +29,7 @@ export class People {
     this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
     this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
     this.moveStatus = true;
-    this.dialog = {
-        msgIndex: 0,
-        list: scenario.setCurrentDialog(),
-        currentMsg: ''
-    };
+    this.dialog = params.dialog;
   }
 
   // Méthode pour afficher le sprite du people
@@ -141,38 +138,6 @@ export class People {
   }
 
 
-  // Méthode pour réinitialiser la position du people
-/*  setHeroPosition(destination) {
-    this.x = destination.x;
-    this.y = destination.y;
-    this.currentWorldPosition.worldId = destination.worldId;
-    this.currentWorldPosition.mapSheetId = destination.mapSheetId;
-    this.centerX = ((this.x + this.width) - (this.width / 2));
-    this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.setMapIndexPosition();
-  };*/
-
-
-  // Méthode pour récupérer le nombre de crédit
-/*  getLifeCredit(){
-  return this.lifeCredits;
-  }
-
-  // On vérifie si le héro est mort
-  isHeroDead(){
-    return this.isDead;
-  }
-
-  // Méthode pour connaitre la direction du joueur
-  getDirection(){
-    return this.shootDirection;
-  }*/
-
-  // Méthode pour récupérer le nombre de balle restant
-  // getRemainingBullet(){
-  //   return this.bulletsList.length - this.shootedBullet;
-  // }
-
   // Méthode pour setter l'index du héros sur la map
   setMapIndexPosition(){
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
@@ -232,17 +197,17 @@ export class People {
   }
 
   // Méthode qui renvoie une reference de people
-  setReference(){
-    const randomId = config.rangeNumber(1,12);
-    return `persofigurant${randomId}`;
-  }
+  // setReference(){
+  //   const randomId = config.rangeNumber(1,12);
+  //   return `persofigurant${randomId}`;
+  // }
 
   // On vérifie si le dialogue est terminé
   dialogEnd(){
-    if(this.dialog.msgIndex <= this.dialog.list.length - 1){
+    if(this.dialog.currentMsgIndex <= this.dialog.list.length - 1){
        return false;
     } else {
-       this.dialog.msgIndex = 0;
+       this.dialog.currentMsgIndex = 0;
        return true;
     }
   }
@@ -251,10 +216,11 @@ export class People {
  selectMessage() {
 
    if(!this.dialogEnd()){ // Si le dialogue doit continuer
-    return this.dialog.list[this.dialog.msgIndex];
-    this.dialog.msgIndex++;
+    this.dialog.currentMsgIndex++;
+    return this.dialog.list[this.dialog.currentMsgIndex];
+
    } else {
-     this.dialog.msgIndex = 0;
+     this.dialog.currentMsgIndex = 0;
    }
 
  }
