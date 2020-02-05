@@ -51,6 +51,7 @@ export class Scenario {
     break;
 
     case 'dialog':
+
       // On dessine un fond noir sur l'écran d'accueil
       ctx.fillStyle="#5858BA";
       ctx.fillRect(50, 400, stage.width - 100 , 200);
@@ -60,7 +61,7 @@ export class Scenario {
       ctx.strokeRect(50, 400, stage.width - 100, 200);
 
       // On affiche le message au centre de la boite de dialogue
-      this.drawMessages(this.msgToDisplay, 70, 450, 3);
+      this.drawMessages(70, 400, 3);
     break;
   }
 
@@ -90,13 +91,13 @@ export class Scenario {
     }
     ctx.fillStyle = "#FFFFFF";
 
-    for(let i = 0; i <= this.msgToDisplay.length; i += 60){
+    for(let i = 0; i <= this.msgToDisplay.length; i += 40){
       let start = i;
       let end = i  + 60;
       y += 50;
 
       let cuttedMsg = this.msgToDisplay.slice(start, end);
-      console.log(start,end, y, cuttedMsg);
+
       ctx.fillText(cuttedMsg, x, y);
 
     }
@@ -106,11 +107,17 @@ export class Scenario {
   // Dessine l'image du menu
   launchStorytelling = (id)=> {
 
-    const msgSet = this.storyTelling.find(item =>{
+    const msgSet = [];
+
+    if (msgSet.length === 0){
+         this.storyTelling.find(item =>{
       return item.id === id;
     }).storySet;
 
     this.getMsgSet(msgSet);
+    }
+
+
     this.setMsgToDisplay();
 
     if(this.checkDialogContinue()){ // Si le dialogue doit continue
@@ -134,15 +141,17 @@ export class Scenario {
   // Récupère la discussion à afficher
   getMsgSet(msgSet){
     this.currentMsgSet = msgSet;
+    this.currentMsgIndex = 0;
+    console.log('IN getMsgSet currentMsgSet', this.currentMsgSet);
   }
 
   // Méthode qui définie le message à afficher
   setMsgToDisplay(){
+    console.log('setMsgToDisplay this.currentMsgIndex', this.currentMsgIndex);
     if(this.checkDialogContinue()){ // Si l'index du message courant est inférieur à la longueur du dialogue
         this.msgToDisplay = this.currentMsgSet[this.currentMsgIndex];
         this.currentMsgIndex++;
     } else {
-      this.currentMsgIndex === 0;
       this.msgToDisplay = '';
       this.currentMsgSet = []
     }

@@ -72,7 +72,6 @@ const initPeople = (peopleSet)=> {
     let people = new People(elem);
     peopleList.push(people);
   });
-  console.log('peopleList bonne', peopleList);
 };
 
 // Méthode pour initialiser les items
@@ -112,7 +111,6 @@ const initSprites = () => {
   // On récupère les informations sur la mapSheep courrante
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
-  console.log('la currentMapSheetDatas', currentMapSheetDatas);
 
   const people = currentMapSheetDatas.sprites.people;
   const item = currentMapSheetDatas.sprites.item;
@@ -262,7 +260,6 @@ const updateHero = ()=> {
         // On initalise à nouveau les sprites en fonction de la mapsheet
         initSprites();
 
-        console.log('itemList', itemList);
       };
 
     });
@@ -315,6 +312,8 @@ const handleKeyboardInput = (event) => {
 
     // On active le mode dialogue
     setDialogBox();
+
+    console.log('SCENARIO', scenario);
 
   } else if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
 
@@ -399,7 +398,7 @@ const playSound = (url)  => {
 playSound('../audio/soundtracks/far-east-kingdom.mp3');
 
 
-// On délenche le mode dialogue
+// On déclenche le mode dialogue
 const setDialogBox = () => {
     if(hero.isTalking === false){
 
@@ -407,17 +406,27 @@ const setDialogBox = () => {
         // On vérifie s'il y a collision entre le héro et un people
         if(config.checkCollision(hero, people)){ // Si collision
           hero.setTalkMode();
+
+
           // On récupère le dialogue du poeple
           scenario.getMsgSet(people.dialog);
-          console.log('scenario', scenario);
+
+          scenario.setMsgToDisplay();
+
+          console.log('EL scenario', scenario);
+          console.log('hero', hero);
+          console.log('THE people', people);
         }
-      })
+      });
     } else { // S'il est en train de parler
+
+      alert('en train de parler');
 
       if(scenario.checkDialogContinue()){ // Si le dialogue doit se terminer
         // On passe au message suivant
         scenario.setMsgToDisplay();
       } else {
+        alert('removeTalkMode');
         // On stop la conversation
         hero.removeTalkMode();
       }

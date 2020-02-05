@@ -424,25 +424,25 @@ export class GeneralConfig {
                   x: 500,
                   y: 1600,
                   reference: 'persofigurant2',
-                  dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé']
+                  dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé', 'je vais mettre en place un plan', 'a bientot']
                 },
                 {
                   x: 500,
                   y: 1700,
                   reference: 'persofigurant3',
-                  dialog: ['Que faites vous ici','le temps est magnifique']
+                  dialog: ['Que faites vous ici','le temps est magnifique', 'adieu']
                 },
                 {
                   x: 500,
                   y: 1800,
                   reference: 'persofigurant4',
-                  dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici']
+                  dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici', 'le prince arrive']
                 },
                 {
                   x: 500,
                   y: 1900,
                   reference: 'persofigurant5',
-                  dialog: ['Hello','content de vous voir']
+                  dialog: ['Hello','content de vous voir', 'adios']
                 },
               ],
               switchButton: [],
@@ -727,14 +727,11 @@ export class GeneralConfig {
   // Méthode qui supprime définitivement un élément du monde
   permanentlyRemoveFromWorld(currentMapSheet, sprite, item){
 
-    console.log('currentMapSheet LA', currentMapSheet);
 
     // this.worlds[currentMapSheet.belongsToWorldId].mapSheets[currentMapSheet.mapSheetId].sprites[sprite].splice(index, 1);
     const world = this.worlds.find(elem=>{
       return elem.worldId === currentMapSheet.belongsToWorldId;
     });
-
-    console.log('le world', world);
 
     const mapsheet = world.mapSheets.find(item => {
       return item.mapSheetId === currentMapSheet.mapSheetId
