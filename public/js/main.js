@@ -3,11 +3,12 @@ import { Enemies } from './class/enemies.js';
 import { GeneralConfig } from './class/general-config.js';
 import { Bullet } from './class/bullet.js';
 import { People } from './class/people.js';
-import { Scenario } from './class/scenario.js';
+import { DialogBox } from './class/dialog-box.js';
 import { Item } from './class/item.js';
 import { MainCharacter } from './class/main-character.js';
 import { SecretPassage } from './class/secret-passage.js';
 import { SwitchButton } from './class/switch-button.js';
+import { Storytelling } from './class/storytelling.js';
 
 // Déclaration des variables
 const stage = document.getElementById("stage");
@@ -16,7 +17,8 @@ stage.height = 625;
 // On utilise la méthode getContext pour aller chercher les methodes et les propriétés du canvas
 export const ctx = stage.getContext("2d");
 export const config = new GeneralConfig();
-export const scenario = new Scenario();
+export const dialogBox = new DialogBox();
+export const storytelling = new Storytelling(config.stories);
 
 
 let backgroundToDisplay = [];
@@ -38,9 +40,9 @@ const drawHomeMenu = ()=> {
   ctx.fillStyle="#000000";
   ctx.fillRect(0,0, stage.width, stage.height);
   // On affiche les messages
-  scenario.drawMessages('MY OWN RPG', 10 , stage.height / 3, 1);
-  scenario.drawMessages('Press ENTER', 10 , stage.height / 2, 2);
-  scenario.drawMessages(' ©2020 Copyright MYNAME', stage.width / 4, 500, 2);
+  dialogBox.drawMessages(10 , stage.height / 3, 1, 'MY OWN RPG');
+  dialogBox.drawMessages(10 , stage.height / 2, 2, 'Press ENTER');
+  dialogBox.drawMessages(stage.width / 4, 500, 2, ' ©2020 Copyright MYNAME');
 };
 
 
@@ -313,7 +315,7 @@ const handleKeyboardInput = (event) => {
     // On active le mode dialogue
     setDialogBox();
 
-    console.log('SCENARIO', scenario);
+    console.log('dialogBox', dialogBox);
 
   } else if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
 
@@ -324,7 +326,7 @@ const handleKeyboardInput = (event) => {
 
     if(!config.gameActive){ // On on n'est pas en phase de jeu
 
-      scenario.launchStorytelling(1);
+      storytelling.launchStorytelling(1);
     }
 
   }
@@ -375,7 +377,7 @@ const drawAll = () => {
   drawSwitchButton();
 
   if(hero.isTalking === true){ // Si le hero ne peut plus bouger
-    scenario.drawDialogs();
+    dialogBox.drawDialogs();
   }
 };
 
@@ -408,12 +410,12 @@ const setDialogBox = () => {
           hero.setTalkMode();
 
 
-          // On récupère le dialogue du poeple
-          scenario.getMsgSet(people.dialog);
+          // On récupère le people à l'objet dialogBox
+          dialogBox.getSprite(people);
 
-          scenario.setMsgToDisplay();
+          dialogBox.setMsgToDisplay();
 
-          console.log('EL scenario', scenario);
+          console.log('EL dialogBox', dialogBox);
           console.log('hero', hero);
           console.log('THE people', people);
         }
@@ -422,9 +424,9 @@ const setDialogBox = () => {
 
       alert('en train de parler');
 
-      if(scenario.checkDialogContinue()){ // Si le dialogue doit se terminer
+      if(dialogBox.checkDialogContinue()){ // Si le dialogue doit se terminer
         // On passe au message suivant
-        scenario.setMsgToDisplay();
+        dialogBox.setMsgToDisplay();
       } else {
         alert('removeTalkMode');
         // On stop la conversation

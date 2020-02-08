@@ -1,4 +1,4 @@
-import { ctx, hero, config, scenario} from '../main.js';
+import { ctx, hero, config, dialogBox} from '../main.js';
 
 // classe d'un people
 export class People {
@@ -6,6 +6,7 @@ export class People {
  // Constructeur de la classe people...
  constructor(params) {
 
+    this.name = params.name;
     // this.reference = this.setReference();
     this.reference = params.reference;
     this.x = params.x; // Position X sur la map

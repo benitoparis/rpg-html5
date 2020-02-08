@@ -227,30 +227,35 @@ export class GeneralConfig {
                {
                  x: 2283,
                  y: 2222,
+                 name: 'Roosevelt',
                  reference: 'persofigurant6',
                  dialog:['Super de vous voir là?', 'Je suis disponible', 'on peut aller au spectacle']
                },
                {
                  x: 568,
                  y: 1078,
+                 name: 'Aaliyah',
                  reference: 'persofigurant7',
                  dialog:['heuhh, je suis pressé', 'que faites vous ici',' je pars']
                },
                {
                  x: 726,
                  y: 1562,
+                 name: 'Stark',
                  reference: 'persofigurant8',
                  dialog:['Je vais acheter des légumes','ou allez-vous faire vos course']
                },
                {
                  x: 770,
                  y: 2338,
+                 name: 'Poppy',
                  reference: 'persofigurant9',
                  dialog:['Je nai rien à vous dire', 'on m accuse de vol']
                },
                {
                  x: 985,
                  y: 1188,
+                 name: 'Chapman',
                  reference: 'persofigurant10',
                  dialog:['Le roi est-il au chateau?', 'Je dois le voir']
                 }
@@ -417,30 +422,35 @@ export class GeneralConfig {
                 {
                   x: 500,
                   y: 1500,
+                  name: 'Joshua',
                   reference: 'persofigurant1',
                   dialog:['Bonjour, vous êtes pressé?','Il y a beaucoup de monde dans le chateau','Vous allez ou au juste?','Savez-vous que le roi organise une fête?','On se croise peu être là-bas?'],
                 },
                 {
                   x: 500,
                   y: 1600,
+                  name: 'James',
                   reference: 'persofigurant2',
                   dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé', 'je vais mettre en place un plan', 'a bientot']
                 },
                 {
                   x: 500,
                   y: 1700,
+                  name: 'Joseph',
                   reference: 'persofigurant3',
                   dialog: ['Que faites vous ici','le temps est magnifique', 'adieu']
                 },
                 {
                   x: 500,
                   y: 1800,
+                  name: 'Andrew',
                   reference: 'persofigurant4',
                   dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici', 'le prince arrive']
                 },
                 {
                   x: 500,
                   y: 1900,
+                  name: 'Peter',
                   reference: 'persofigurant5',
                   dialog: ['Hello','content de vous voir', 'adios']
                 },
@@ -454,7 +464,8 @@ export class GeneralConfig {
             },
             belongsToWorldId: 1
           }
-        ]
+        ],
+
       }
     ];
     this.imagesSet = [
@@ -501,6 +512,30 @@ export class GeneralConfig {
       {type: 'sprite-sheet', reference: 'spritesheet',  filePath: '../img/complete-spritesheet.png'}
     ];
     this.imagesAssets = [];
+    this.stories = [
+          {
+            id: 1,
+            storyArray : [
+              'Contrairement à une opinion répandue, le Lorem Ipsum n\'est pas simplement du texte aléatoire.',
+              'et en étudiant tous les usages de ce mot dans la littérature classique',
+              'L\'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux.',
+              'à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum',
+              'Nam sole orto magnitudine angusti gurgitis sed profundi a transitu arcebantur et dum piscatorios quaerunt lenunculos ve',
+              'Adolescebat autem obstinatum propositum erga haec et similia multa',
+              'Advenit post multos Scudilo Scutariorum tribunus velamento subagrestis ingenii persuasionis opifex callidus. qui eum adulabili',
+              'Sed quid est quod in hac causa maxime homines admirentur et '
+            ]
+          },
+          {
+            id : 2,
+            storyArray : [
+              'questa apertura del Corriere dello Sport ',
+              'scambio di punte sullasse Inter-Napoli. Operazione in chiusura, anche il nerazzurro',
+              'del Bologna e il pallavolista di Modena: il tecnico si schiera con Salvini',
+              'Derby emiliano tra'
+            ]
+          },
+        ]
 
   }
 
