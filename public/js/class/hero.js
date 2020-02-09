@@ -1,5 +1,4 @@
 import { ctx, config } from '../main.js';
-import { Bullet } from './bullet.js';
 
 // classe du héros
 export class Hero {
@@ -9,8 +8,8 @@ export class Hero {
 
     this.reference = 'perso1';
     this.characterImg = config.getImage(this.reference);
-    this.x = 400; // Position X sur la map
-    this.y = 400; // Position Y sur la map
+    this.x = 400; // Position X sur la map lors de l'instanciation
+    this.y = 400; // Position Y sur la map lors de l'instanciation
     this.dx = dx;
     this.dy = dy;
     this.width = 48;
@@ -20,8 +19,8 @@ export class Hero {
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.speedX = speedX;
     this.speedY = speedY;
-    this.faceX = 0;
-    this.faceY = 64;
+    this.faceX = 0; // Coordinnée X de l'image à croper
+    this.faceY = 64; // Coordinnée Y de l'image à croper
     this.currentWorldPosition = {
       wordlId: 1 ,
       mapSheetId: 2
@@ -162,38 +161,6 @@ export class Hero {
 
   }
 
-  // Méthode qui permet au héros de tirer une balle
-/*   fire(){
-    if (this.bulletsList.length > 0) {
-
-      console.log('this.bulletsList[this.shootedBullet]', this.bulletsList[this.shootedBullet]);
-
-      this.bulletsList[this.shootedBullet].isFlying = true;
-      this.bulletsList[this.shootedBullet].x = this.centerX;
-      this.bulletsList[this.shootedBullet].y = this.centerY;
-      // Méthode qui détermine la direction de la balle
-      switch(this.shootDirection){
-        case 'left':
-          this.bulletsList[this.shootedBullet].velX = -1;
-          this.bulletsList[this.shootedBullet].velY = 0;
-          break;
-        case 'right':
-          this.bulletsList[this.shootedBullet].velX = 1;
-          this.bulletsList[this.shootedBullet].velY = 0;
-          break;
-        case 'up':
-          this.bulletsList[this.shootedBullet].velX = 0;
-          this.bulletsList[this.shootedBullet].velY = -1;
-          break;
-        case 'down':
-          this.bulletsList[this.shootedBullet].velX = 0;
-          this.bulletsList[this.shootedBullet].velY = 1;
-          break;
-      }
-      // this.bulletsList[this.shootedBullet].update();
-    }
-  } */
-
   // Méthode pour réinitialiser la position du héro
   setHeroPosition(destination) {
     this.x = destination.x;
@@ -226,11 +193,6 @@ export class Hero {
   // Méthode pour connaitre la direction du joueur
   getDirection(){
     return this.shootDirection;
-  }
-
-  // Méthode pour récupérer le nombre de balle restant
-  getRemainingBullet(){
-    return this.bulletsList.length - this.shootedBullet;
   }
 
   // Méthode pour setter l'index du héros sur la map

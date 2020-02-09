@@ -4,11 +4,12 @@ import { ctx, config, hero} from '../main.js';
 export class SwitchButton {
 
  // Constructeur de la classe SwitchButton
- constructor(reference, coordinate) {
+ constructor(reference, params) {
     this.reference = reference
     this.img = config.getImage(this.reference);
-    this.x = coordinate.x // Position X sur la map
-    this.y = coordinate.y; // Position Y sur la map
+    this.x = params.x // Position X sur la map
+    this.y = params.y; // Position Y sur la map
+    this.target = 'secretPassage';
     this.width = 48;
     this.height = 48;
     this.faceX = 0;
@@ -46,7 +47,7 @@ export class SwitchButton {
 
       if(this.isOpen){ // Si bouton activé
         // On détermine les coordonnées de l'image à cropper
-        this.faceX = 62;
+        this.faceX = 66;
         this.faceY = 32;
       } else {
         this.faceX = 0;

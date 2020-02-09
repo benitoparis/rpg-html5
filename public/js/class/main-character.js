@@ -4,12 +4,13 @@ import { ctx, config, hero} from '../main.js';
 export class MainCharacter {
 
  // Constructeur de la classe Item
- constructor(type, coordinate) {
-    this.name = name; // Exemple 'darius'
-    this.reference = type;
+ constructor(params) {
+    this.name = params.name; // Exemple 'darius'
+    this.reference = params.reference;
     this.characterImg = config.getImage(this.reference);
-    this.x = coordinate.x // Position X sur la map
-    this.y = coordinate.y; // Position Y sur la map
+    this.action = params.action;
+    this.x = params.x // Position X sur la map
+    this.y = params.y; // Position Y sur la map
     this.faceX = 0;
     this.faceY = 0;
     this.width = 48;
@@ -32,11 +33,25 @@ export class MainCharacter {
         this.width, // Largeur de la partie cropée
         this.height // Hauteur de la partie cropée
     );
-  }
+  };
 
   // Méthode pour setter l'index du personnage sur la map
   setMapIndexPosition(){
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
+  }
+
+  // action
+  doSomething(hero){
+
+    if (this.action === 'checkHeroItem'){
+
+      alert('in');
+      if(hero.items > 3) {
+        alert('c est parfait');
+      } else {
+        alert('pas assez d item');
+      }
+    }
   }
 
 

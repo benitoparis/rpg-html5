@@ -1,7 +1,5 @@
 import { Hero } from './class/hero.js';
-import { Enemies } from './class/enemies.js';
 import { GeneralConfig } from './class/general-config.js';
-import { Bullet } from './class/bullet.js';
 import { People } from './class/people.js';
 import { DialogBox } from './class/dialog-box.js';
 import { Item } from './class/item.js';
@@ -25,11 +23,10 @@ let backgroundToDisplay = [];
 let currentMapSheetDatas;
 
 export let hero = {};
-// export let people = {};
 export let peopleList = [];
 export let itemList = [];
 export let secretPassageList = [];
-export let mainCharacterList = []; //darius
+export let mainCharacterList = [];
 export let switchButtonList = [];
 
 
@@ -61,11 +58,9 @@ const InitHero = () => {
 const initMainCharacter = (mainCharacterSet) => {
 
   mainCharacterSet.forEach(elem=> {
-    let mainCharacter = new MainCharacter('persomonstre2', elem);
+    let mainCharacter = new MainCharacter(elem);
     mainCharacterList.push(mainCharacter);
   })
-
-
 };
 
 // Méthode pour Initialiser les people
@@ -97,14 +92,15 @@ const initSwitchButton = (switchButtonSet) => {
 // Méthode qui initialise les passages secrets
 const initSecretPassage = (secretPassageSet) => {
 
-  // if(switchButtonList[0].isOpen){
-    secretPassageSet.forEach(elem => {
-      let secretPassage = new SecretPassage('spritesheet',elem);
-      secretPassageList.push(secretPassage);
-    });
-  // }
-
-
+  // On intère sur les switch button
+  switchButtonList.forEach(elem=> {
+    if(elem.target === 'secretPassage' && elem.isOpen){ // Si un button active les passages secret et est activé
+      secretPassageSet.forEach(elem => {
+        let secretPassage = new SecretPassage('spritesheet',elem);
+        secretPassageList.push(secretPassage);
+      });
+    }
+  })
 };
 
 // Méthode pour initialiser les sprites animés
@@ -169,24 +165,22 @@ const drawBackground = () => {
 };
 
 // On met à jour la position du people
-const updatePeople = (people) => {
+const updatePeople = () => {
 
-  const x = people.x;
-  const y = people.y;
-  const centerX = people.centerX;
-  const centerY = people.centerY;
+  peopleList.forEach(people => {
+    const x = people.x;
+    const y = people.y;
+    const centerX = people.centerX;
+    const centerY = people.centerY;
 
-  people.update();
-  people.setMapIndexPosition();
+    people.update();
+    people.setMapIndexPosition();
 
-  //On vérifie si le people est sorti des limites
-  if(config.checkOutOfBounds(currentMapSheetDatas, people)){ // Si le people est en dehors du terrain
-    // people.x = x;
-    // people.y = y;
-    // people.centerX = centerX;
-    //poeple.centerY = centerY;
-    people.setTarget();
-  }
+    //On vérifie si le people est sorti des limites
+    if(config.checkOutOfBounds(currentMapSheetDatas, people)){ // Si le people est en dehors du terrain
+      people.setTarget();
+    }
+  });
 };
 
 // On dessine les people
@@ -223,6 +217,13 @@ const drawItems = ()=> {
   itemList.forEach(item => {
     item.draw();
   });
+};
+
+// Dessine la boite de dialogue
+const drawDialogBox = ()=> {
+  if(hero.isTalking === true){ // Si le hero est en mode discussion
+    dialogBox.drawDialogs();
+  }
 };
 
 // On dessine les passages secrets
@@ -272,7 +273,7 @@ const updateHero = ()=> {
 
     // On itère sur les passages secrets
     secretPassageList.forEach(passage =>{
-      if(config.checkCollision(hero, passage)) { // Si collision avec le héro
+      if(config.checkCollision(passage, hero)) { // Si collision avec le héro
 
         // On supprime tous les sprites sauf le héro
         removeAllSprites();
@@ -319,9 +320,22 @@ const updateHero = ()=> {
     // On vérifie s'il y a collision entre le héro et le switchButton
     switchButtonList.forEach(elem=> {
       if(config.checkCollision(elem, hero)){
+        if(elem.target === 'secretPassage'){
+          alert('switchButton active');
           elem.toogleOpen();
+        }
       };
     });
+
+    // On vérifie s'il y a collision entre le héro et le main character
+    mainCharacterList.forEach(elem => {
+      if(config.checkCollision(hero, elem)){ // Si collision
+        elem.doSomething(hero);
+        setInterval(endGame(), 3000);
+        storytelling.drawStoryTelling();
+      }
+    });
+
 
     // On vérifie si le héro est sorti des limites
     if(config.checkOutOfBounds(currentMapSheetDatas, hero)){ // Si le héro est en dehors du terrain
@@ -376,10 +390,9 @@ const endGame = () => {
   clearInterval(config.setInterval);
 
   // On reset les sprites
+  removeAllSprites();
   hero = {};
-  enemies = [];
-  peopleList = [];
-  itemList = [];
+
 };
 
 // On ajoute une évènement qui se déclenche dès qu'une touche du clavier est enfoncée.
@@ -391,9 +404,7 @@ const drawAll = () => {
 
 	drawBackground();
 
-  peopleList.forEach(item => {
-    updatePeople(item);
-  });
+  updatePeople();
 
   drawHero();
   drawPeople();
@@ -401,10 +412,8 @@ const drawAll = () => {
   drawMainCharacter();
   drawSwitchButton();
   drawSecretPassage();
+  drawDialogBox();
 
-  if(hero.isTalking === true){ // Si le hero ne peut plus bouger
-    dialogBox.drawDialogs();
-  }
 };
 
 
@@ -440,10 +449,6 @@ const setDialogBox = () => {
           dialogBox.getSprite(people);
 
           dialogBox.setMsgToDisplay();
-
-          console.log('EL dialogBox', dialogBox);
-          console.log('hero', hero);
-          console.log('THE people', people);
         }
       });
     } else { // S'il est en train de parler
@@ -490,7 +495,7 @@ const removeMainCharacter = ()=>{
 // On supprime tous les sprites sauf le héro
 const removeAllSprites = ()=> {
   removePeople();
-  removeSwitchButton();
+  // removeSwitchButton();
   removeSecretPassage();
   removeItems();
   removeMainCharacter();
