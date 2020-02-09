@@ -12,38 +12,25 @@ export class DialogBox {
   // Dessine le dialogue
   drawDialogs() {
 
-    switch(this.dialogStyle){
-      case 'storyTelling':
-        // On dessine un fond noir sur l'écran d'accueil
-        ctx.fillStyle="#5858BA";
-        ctx.fillRect(50, 400, stage.width - 100, 200);
-        // On dessine le border sur le rectangle
-        ctx.strokeStyle = "#FFFFFF";
-        ctx.lineWidth = 3;
-        ctx.strokeRect(50, 400, stage.width - 100, 200);
+    // On dessine un fond bleu
+    ctx.fillStyle="#5858BA";
+    ctx.fillRect(50, 400, stage.width - 100 , 200);
 
-        this.drawMessages("Fusce eu nunc non tortor dignissim elementum quis eget justo. Mauris scelerisque eu justo sed pulvinar. Sed at hendrerit leo. Vivamus ut tortor viverra, vestibulum lorem non, accumsan dui.", 70, 450, 3);
-      break;
+    // On dessine une bordure blanche
+    ctx.strokeStyle = "#FFFFFF";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(50, 400, stage.width - 100, 200);
 
-      case 'dialog':
+    // On affiche le nom du people en haut dans la boite de dialogue
+    this.drawMessages(70, 405, 3, `${this.currentName} :`);
 
-        // On dessine un fond noir sur l'écran d'accueil
-        ctx.fillStyle="#5858BA";
-        ctx.fillRect(50, 400, stage.width - 100 , 200);
-        // On dessine une bordure blanche
-        ctx.strokeStyle = "#FFFFFF";
-        ctx.lineWidth = 3;
-        ctx.strokeRect(50, 400, stage.width - 100, 200);
+    // On affiche le message au centre de la boite de dialogue
+    this.drawMessages(70, 435, 3);
 
-        // On affiche le message au centre de la boite de dialogue
-        this.drawMessages(70, 430, 3);
+    // On dessine l'image de la personne qui parle
+    this.drawPicture();
 
-        this.drawMessages(70, 405, 3, `${this.currentName}:`);
-
-        // On dessine l'image de la personne qui parle
-        this.drawPicture();
-      break;
-    };
+  };
 
     // function fillTextMultiLine(ctx, text, x, y) {
     //   var lineHeight = ctx.measureText("M").width * 1.2;
@@ -53,7 +40,7 @@ export class DialogBox {
     //     y += lineHeight;
     //   }
     // }
-  }
+
 
   // Méthode pour écrire des messages sur l'écran
   drawMessages(x, y, fontsize, msg) {
@@ -75,10 +62,10 @@ export class DialogBox {
     }
     ctx.fillStyle = "#FFFFFF";
 
-    for(let i = 0; i <= msg.length; i += 40){
+    for(let i = 0; i <= msg.length; i += 60){
       let start = i;
       let end = i  + 60;
-      y += 50;
+      y += 25;
 
       let cuttedMsg = msg.slice(start, end);
 

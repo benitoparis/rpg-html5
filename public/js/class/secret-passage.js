@@ -4,11 +4,11 @@ import { ctx, config, hero} from '../main.js';
 export class SecretPassage {
 
  // Constructeur de la classe secret passage
- constructor(reference, coordinate) {
+ constructor(reference, params) {
     this.reference = reference;
     this.img = config.getImage(this.reference);
-    this.x = coordinate.x // Position X sur la map
-    this.y = coordinate.y; // Position Y sur la map
+    this.x = params.x // Position X sur la map
+    this.y = params.y; // Position Y sur la map
     this.faceX = 130;
     this.faceY = 195;
     this.width = 48;
@@ -16,6 +16,7 @@ export class SecretPassage {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
+    this.destination = params.destination;
   }
 
   // Méthode pour afficher le passage secret sur le canvas

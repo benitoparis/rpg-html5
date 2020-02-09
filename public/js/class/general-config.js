@@ -99,7 +99,6 @@ export class GeneralConfig {
                   heroPosition: "up"
                 }
               },
-
               {
                 id: 2,
                 roomName:"salle secrete à droite chateau",
@@ -118,7 +117,6 @@ export class GeneralConfig {
                   heroPosition: "right"
                 }
               },
-
               {
                 id: 3,
                 roomName:"couloir dans chateau inside",
@@ -137,7 +135,6 @@ export class GeneralConfig {
                   heroPosition: "down"
                 }
               },
-
               {
                 id: 4,
                 roomName:"couloir dans chateau inside",
@@ -156,7 +153,6 @@ export class GeneralConfig {
                   heroPosition: "down"
                 }
               },
-
               {
                 id: 5,
                 roomName:"zone entrée chateau inside échelle",
@@ -175,7 +171,6 @@ export class GeneralConfig {
                   heroPosition: "down"
                 }
               },
-
               {
                 id: 6,
                 roomName:"prison",
@@ -211,6 +206,24 @@ export class GeneralConfig {
                   x: 2304,
                   y: 1609,
                   heroPosition: "up"
+                }
+              },
+              {
+                id: 8,
+                roomName:"Entrée principale du chateau inside",
+                x: 1700,
+                y: 2550,
+                width: 48,
+                height: 96,
+                destination : {
+                  worldName:"Nigloland",
+                  worldId: 1,
+                  mapSheetName: "chateau Outside",
+                  mapSheetId: 2,
+                  roomName: "remparts devant",
+                  x: 1300,
+                  y: 2272,
+                  heroPosition: "down"
                 }
               },
             ],
@@ -267,8 +280,34 @@ export class GeneralConfig {
                 {x: 358 , y: 440 },
               ],
               secretPassage: [
-                {x: 1111 , y:462 },
-                {x: 627 , y:1210 },
+                {
+                  x: 1111,
+                  y: 425,
+                  destination : {
+                    worldName:"Nigloland",
+                    worldId: 1,
+                    mapSheetName: "castle outside",
+                    mapSheetId: 2,
+                    roomName: "les remparts en bas",
+                    x: 1800,
+                    y: 2294,
+                    heroPosition: "left"
+                  }
+                }, // salle du roi
+                {
+                  x: 627,
+                  y: 1210,
+                  destination : {
+                    worldName:"Nigloland",
+                    worldId: 1,
+                    mapSheetName: "castle ouside",
+                    mapSheetId: 2,
+                    roomName: "en haut du dongeon",
+                    x: 1507,
+                    y: 1128,
+                    heroPosition: "left"
+                  }
+                }, // salle à droite
               ]
             },
             belongsToWorldId: 1
@@ -395,7 +434,7 @@ export class GeneralConfig {
               },
               {
                 id: 4,
-                roomName: "Entree chateau",
+                roomName: "Entree chateau Outside",
                 x: 1300,
                 y: 2200,
                 width: 78,
@@ -407,8 +446,8 @@ export class GeneralConfig {
                   mapSheetId: 1,
                   roomName: "zone entrée chateau inside",
                   x: 1680,
-                  y: 2500,
-                  heroPosition: "left"
+                  y: 2525,
+                  heroPosition: "up"
                 }
               },
             ],
@@ -420,46 +459,72 @@ export class GeneralConfig {
               ],
               people: [
                 {
-                  x: 500,
-                  y: 1500,
+                  x: 506,
+                  y: 484,
                   name: 'Joshua',
                   reference: 'persofigurant1',
                   dialog:['Bonjour, vous êtes pressé?','Il y a beaucoup de monde dans le chateau','Vous allez ou au juste?','Savez-vous que le roi organise une fête?','On se croise peu être là-bas?'],
                 },
                 {
-                  x: 500,
-                  y: 1600,
+                  x: 1865,
+                  y: 486,
                   name: 'James',
                   reference: 'persofigurant2',
                   dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé', 'je vais mettre en place un plan', 'a bientot']
                 },
                 {
-                  x: 500,
-                  y: 1700,
+                  x: 2365,
+                  y: 1800,
                   name: 'Joseph',
                   reference: 'persofigurant3',
                   dialog: ['Que faites vous ici','le temps est magnifique', 'adieu']
                 },
                 {
-                  x: 500,
-                  y: 1800,
+                  x: 831,
+                  y: 2443,
                   name: 'Andrew',
                   reference: 'persofigurant4',
                   dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici', 'le prince arrive']
                 },
                 {
-                  x: 500,
-                  y: 1900,
+                  x: 1414,
+                  y: 1694,
                   name: 'Peter',
                   reference: 'persofigurant5',
-                  dialog: ['Hello','content de vous voir', 'adios']
+                  dialog: ['Bonjour, vous cherchez le trésors?','il suffit de lever les yeux!', 'Vous approchez du but mais cela ne sera pas simple comme vous allez le constater assez vite', 'Il est difficilement atteignable']
                 },
               ],
               switchButton: [],
               mainCharacter: [],
               secretPassage: [
-                {x: 1344, y: 1136 }, // En haut sur le dongeon
-                {x: 1740, y: 2316 }
+                {
+                  x: 1344,
+                  y: 1136,
+                  destination : {
+                    worldName:"Nigloland",
+                    worldId: 1,
+                    mapSheetName: "castle inside",
+                    mapSheetId: 1,
+                    roomName: "salle à droite",
+                    x: 594,
+                    y: 1232,
+                    heroPosition: "left"
+                  }
+                }, // En haut sur le dongeon
+                {
+                  x: 1740,
+                  y: 2316,
+                  destination : {
+                    worldName:"Nigloland",
+                    worldId: 1,
+                    mapSheetName: "castle inside",
+                    mapSheetId: 1,
+                    roomName: "salle du roi",
+                    x: 1106,
+                    y: 510,
+                    heroPosition: "left"
+                  }
+                } // sur les remparts en bas
               ]
             },
             belongsToWorldId: 1

@@ -96,10 +96,14 @@ const initSwitchButton = (switchButtonSet) => {
 
 // Méthode qui initialise les passages secrets
 const initSecretPassage = (secretPassageSet) => {
-  secretPassageSet.forEach(elem => {
-    let secretPassage = new SecretPassage('spritesheet',elem);
-    secretPassageList.push(secretPassage);
-  });
+
+  // if(switchButtonList[0].isOpen){
+    secretPassageSet.forEach(elem => {
+      let secretPassage = new SecretPassage('spritesheet',elem);
+      secretPassageList.push(secretPassage);
+    });
+  // }
+
 
 };
 
@@ -266,6 +270,28 @@ const updateHero = ()=> {
 
     });
 
+    // On itère sur les passages secrets
+    secretPassageList.forEach(passage =>{
+      if(config.checkCollision(hero, passage)) { // Si collision avec le héro
+
+        // On supprime tous les sprites sauf le héro
+        removeAllSprites();
+
+        // On renseigne la position du héro dans la pièce de destination
+        hero.setHeroPosition(passage.destination);
+
+        // On récupère les informations sur la mapSheep courrante
+        currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
+
+        // On selectionne le bon background
+        selectBackGroundImg(hero);
+
+        // On initalise à nouveau les sprites en fonction de la mapsheet
+        initSprites();
+      }
+    });
+
+
     let index = 0;
     // On vérifie s'il y a une collision entre un item et le héro
     itemList.forEach(item => {
@@ -372,9 +398,9 @@ const drawAll = () => {
   drawHero();
   drawPeople();
   drawItems();
-  drawSecretPassage();
   drawMainCharacter();
   drawSwitchButton();
+  drawSecretPassage();
 
   if(hero.isTalking === true){ // Si le hero ne peut plus bouger
     dialogBox.drawDialogs();
