@@ -1,4 +1,4 @@
-import { ctx } from '../main.js';
+import { ctx, dialogBox } from '../main.js';
 
 // Classe de configuration générale
 export class GeneralConfig {
@@ -282,7 +282,7 @@ export class GeneralConfig {
                  y: 440,
                  name: 'Darius',
                  reference: 'persomonstre2',
-                 dialog:['Super de vous voir là?', 'Je suis disponible', 'on peut aller au spectacle'],
+                 dialog: ['Super de vous voir là?', 'Je suis disponible', 'on peut aller au spectacle'],
                  action : 'checkHeroItem'
                 }, // salle secrete arrière chateau inside
               ],
@@ -650,128 +650,6 @@ export class GeneralConfig {
   };
 
 
-  // ***** Appels des Webservices ****** //
-  // Récupère un joueur sur le serveur
-/*   getPlayerById(id){
-    const that = this;
-    console.log('THAT', that);
-    console.log("on entre dans getPlayerById");
-
-    const myHeaders = new Headers(); */
-    // myHeaders.append('Accept', '*/*');
-/*     const myInit = {
-      mode: 'cors',
-      method:'GET',
-      headers: myHeaders
-    }
-
-    const url = `http://benoit-dev-web.com/api/v1/player/${id}`;
-    // Appel au WS
-    fetch(url, myInit)
-      .then(function(resp){
-        console.log('resp', resp);
-        // console.log('resp', resp.body.json());
-        //return resp.json();
-        return resp.json();
-      }).then(function(data){
-          console.log("data", data);
-          that.playerProgress.id_player = data[0].id;
-          that.playerProgress.currentStage = data[0].currentStage;
-          that.playerProgress.totalPoints = data[0].totalPoints;
-          console.log('this.playerProgress', this.playerProgress);
-      }).catch(error => {
-        // If there is any error you will catch them here
-        console.log(error);
-        console.log("c est une erreur de playerConfig");
-    })
-  }; */
-
-  // Récupère la liste des joueurs et on classe par nombre de points
-/*   getPlayers(){
-    const that = this;
-    const myHeaders = new Headers(); */
-    // myHeaders.append('Accept', '*/*');
-/*     const myInit = {
-      mode: 'cors',
-      method:'GET',
-      headers: myHeaders
-    }
-
-    const url = `http://benoit-dev-web.com/api/v1/player`;
-    // Appel au WS
-    fetch(url, myInit)
-      .then(function(resp){
-        return resp.json();
-      }).then(function(data){
-        that.playersRanking = data.sort((a, b) => (a.totalPoints < b.totalPoints) ? 1 : -1);
-        console.log('this.playersRanking', that.playersRanking);
-      }).catch(error => {
-        // If there is any error you will catch them here
-        console.log(error);
-        console.log("c est une erreur de playerConfig");
-    })
-  }; */
-
-  // Méthode pour mettre à jour la progression du héros sur le serveur
-/*   updateHero(){
-    const that = this;
-
-      const myHeaders = new Headers(); */
-      //myHeaders.append('Accept', '*/*');
-/*       const myInit = {
-        mode: 'cors',
-        method:'PUT',
-        headers: myHeaders,
-        body:JSON.stringify(this.playerProgress)
-      }
-
-      const url = `http://benoit-dev-web.com/api/v1/player/${this.playerProgress.id_player}`;
-      // Appel au WS
-      fetch(url, myInit)
-        .then(function(resp){
-          console.log('resp', resp);
-          return resp.json();
-        }).then(function(data){
-            console.log("data", data);
-        }).catch(error => {
-          // If there is any error you will catch them here
-          console.log(error);
-          console.log("c est une erreur sur l'update de playerConfig");
-      })
-  }; */
-
-  // On récupère la liste et le paramétrages des tableaux depuis le WS
-/*  getStageList(){
-    const that = this;
-
-    const myHeaders = new Headers(); */
-    // myHeaders.append('Accept', '*/*');
-    /* const myInit = {
-      mode: 'cors',
-      method:'GET',
-      headers: myHeaders
-    }
-
-    const url = `http://benoit-dev-web.com/api/v1/stage`;
-    // Appel au WS
-    fetch(url, myInit)
-      .then(function(resp){
-        console.log('stage', resp);
-        return resp.json();
-      }).then(function(data){
-          console.log("stage", data);
-          that.stageConfig = data;
-          console.log('that.stageConfig', that.stageConfig);
-      }).catch(error => {
-        // If there is any error you will catch them here
-        console.log(error);
-        console.log("c est une erreur");
-    })
-
-  } */
-
-  // ***** Fin des appels aux Webservices ****** //
-
 
   // Méthode pour afficher le viewport
   drawViewportBackground(roomImg) {
@@ -804,7 +682,8 @@ export class GeneralConfig {
   }
 
   // Charge les images du jeu
-  loadImages (drawHomeMenu) {
+  loadImages () {
+
     // On créer les objets images et on le met dans un tableau
     this.imagesSet.forEach((item, index)=> {
         this.imagesAssets.push(new Image());
@@ -812,7 +691,7 @@ export class GeneralConfig {
         this.imagesAssets[index].onload = ()=> {
           if(index === 4){ // Au chargement de la dernière image de background
             // On affiche l'écran d'accueil du jeu
-            drawHomeMenu();
+            this.drawHomeMenu();
           }
         };
     });
@@ -851,4 +730,17 @@ export class GeneralConfig {
     mapsheet.sprites[sprite].splice(index, 1);
 
   }
+
+
+  // Dessine l'image du menu
+  drawHomeMenu(){
+
+    // On dessine un fond noir sur l'écran d'accueil
+    ctx.fillStyle="#000000";
+    ctx.fillRect(0,0, stage.width, stage.height);
+    // On affiche les messages
+    dialogBox.drawMessages(10 , stage.height / 3, 1, 'MY OWN RPG');
+    dialogBox.drawMessages(10 , stage.height / 2, 2, 'Press ENTER');
+    dialogBox.drawMessages(stage.width / 4, 500, 2, ' ©2020 Copyright MYNAME');
+  };
 }

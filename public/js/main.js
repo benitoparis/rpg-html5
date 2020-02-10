@@ -30,21 +30,8 @@ export let mainCharacterList = [];
 export let switchButtonList = [];
 
 
-// Dessine l'image du menu
-const drawHomeMenu = ()=> {
-
-  // On dessine un fond noir sur l'écran d'accueil
-  ctx.fillStyle="#000000";
-  ctx.fillRect(0,0, stage.width, stage.height);
-  // On affiche les messages
-  dialogBox.drawMessages(10 , stage.height / 3, 1, 'MY OWN RPG');
-  dialogBox.drawMessages(10 , stage.height / 2, 2, 'Press ENTER');
-  dialogBox.drawMessages(stage.width / 4, 500, 2, ' ©2020 Copyright MYNAME');
-};
-
-
 // On charge les images du jeu
-config.loadImages(drawHomeMenu);
+config.loadImages();
 
 
 
@@ -220,7 +207,7 @@ const drawItems = ()=> {
 };
 
 // Dessine la boite de dialogue
-const drawDialogBox = ()=> {
+export const drawDialogBox = ()=> {
   if(hero.isTalking === true){ // Si le hero est en mode discussion
     dialogBox.drawDialogs();
   }
@@ -321,20 +308,19 @@ const updateHero = ()=> {
     switchButtonList.forEach(elem=> {
       if(config.checkCollision(elem, hero)){
         if(elem.target === 'secretPassage'){
-          alert('switchButton active');
+          alert('Levier activé');
           elem.toogleOpen();
         }
       };
     });
 
-    // On vérifie s'il y a collision entre le héro et le main character
-    mainCharacterList.forEach(elem => {
-      if(config.checkCollision(hero, elem)){ // Si collision
-        elem.doSomething(hero);
-        setInterval(endGame(), 3000);
-        storytelling.drawStoryTelling();
-      }
-    });
+    // // On vérifie s'il y a collision entre le héro et le main character
+    // mainCharacterList.forEach(elem => {
+    //   if(config.checkCollision(hero, elem)){ // Si collision
+    //     elem.doSomething(hero);
+    //     endGame();
+    //   }
+    // });
 
 
     // On vérifie si le héro est sorti des limites
@@ -350,30 +336,35 @@ const updateHero = ()=> {
 // Méthode qui réagit aux évènements du clavier
 const handleKeyboardInput = (event) => {
 
-  if (event.code === 'Space'){ // Si la touche appuyée est Espace
+  console.log('handleKeyboardInput');
+
+  if (event.code === 'Space'){ // Si la touche ESPACE
 
     // On active le mode dialogue
     setDialogBox();
 
-    console.log('dialogBox', dialogBox);
+  } else if (event.keyCode === 13) { // Si touche ENTRER
 
-  } else if (event.keyCode !== 13) { // Si la touche appuyée est différente d'entrée on update le hero
+    if(!config.gameActive){ // On n'est pas en phase de jeu
+
+      console.log('On nest pas en phase de jeu');
+      // On lance la cinématique
+      storytelling.launchStorytelling(1);
+    }
+
+	}  else { // n'importe quel autre touche
 
     // on met à jour le hero
     updateHero();
-
-	}  else { // le joueur a appuyé sur la touche Entrée
-
-    if(!config.gameActive){ // On on n'est pas en phase de jeu
-
-      storytelling.launchStorytelling(1);
-    }
 
   }
 };
 
 // On initialise tous les élémets du jeu
 export const launchGame = (event) => {
+
+  ctx.clearRect(0, 0, stage.width, stage.height);
+
   config.gameActive = true;
 
   // On initialise les sprites après un délai de deux secondes
@@ -386,12 +377,22 @@ export const launchGame = (event) => {
 // Méthode qui met fin au jeu
 const endGame = () => {
 
-  // On met fin au cycle de rafraichissement
-  clearInterval(config.setInterval);
-
   // On reset les sprites
   removeAllSprites();
   hero = {};
+
+  // On reset le canvas
+  ctx.clearRect(0, 0, stage.width, stage.height);
+
+  // On met fin à la phase de jeu
+  config.gameActive = false;
+
+  // On met fin au cycle de rafraichissement
+  clearInterval(config.setInterval);
+
+  storytelling.drawBlackScreen('the END');
+
+  setTimeout(config.drawHomeMenu, 3000);
 
 };
 
@@ -402,10 +403,9 @@ window.addEventListener('keydown', handleKeyboardInput);
 // Méthode pour afficher tous les éléments dans l'animation
 const drawAll = () => {
 
+  // Initialisation
 	drawBackground();
-
   updatePeople();
-
   drawHero();
   drawPeople();
   drawItems();
@@ -437,27 +437,52 @@ playSound('../audio/soundtracks/far-east-kingdom.mp3');
 
 // On déclenche le mode dialogue
 const setDialogBox = () => {
-    if(hero.isTalking === false){
+    if(hero.isTalking === false){ // Le héro n'est pas déjà en cours de discussion
 
       peopleList.forEach(people => {
         // On vérifie s'il y a collision entre le héro et un people
         if(config.checkCollision(hero, people)){ // Si collision
-          hero.setTalkMode();
 
+          // Le héro passe en mode discussion
+          hero.setTalkMode();
 
           // On récupère le people à l'objet dialogBox
           dialogBox.getSprite(people);
 
+          // On renseigne le message à afficher
           dialogBox.setMsgToDisplay();
         }
       });
+
+      // On vérifie s'il y a collision entre le héro et le main character
+      mainCharacterList.forEach(mainCharacter => {
+        if(config.checkCollision(hero, mainCharacter)){ // Si collision
+
+          // Le héro passe en mode discussion
+          hero.setTalkMode();
+
+          if(mainCharacter.doSomething(hero)){ // Si le main Character constate que le héro a les 12 trésors
+            mainCharacter.dialog = ['bravo', 'c super'];
+            setTimeout(endGame, 5000);
+          }
+          // On récupère le main Character à l'objet dialogBox
+          dialogBox.getSprite(mainCharacter);
+
+          // On renseigne le message à afficher
+          dialogBox.setMsgToDisplay();
+        }
+      });
+
+
     } else { // S'il est en train de parler
 
       alert('en train de parler');
 
       if(dialogBox.checkDialogContinue()){ // Si le dialogue doit se terminer
+
         // On passe au message suivant
         dialogBox.setMsgToDisplay();
+
       } else {
         alert('removeTalkMode');
         // On stop la conversation

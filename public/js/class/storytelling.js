@@ -13,13 +13,24 @@ export class Storytelling {
   // Dessine une storyTelling
   drawStoryTelling() {
 
-    // On dessine un fond noir
-    ctx.fillStyle="#000000";
-    ctx.fillRect(0, 0, stage.width, stage.height);
+    this.drawBlackScreen();
 
     // On affiche le message au centre
     this.drawMessages(70, 200, 2);
   };
+
+  // Dessine une écran noir
+  drawBlackScreen(msg){
+    // On dessine un fond noir
+    ctx.fillStyle="#000000";
+    ctx.fillRect(0, 0, stage.width, stage.height);
+
+    if(msg){
+      // On affiche le message au centre
+      this.drawMessages(stage.width / 2, stage.height / 2, 1, msg);
+    }
+
+  }
 
   // Méthode pour écrire des messages sur l'écran
   drawMessages(x, y, fontsize, msg) {
@@ -78,6 +89,8 @@ export class Storytelling {
       return item.id === id;
     }).storyArray;
 
+    console.log('this.currentMsgSet', this.currentMsgSet);
+
     this.setMsgToDisplay();
 
     if(this.checkDialogContinue()){ // Si la story doit continuer
@@ -106,6 +119,7 @@ export class Storytelling {
     if (this.currentMsgIndex < this.currentMsgSet.length){
       return true;
     } else {
+      this.currentMsgIndex = 0;
       return false;
     }
   }

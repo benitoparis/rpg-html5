@@ -18,6 +18,7 @@ export class MainCharacter {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
+    this.dialog = params.dialog;
   }
 
   // Méthode pour afficher le personnage sur le canvas
@@ -43,13 +44,14 @@ export class MainCharacter {
   // action
   doSomething(hero){
 
+    console.log('le hero', hero);
+
     if (this.action === 'checkHeroItem'){
 
-      alert('in');
-      if(hero.items > 3) {
-        alert('c est parfait');
+      if(hero.items > 0) {
+        return true;
       } else {
-        alert('pas assez d item');
+        return false;
       }
     }
   }
