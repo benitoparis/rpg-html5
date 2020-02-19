@@ -585,28 +585,28 @@ export class GeneralConfig {
     ];
     this.imagesAssets = [];
     this.stories = [
-          {
-            id: 1,
-            storyArray : [
-              'Contrairement à une opinion répandue, le Lorem Ipsum n\'est pas simplement du texte aléatoire.',
-              'et en étudiant tous les usages de ce mot dans la littérature classique',
-              'L\'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux.',
-              'à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum',
-              'Nam sole orto magnitudine angusti gurgitis sed profundi a transitu arcebantur et dum piscatorios quaerunt lenunculos ve',
-              'Adolescebat autem obstinatum propositum erga haec et similia multa',
-              'Advenit post multos Scudilo Scutariorum tribunus velamento subagrestis ingenii persuasionis opifex callidus. qui eum adulabili',
-              'Sed quid est quod in hac causa maxime homines admirentur et '
-            ]
-          },
-          {
-            id : 2,
-            storyArray : [
-              'questa apertura del Corriere dello Sport ',
-              'scambio di punte sullasse Inter-Napoli. Operazione in chiusura, anche il nerazzurro',
-              'del Bologna e il pallavolista di Modena: il tecnico si schiera con Salvini',
-              'Derby emiliano tra'
-            ]
-          },
+      {
+        id: 1,
+        storyArray : [
+          'Contrairement à une opinion répandue, le Lorem Ipsum n\'est pas simplement du texte aléatoire.',
+          'et en étudiant tous les usages de ce mot dans la littérature classique',
+          'L\'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux.',
+          'à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum',
+          'Nam sole orto magnitudine angusti gurgitis sed profundi a transitu arcebantur et dum piscatorios quaerunt lenunculos ve',
+          'Adolescebat autem obstinatum propositum erga haec et similia multa',
+          'Advenit post multos Scudilo Scutariorum tribunus velamento subagrestis ingenii persuasionis opifex callidus. qui eum adulabili',
+          'Sed quid est quod in hac causa maxime homines admirentur et '
+        ]
+      },
+      {
+        id : 2,
+        storyArray : [
+          'questa apertura del Corriere dello Sport ',
+          'scambio di punte sullasse Inter-Napoli. Operazione in chiusura, anche il nerazzurro',
+          'del Bologna e il pallavolista di Modena: il tecnico si schiera con Salvini',
+          'Derby emiliano tra'
+        ]
+      }
     ];
 
   }
@@ -617,7 +617,7 @@ export class GeneralConfig {
     return Math.floor((Math.random() * b)) + a;
   }
 
-  // Méthode pour vérifier la collision entre un élément a et b
+  // Méthode pour vérifier s'il y collision entre un élément a et b
   checkCollision = (a, b) => {
 
     if((a.x < b.centerX) && (b.centerX < (a.x + a.width))
@@ -629,17 +629,8 @@ export class GeneralConfig {
     }
   };
 
-  // Méthode pour vérifier la collision entre un élément a et b en prenant en compte les index sur la map
-  checkCollisionByMapIndex = (room) => {
-    // Si index du joueur vaut 0 sur la map il y a collision
-    if (room.collisionArray[hero.mapIndexPosition] === 0) {
 
-    } else { // Sinon, pas de collision
-
-    }
-  };
-
-  // Méthode qui vérifie si le héro est sorti des limites autorisées
+  // Méthode qui vérifie si le héro est sorti des limites autorisées / ne traverse pas les murs
   checkOutOfBounds = (currentMap, someOne) => {
     // Si index du joueur vaut 0 sur la map il y a collision
     if (currentMap.collisionArray[someOne.mapIndexPosition] === 0) {
@@ -652,19 +643,19 @@ export class GeneralConfig {
 
 
   // Méthode pour afficher le viewport
-  drawViewportBackground(roomImg) {
-    ctx.drawImage(
-      roomImgLayer1,
-      this.roomX , // Position X de la partie à croper
-      this.roomY , // Position Y de la partie à croper
-      750 , // Largeur de la partie à croper
-      62.5 , // Hauteur de la partie à corper
-      this.canvasX, // Position x de l'image à croper sur le canvas
-      this.canvasY,  // Position y de l'image à croper sur le canvas
-      960 , // Largeur de la partie cropée
-      62.5 // Hauteur de la partie cropée
-    );
-  }
+  // drawViewportBackground(roomImg) {
+  //   ctx.drawImage(
+  //     roomImgLayer1,
+  //     this.roomX , // Position X de la partie à croper
+  //     this.roomY , // Position Y de la partie à croper
+  //     750 , // Largeur de la partie à croper
+  //     62.5 , // Hauteur de la partie à corper
+  //     this.canvasX, // Position x de l'image à croper sur le canvas
+  //     this.canvasY,  // Position y de l'image à croper sur le canvas
+  //     960 , // Largeur de la partie cropée
+  //     62.5 // Hauteur de la partie cropée
+  //   );
+  // }
 
   // Méthode qui renvoie les informations de la mapsheet courante
   getCurrentMapSheetDatas(hero){
@@ -673,7 +664,7 @@ export class GeneralConfig {
     });
   }
 
-  // Récupère l'objet image correspondant à une reference
+  // Méthode qui renvoie l'objet image correspondant à une reference
   getImage(reference) {
     const index = this.imagesSet.findIndex(item => {
       return item.reference === reference;
@@ -681,10 +672,10 @@ export class GeneralConfig {
     return this.imagesAssets[index];
   }
 
-  // Charge les images du jeu
+  // Méthode qui charge toutes les images du jeu
   loadImages () {
 
-    // On créer les objets images et on le met dans un tableau
+    // On créer les objets Images et on le met dans un tableau
     this.imagesSet.forEach((item, index)=> {
         this.imagesAssets.push(new Image());
         this.imagesAssets[index].src = item.filePath;
@@ -697,7 +688,7 @@ export class GeneralConfig {
     });
   }
 
-  // Vérifie s'il reste des sprites à initialiser
+  // Vérifie s'il reste des sprites à initialiser dans la map courante
   checkRemainingSprites(object, currentMapSheet){
     const worldsNb = this.worlds.length;
     let sprites = [];
@@ -712,7 +703,6 @@ export class GeneralConfig {
 
   // Méthode qui supprime définitivement un élément du monde
   permanentlyRemoveFromWorld(currentMapSheet, sprite, item){
-
 
     // this.worlds[currentMapSheet.belongsToWorldId].mapSheets[currentMapSheet.mapSheetId].sprites[sprite].splice(index, 1);
     const world = this.worlds.find(elem=>{
@@ -732,12 +722,13 @@ export class GeneralConfig {
   }
 
 
-  // Dessine l'image du menu
+  // Affiche le menu du jeu
   drawHomeMenu(){
 
     // On dessine un fond noir sur l'écran d'accueil
     ctx.fillStyle="#000000";
     ctx.fillRect(0,0, stage.width, stage.height);
+
     // On affiche les messages
     dialogBox.drawMessages(10 , stage.height / 3, 1, 'MY OWN RPG');
     dialogBox.drawMessages(10 , stage.height / 2, 2, 'Press ENTER');

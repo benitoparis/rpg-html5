@@ -67,7 +67,7 @@ const initItems = (itemSet)=> {
 
 };
 
-// On initialise un SwitchButton
+// On initialise les boutons sur la map
 const initSwitchButton = (switchButtonSet) => {
  switchButtonSet.forEach(elem => {
    let switchButton = new SwitchButton('spritesheet', elem);
@@ -76,12 +76,12 @@ const initSwitchButton = (switchButtonSet) => {
 
 };
 
-// Méthode qui initialise les passages secrets
+// Méthode qui initialise les passages secrets sur la map
 const initSecretPassage = (secretPassageSet) => {
 
-  // On intère sur les switch button
+  // On intère sur les boutons
   switchButtonList.forEach(elem=> {
-    if(elem.target === 'secretPassage' && elem.isOpen){ // Si un button active les passages secret et est activé
+    if(elem.target === 'secretPassage' && elem.isOpen){ // Si un boutton active les passages secret et est activé
       secretPassageSet.forEach(elem => {
         let secretPassage = new SecretPassage('spritesheet',elem);
         secretPassageList.push(secretPassage);
@@ -90,7 +90,7 @@ const initSecretPassage = (secretPassageSet) => {
   })
 };
 
-// Méthode pour initialiser les sprites animés
+// Méthode pour initialiser les sprites
 const initSprites = () => {
 
   if (typeof(hero.x) === 'undefined'){ // On vérifie si le héro n'a pas déjà été initialisé
@@ -151,7 +151,7 @@ const drawBackground = () => {
   })
 };
 
-// On met à jour la position du people
+// On met à jour la position des personnages
 const updatePeople = () => {
 
   peopleList.forEach(people => {
@@ -163,42 +163,42 @@ const updatePeople = () => {
     people.update();
     people.setMapIndexPosition();
 
-    //On vérifie si le people est sorti des limites
-    if(config.checkOutOfBounds(currentMapSheetDatas, people)){ // Si le people est en dehors du terrain
+    //On vérifie si le personnage est sorti des limites / a traversé un mur.
+    if(config.checkOutOfBounds(currentMapSheetDatas, people)){ // Si le personnage est en dehors du terrain
       people.setTarget();
     }
   });
 };
 
-// On dessine les people
+// On dessine les personnages
 const drawPeople = ()=> {
-  // On itère sur la liste des people
-  peopleList.forEach(item => {
-    item.draw();
+  // On itère sur la liste des personnages
+  peopleList.forEach(people => {
+    people.draw();
   });
 };
 
-// Dessiner le héro
-const drawHero = ()=> {
+// On dessine le héro
+const drawHero = () => {
   hero.drawHero();
   hero.drawHeroDatas(stage.width - 200, 30, 3);
-}
+};
 
-// Méthode pour afficher les switchbutton
+// Méthode pour afficher les boutons
 const drawSwitchButton = ()=> {
-  switchButtonList.forEach(elem=> {
-    elem.draw();
+  switchButtonList.forEach(button => {
+    button.draw();
   })
 }
-
+// On dessine les personnages principaux
 const drawMainCharacter = ()=> {
-  mainCharacterList.forEach(elem=>{
-    elem.draw();
+  mainCharacterList.forEach(mainCharacter => {
+    mainCharacter.draw();
   });
 };
 
 
-// On dessine les items
+// On dessine les items/objets
 const drawItems = ()=> {
   // On itère sur la liste des items
   itemList.forEach(item => {
@@ -216,12 +216,13 @@ export const drawDialogBox = ()=> {
 // On dessine les passages secrets
 const drawSecretPassage = ()=> {
   // On itère sur la liste des passages secrets
-  secretPassageList.forEach(elem => {
-    elem.draw();
+  secretPassageList.forEach(secretPassage => {
+    secretPassage.draw();
   });
 };
 
-const updateHero = ()=> {
+// On update les coordonnées du héros
+const updateHero = () => {
     const x = hero.x;
     const y = hero.y;
     const centerX = hero.centerX;
@@ -232,9 +233,8 @@ const updateHero = ()=> {
     // On itère sur toutes les portes de la mapsheet
     currentMapSheetDatas.doors.forEach(door => {
 
-      // On vérifie s'il y a une collision entre la porte et le héro
+      // On vérifie s'il y a une collision entre la porte et le héros
       if (config.checkCollision(door, hero)) { // Si passe par une porte
-        console.log('passe par une porte');
 
         // On supprime tous les sprites sauf le héro
         removeAllSprites();
@@ -260,7 +260,7 @@ const updateHero = ()=> {
 
     // On itère sur les passages secrets
     secretPassageList.forEach(passage =>{
-      if(config.checkCollision(passage, hero)) { // Si collision avec le héro
+      if(config.checkCollision(passage, hero)) { // On vérifie s'il y a une collision entre le passage secret et le héros
 
         // On supprime tous les sprites sauf le héro
         removeAllSprites();
@@ -281,7 +281,7 @@ const updateHero = ()=> {
 
 
     let index = 0;
-    // On vérifie s'il y a une collision entre un item et le héro
+    // On vérifie s'il y a une collision entre un item/ Objet et le héros
     itemList.forEach(item => {
       if(config.checkCollision(item, hero)){ // Si collision
 
@@ -300,12 +300,12 @@ const updateHero = ()=> {
 
         index++;
 
-
       }
     });
 
-    // On vérifie s'il y a collision entre le héro et le switchButton
+    // On vérifie s'il y a collision entre le héros et un bouton
     switchButtonList.forEach(elem=> {
+
       if(config.checkCollision(elem, hero)){
         if(elem.target === 'secretPassage'){
           alert('Levier activé');
@@ -323,7 +323,7 @@ const updateHero = ()=> {
     // });
 
 
-    // On vérifie si le héro est sorti des limites
+    // On vérifie si le héros est sorti des limites
     if(config.checkOutOfBounds(currentMapSheetDatas, hero)){ // Si le héro est en dehors du terrain
       hero.x = x;
       hero.y = y;
@@ -336,9 +336,7 @@ const updateHero = ()=> {
 // Méthode qui réagit aux évènements du clavier
 const handleKeyboardInput = (event) => {
 
-  console.log('handleKeyboardInput');
-
-  if (event.code === 'Space'){ // Si la touche ESPACE
+  if (event.code === 'Space'){ // Si le joueur appuie sur la touche ESPACE
 
     // On active le mode dialogue
     setDialogBox();
@@ -347,12 +345,11 @@ const handleKeyboardInput = (event) => {
 
     if(!config.gameActive){ // On n'est pas en phase de jeu
 
-      console.log('On nest pas en phase de jeu');
       // On lance la cinématique
       storytelling.launchStorytelling(1);
     }
 
-	}  else { // n'importe quel autre touche
+	}  else { // n'importe quelle autre touche
 
     // on met à jour le hero
     updateHero();
@@ -377,7 +374,7 @@ export const launchGame = (event) => {
 // Méthode qui met fin au jeu
 const endGame = () => {
 
-  // On reset les sprites
+  // On reset les sprites dont le héros
   removeAllSprites();
   hero = {};
 
@@ -392,6 +389,7 @@ const endGame = () => {
 
   storytelling.drawBlackScreen('the END');
 
+  // on relance le menu du jeu
   setTimeout(config.drawHomeMenu, 3000);
 
 };
@@ -417,9 +415,6 @@ const drawAll = () => {
 };
 
 
-
-
-
 // Méthode qui joue une piste sonore
 const playSound = (url)  => {
   // audio.style.display = "none";
@@ -432,21 +427,22 @@ const playSound = (url)  => {
   audio.addEventListener('click', audio.play);
 };
 
-playSound('../audio/soundtracks/far-east-kingdom.mp3');
+
+//playSound('../audio/soundtracks/far-east-kingdom.mp3');
 
 
 // On déclenche le mode dialogue
 const setDialogBox = () => {
-    if(hero.isTalking === false){ // Le héro n'est pas déjà en cours de discussion
+    if(hero.isTalking === false){ // Le héros n'est pas déjà en cours de discussion
 
       peopleList.forEach(people => {
-        // On vérifie s'il y a collision entre le héro et un people
+        // On vérifie s'il y a collision entre le héro et un personnage
         if(config.checkCollision(hero, people)){ // Si collision
 
-          // Le héro passe en mode discussion
+          // Le héros passe en mode discussion
           hero.setTalkMode();
 
-          // On récupère le people à l'objet dialogBox
+          // On injecte le personnage dans l'objet dialogBox
           dialogBox.getSprite(people);
 
           // On renseigne le message à afficher
@@ -454,18 +450,24 @@ const setDialogBox = () => {
         }
       });
 
-      // On vérifie s'il y a collision entre le héro et le main character
+
+      // On vérifie s'il y a collision entre le héros et l'un des personnages principaux
       mainCharacterList.forEach(mainCharacter => {
         if(config.checkCollision(hero, mainCharacter)){ // Si collision
 
-          // Le héro passe en mode discussion
+          // Le héros passe en mode discussion
           hero.setTalkMode();
 
-          if(mainCharacter.doSomething(hero)){ // Si le main Character constate que le héro a les 12 trésors
+          if(mainCharacter.doSomething(hero)){ // Si le héro constate que le héros a récupéré les 12 trésors
+
+            // On renseigne une nouvelle discussion
             mainCharacter.dialog = ['bravo', 'c super'];
+
+            // La partie est terminée
+            // On met fin au jeu
             setTimeout(endGame, 5000);
           }
-          // On récupère le main Character à l'objet dialogBox
+          // On injecte le personnage principal dans l'objet dialogBox
           dialogBox.getSprite(mainCharacter);
 
           // On renseigne le message à afficher
@@ -474,16 +476,17 @@ const setDialogBox = () => {
       });
 
 
-    } else { // S'il est en train de parler
+    } else { // Si le héro est déjà en train de parler
 
       alert('en train de parler');
 
-      if(dialogBox.checkDialogContinue()){ // Si le dialogue doit se terminer
+      if(dialogBox.checkDialogContinue()){ // Si le dialogue continue
 
         // On passe au message suivant
         dialogBox.setMsgToDisplay();
 
       } else {
+
         alert('removeTalkMode');
         // On stop la conversation
         hero.removeTalkMode();
@@ -492,35 +495,35 @@ const setDialogBox = () => {
     }
 };
 
-// Méthode pour supprimer les people
-const removePeople = ()=> {
+// Méthode pour supprimer les personnages
+const removePeople = () => {
   peopleList = [];
 };
 
-// Méthode qui supprime les switchButton
-const removeSwitchButton = ()=>{
+// Méthode pour supprime les boutons
+const removeSwitchButton = () => {
   switchButtonList = [];
 };
 
-// Méthode qui supprime les passages secrets
+// Méthode pour supprimer les passages secrets
 const removeSecretPassage = ()=>{
   secretPassageList = [];
 };
 
-// Méthode qui supprime tous les items
-const removeItems = ()=>{
+// Méthode pour supprimer tous les items
+const removeItems = () =>{
   itemList = [];
 };
 
-// Méthode qui supprime le main character
+// Méthode pour supprime les personnages principaux
 const removeMainCharacter = ()=>{
   mainCharacterList = [];
 }
 
-// On supprime tous les sprites sauf le héro
+// Méthode pour supprimer tous les sprites sauf le héros
 const removeAllSprites = ()=> {
   removePeople();
-  // removeSwitchButton();
+  //removeSwitchButton();
   removeSecretPassage();
   removeItems();
   removeMainCharacter();

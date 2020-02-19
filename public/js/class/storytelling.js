@@ -110,7 +110,7 @@ export class Storytelling {
         this.currentMsgIndex++;
     } else {
       this.msgToDisplay = '';
-      this.currentMsgSet = []
+      this.currentMsgSet = [];
     }
   }
 

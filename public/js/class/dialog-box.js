@@ -12,16 +12,9 @@ export class DialogBox {
   // Dessine le dialogue
   drawDialogs() {
 
-    // On dessine un fond bleu
-    ctx.fillStyle="#5858BA";
-    ctx.fillRect(50, 400, stage.width - 100 , 200);
+    this.drawDialogBox();
 
-    // On dessine une bordure blanche
-    ctx.strokeStyle = "#FFFFFF";
-    ctx.lineWidth = 3;
-    ctx.strokeRect(50, 400, stage.width - 100, 200);
-
-    // On affiche le nom du people en haut dans la boite de dialogue
+    // On affiche le nom du personnage en haut dans la boite de dialogue
     this.drawMessages(70, 405, 3, `${this.currentName} :`);
 
     // On affiche le message au centre de la boite de dialogue
@@ -42,7 +35,7 @@ export class DialogBox {
     // }
 
 
-  // Méthode pour écrire des messages sur l'écran
+  // Méthode pour afficher un message
   drawMessages(x, y, fontsize, msg) {
 
     if(!msg){
@@ -62,6 +55,7 @@ export class DialogBox {
     }
     ctx.fillStyle = "#FFFFFF";
 
+    // On split les messages qui dépassent les 60 caractères pour les afficher sur plusieurs lignes
     for(let i = 0; i <= msg.length; i += 60){
       let start = i;
       let end = i  + 60;
@@ -73,6 +67,19 @@ export class DialogBox {
 
     }
   };
+
+  // On dessine la boite de dialogue
+  drawDialogBox(){
+
+    // On dessine un fond bleu
+    ctx.fillStyle="#5858BA";
+    ctx.fillRect(50, 400, stage.width - 100 , 200);
+
+    // On dessine une bordure blanche
+    ctx.strokeStyle = "#FFFFFF";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(50, 400, stage.width - 100, 200);
+  }
 
   // Méthode pour dessiner une image
   drawPicture(){
@@ -89,11 +96,15 @@ export class DialogBox {
     );
   };
 
-  // Récupère la discussion à afficher
+  // Récupère des informations d'un sprite
   getSprite(sprite){
+    // son dialogue
     this.currentMsgSet = sprite.dialog;
+    // son nom
     this.currentName = sprite.name;
+    // son objet image
     this.currentPicture = config.getImage(sprite.reference);
+    // Les coordonnées X/Y de son image
     this.currentFaceX = sprite.faceX;
     this.currentFaceY =  sprite.faceY;
     this.currentMsgIndex = 0;

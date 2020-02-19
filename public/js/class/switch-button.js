@@ -41,7 +41,7 @@ export class SwitchButton {
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
   }
 
-  // Méthode qui ouvre/ ferme le SwitchButton
+  // Méthode qui ouvre/ ferme le bouton
   toogleOpen(){
       this.isOpen = this.isOpen ? false : true;
 
@@ -49,7 +49,8 @@ export class SwitchButton {
         // On détermine les coordonnées de l'image à cropper
         this.faceX = 66;
         this.faceY = 32;
-      } else {
+      } else { // Bouton déséactivé
+        // On détermine les coordonnées de l'image à cropper
         this.faceX = 0;
         this.faceY = 32;
       }
