@@ -31,6 +31,10 @@ export class People {
     this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
     this.moveStatus = true;
     this.dialog = params.dialog;
+    this.currentWorldPosition = {
+      wordlId: params.belongsToWorldId ,
+      mapSheetId: params.belogsToMapSheetId
+    };
   }
 
   // Méthode pour afficher le sprite du people

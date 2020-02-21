@@ -17,6 +17,10 @@ export class SecretPassage {
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.destination = params.destination;
+    this.currentWorldPosition = {
+      wordlId: params.belongsToWorldId ,
+      mapSheetId: params.belogsToMapSheetId
+    };
   }
 
   // Méthode pour afficher le passage secret sur le canvas

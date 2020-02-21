@@ -19,6 +19,10 @@ export class MainCharacter {
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.dialog = params.dialog;
+    this.currentWorldPosition = {
+      wordlId: params.belongsToWorldId ,
+      mapSheetId: params.belogsToMapSheetId
+    };
   }
 
   // Méthode pour afficher le personnage sur le canvas
@@ -44,11 +48,9 @@ export class MainCharacter {
   // action
   doSomething(hero){
 
-    console.log('le hero', hero);
-
     if (this.action === 'checkHeroItem'){
 
-      if(hero.items > 0) {
+      if(hero.items >= 9) { // Si le héro a collecté les X trésors
         return true;
       } else {
         return false;

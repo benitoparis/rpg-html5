@@ -37,13 +37,11 @@ config.loadImages();
 
 // Méthode pour initialiser le héros
 const InitHero = () => {
-  // On initialise le héros
   hero = new Hero (1,1,15,15);
 };
 
 // On initialise un monstre
 const initMainCharacter = (mainCharacterSet) => {
-
   mainCharacterSet.forEach(elem=> {
     let mainCharacter = new MainCharacter(elem);
     mainCharacterList.push(mainCharacter);
@@ -73,7 +71,6 @@ const initSwitchButton = (switchButtonSet) => {
    let switchButton = new SwitchButton('spritesheet', elem);
    switchButtonList.push(switchButton);
  });
-
 };
 
 // Méthode qui initialise les passages secrets sur la map
@@ -185,21 +182,32 @@ const drawHero = () => {
 };
 
 // Méthode pour afficher les boutons
-const drawSwitchButton = ()=> {
+const drawSwitchButton = () => {
   switchButtonList.forEach(button => {
-    button.draw();
+
+    if(button.currentWorldPosition.mapSheetId === hero.currentWorldPosition.mapSheetId &&
+       button.currentWorldPosition.wordlId === hero.currentWorldPosition.wordlId ){ // Si le boutton apparrient à la même map que la map courante
+      button.draw();
+    }
+
   })
 }
 // On dessine les personnages principaux
-const drawMainCharacter = ()=> {
+const drawMainCharacter = () => {
   mainCharacterList.forEach(mainCharacter => {
-    mainCharacter.draw();
+
+    if(mainCharacter.currentWorldPosition.mapSheetId === mainCharacter.currentWorldPosition.mapSheetId &&
+      mainCharacter.currentWorldPosition.wordlId === mainCharacter.currentWorldPosition.wordlId ){
+
+      mainCharacter.draw();
+
+    }
+
   });
 };
 
-
 // On dessine les items/objets
-const drawItems = ()=> {
+const drawItems = () => {
   // On itère sur la liste des items
   itemList.forEach(item => {
     item.draw();
@@ -207,8 +215,8 @@ const drawItems = ()=> {
 };
 
 // Dessine la boite de dialogue
-export const drawDialogBox = ()=> {
-  if(hero.isTalking === true){ // Si le hero est en mode discussion
+export const drawDialogBox = () => {
+  if(hero.isTalking){ // Si le heros est en mode discussion
     dialogBox.drawDialogs();
   }
 };
@@ -236,8 +244,10 @@ const updateHero = () => {
       // On vérifie s'il y a une collision entre la porte et le héros
       if (config.checkCollision(door, hero)) { // Si passe par une porte
 
-        // On supprime tous les sprites sauf le héro
-        removeAllSprites();
+        // On supprime tous les sprites sauf le héro et les boutons
+        removePeople();
+        removeSecretPassage();
+        removeItems();
 
         const destinationX = door.destination.x;
         const destinationY = door.destination.y;
@@ -304,14 +314,20 @@ const updateHero = () => {
     });
 
     // On vérifie s'il y a collision entre le héros et un bouton
-    switchButtonList.forEach(elem=> {
+    switchButtonList.forEach(button => {
 
-      if(config.checkCollision(elem, hero)){
-        if(elem.target === 'secretPassage'){
-          alert('Levier activé');
-          elem.toogleOpen();
+        if(button.currentWorldPosition.mapSheetId === hero.currentWorldPosition.mapSheetId &&
+           button.currentWorldPosition.wordlId === hero.currentWorldPosition.wordlId ){ // Si le boutton apparrient à la même map que la map courante
+
+          if(config.checkCollision(button, hero)){ // Si collision
+            if(button.target === 'secretPassage' && button.isOpen){
+              alert('Levier désactivé');
+            } else {
+               alert('Levier activé');
+            }
+            button.toogleOpen();
+          };
         }
-      };
     });
 
     // // On vérifie s'il y a collision entre le héro et le main character
@@ -377,6 +393,7 @@ const endGame = () => {
   // On reset les sprites dont le héros
   removeAllSprites();
   hero = {};
+  removeSwitchButton();
 
   // On reset le canvas
   ctx.clearRect(0, 0, stage.width, stage.height);
@@ -391,7 +408,6 @@ const endGame = () => {
 
   // on relance le menu du jeu
   setTimeout(config.drawHomeMenu, 3000);
-
 };
 
 // On ajoute une évènement qui se déclenche dès qu'une touche du clavier est enfoncée.
@@ -411,12 +427,11 @@ const drawAll = () => {
   drawSwitchButton();
   drawSecretPassage();
   drawDialogBox();
-
 };
 
 
 // Méthode qui joue une piste sonore
-const playSound = (url)  => {
+const initSound = (url)  => {
   // audio.style.display = "none";
   const audio = document.getElementById('myPlayer');
   audio.src = url;
@@ -428,7 +443,7 @@ const playSound = (url)  => {
 };
 
 
-//playSound('../audio/soundtracks/far-east-kingdom.mp3');
+initSound('../audio/soundtracks/far-east-kingdom.mp3');
 
 
 // On déclenche le mode dialogue
@@ -450,9 +465,12 @@ const setDialogBox = () => {
         }
       });
 
-
       // On vérifie s'il y a collision entre le héros et l'un des personnages principaux
       mainCharacterList.forEach(mainCharacter => {
+
+       if(mainCharacter.currentWorldPosition.mapSheetId === mainCharacter.currentWorldPosition.mapSheetId &&
+           mainCharacter.currentWorldPosition.wordlId === mainCharacter.currentWorldPosition.wordlId ){
+
         if(config.checkCollision(hero, mainCharacter)){ // Si collision
 
           // Le héros passe en mode discussion
@@ -461,7 +479,7 @@ const setDialogBox = () => {
           if(mainCharacter.doSomething(hero)){ // Si le héro constate que le héros a récupéré les 12 trésors
 
             // On renseigne une nouvelle discussion
-            mainCharacter.dialog = ['bravo', 'c super'];
+            mainCharacter.dialog = ['bravo', 'c super', 'vous avez collecté tous les trésors'];
 
             // La partie est terminée
             // On met fin au jeu
@@ -473,22 +491,21 @@ const setDialogBox = () => {
           // On renseigne le message à afficher
           dialogBox.setMsgToDisplay();
         }
+
+      }
+
       });
 
 
-    } else { // Si le héro est déjà en train de parler
+    } else { // Si le héros est déjà en train de discuter
 
-      alert('en train de parler');
-
-      if(dialogBox.checkDialogContinue()){ // Si le dialogue continue
+      if (dialogBox.checkDialogContinue()){ // Si le dialogue continue
 
         // On passe au message suivant
         dialogBox.setMsgToDisplay();
 
       } else {
-
-        alert('removeTalkMode');
-        // On stop la conversation
+        // On stoppe la conversation
         hero.removeTalkMode();
       }
 
@@ -500,7 +517,7 @@ const removePeople = () => {
   peopleList = [];
 };
 
-// Méthode pour supprime les boutons
+// Méthode pour supprimer les boutons
 const removeSwitchButton = () => {
   switchButtonList = [];
 };
@@ -515,19 +532,21 @@ const removeItems = () =>{
   itemList = [];
 };
 
-// Méthode pour supprime les personnages principaux
+// Méthode pour supprimer les personnages principaux
 const removeMainCharacter = ()=>{
   mainCharacterList = [];
 }
 
-// Méthode pour supprimer tous les sprites sauf le héros
-const removeAllSprites = ()=> {
+// Méthode pour supprimer tous les sprites
+const removeAllSprites = () => {
   removePeople();
-  //removeSwitchButton();
+  removeSwitchButton();
   removeSecretPassage();
   removeItems();
   removeMainCharacter();
+  hero = {};
 }
+
 
 
 

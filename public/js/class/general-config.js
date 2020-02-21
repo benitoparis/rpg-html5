@@ -229,12 +229,42 @@ export class GeneralConfig {
             ],
             sprites: {
               item : [
-                {x: 704 , y:2409 },
-                {x: 336 , y:1557 },
-                {x: 490 , y:1117 },
-                {x: 1650 , y:462 }, // Salle du roi
-                {x: 1850, y: 2189 },
-                {x: 1463, y: 1232 }
+                {
+                  x: 704,
+                  y: 2409,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
+                },
+                {
+                  x: 336,
+                  y:1557,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
+                },
+                {
+                  x: 490,
+                  y:1117,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
+                },
+                {
+                  x: 1650,
+                  y: 462,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
+                }, // Salle du roi
+                {
+                  x: 1850,
+                  y: 2189,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
+                },
+                {
+                  x: 1463,
+                  y: 1232,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
+                }
               ],
               people: [
                {
@@ -242,39 +272,55 @@ export class GeneralConfig {
                  y: 2222,
                  name: 'Roosevelt',
                  reference: 'persofigurant6',
-                 dialog:['Super de vous voir là?', 'Je suis disponible', 'on peut aller au spectacle']
+                 dialog:['Super de vous voir là?', 'Je suis disponible', 'on peut aller au spectacle'],
+                 belongsToWorldId: 1,
+                 belogsToMapSheetId: 1
                },
                {
                  x: 568,
                  y: 1078,
                  name: 'Aaliyah',
                  reference: 'persofigurant7',
-                 dialog:['heuhh, je suis pressé', 'que faites vous ici',' je pars']
+                 dialog:['heuhh, je suis pressé', 'que faites vous ici',' je pars'],
+                 belongsToWorldId: 1,
+                 belogsToMapSheetId: 1
                },
                {
                  x: 726,
                  y: 1562,
                  name: 'Stark',
                  reference: 'persofigurant8',
-                 dialog:['Je vais acheter des légumes','ou allez-vous faire vos course']
+                 dialog:['Je vais acheter des légumes','ou allez-vous faire vos course'],
+                 belongsToWorldId: 1,
+                 belogsToMapSheetId: 1
                },
                {
                  x: 770,
                  y: 2338,
                  name: 'Poppy',
                  reference: 'persofigurant9',
-                 dialog:['Je nai rien à vous dire', 'on m accuse de vol']
+                 dialog:['Je nai rien à vous dire', 'on m accuse de vol'],
+                 belongsToWorldId: 1,
+                 belogsToMapSheetId: 1
                },
                {
                  x: 985,
                  y: 1188,
                  name: 'Chapman',
                  reference: 'persofigurant10',
-                 dialog:['Le roi est-il au chateau?', 'Je dois le voir']
+                 dialog:['Le roi est-il au chateau?', 'Je dois le voir'],
+                 belongsToWorldId: 1,
+                 belogsToMapSheetId: 1
                 }
               ],
               switchButton: [
-                {x: 2277 , y:501, target: 'secretPassage' },
+                {
+                  x: 2277,
+                  y: 501,
+                  target: 'secretPassage',
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
+                }
               ],
               mainCharacter: [
                 {
@@ -282,8 +328,10 @@ export class GeneralConfig {
                  y: 440,
                  name: 'Darius',
                  reference: 'persomonstre2',
-                 dialog: ['Super de vous voir là?', 'Je suis disponible', 'on peut aller au spectacle'],
-                 action : 'checkHeroItem'
+                 dialog: ['Super de vous voir là!', 'Avez-vous récupéré tous les trésors?', 'Non, visiblement pas encore !!', 'Allez, au travail, je vous attends !!'],
+                 action : 'checkHeroItem',
+                 belongsToWorldId: 1,
+                 belogsToMapSheetId: 1
                 }, // salle secrete arrière chateau inside
               ],
               secretPassage: [
@@ -299,7 +347,9 @@ export class GeneralConfig {
                     x: 1800,
                     y: 2294,
                     heroPosition: "left"
-                  }
+                  },
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
                 }, // salle du roi
                 {
                   x: 627,
@@ -313,7 +363,9 @@ export class GeneralConfig {
                     x: 1410,
                     y: 1128,
                     heroPosition: "left"
-                  }
+                  },
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 1
                 }, // salle à droite
               ]
             },
@@ -460,9 +512,24 @@ export class GeneralConfig {
             ],
             sprites: {
               item : [
-                { x: 1400, y: 1050 }, // En haut sur le dongeon
-                { x: 500, y: 950  },
-                { x: 500, y: 1200 }
+                {
+                  x: 1400,
+                  y: 1050,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
+                }, // En haut sur le dongeon
+                {
+                  x: 500,
+                  y: 950,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
+                },
+                {
+                  x: 500,
+                  y: 1200,
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
+                }
               ],
               people: [
                 {
@@ -471,34 +538,44 @@ export class GeneralConfig {
                   name: 'Joshua',
                   reference: 'persofigurant1',
                   dialog:['Bonjour, vous êtes pressé?','Il y a beaucoup de monde dans le chateau','Vous allez ou au juste?','Savez-vous que le roi organise une fête?','On se croise peu être là-bas?'],
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
                 },
                 {
                   x: 1865,
                   y: 486,
                   name: 'James',
                   reference: 'persofigurant2',
-                  dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé', 'je vais mettre en place un plan', 'a bientot']
+                  dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé', 'je vais mettre en place un plan', 'a bientot'],
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
                 },
                 {
                   x: 2365,
                   y: 1800,
                   name: 'Joseph',
                   reference: 'persofigurant3',
-                  dialog: ['Que faites vous ici','le temps est magnifique', 'adieu']
+                  dialog: ['Que faites vous ici','le temps est magnifique', 'adieu'],
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
                 },
                 {
                   x: 831,
                   y: 2443,
                   name: 'Andrew',
                   reference: 'persofigurant4',
-                  dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici', 'le prince arrive']
+                  dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici', 'le prince arrive'],
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
                 },
                 {
                   x: 1414,
                   y: 1694,
                   name: 'Peter',
                   reference: 'persofigurant5',
-                  dialog: ['Bonjour, vous cherchez le trésors?','il suffit de lever les yeux!', 'Vous approchez du but mais cela ne sera pas simple comme vous allez le constater assez vite', 'Il est difficilement atteignable']
+                  dialog: ['Bonjour, vous cherchez le trésors?','il suffit de lever les yeux!', 'Vous approchez du but mais cela ne sera pas simple comme vous allez le constater assez vite', 'Il est difficilement atteignable'],
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
                 },
               ],
               switchButton: [],
@@ -516,7 +593,9 @@ export class GeneralConfig {
                     x: 594,
                     y: 1232,
                     heroPosition: "left"
-                  }
+                  },
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
                 }, // En haut sur le dongeon
                 {
                   x: 1740,
@@ -530,7 +609,9 @@ export class GeneralConfig {
                     x: 1106,
                     y: 510,
                     heroPosition: "left"
-                  }
+                  },
+                  belongsToWorldId: 1,
+                  belogsToMapSheetId: 2
                 } // sur les remparts en bas
               ]
             },
