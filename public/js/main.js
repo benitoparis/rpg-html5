@@ -13,28 +13,28 @@ import { Door } from './class/door.js';
 const stage = document.getElementById("stage");
 stage.width = 750;
 stage.height = 625;
+
 // On utilise la méthode getContext pour aller chercher les methodes et les propriétés du canvas
 export const ctx = stage.getContext("2d");
 export const config = new GeneralConfig();
 export const dialogBox = new DialogBox();
 export const storytelling = new Storytelling(config.stories);
 
-
 let backgroundToDisplay = [];
 let currentMapSheetDatas;
 
+// On initialise des objets vides
 export let hero = {};
 export let peopleList = [];
+export let mainCharacterList = [];
 export let itemList = [];
 export let secretPassageList = [];
-export let mainCharacterList = [];
 export let switchButtonList = [];
 export let doorsList = [];
 
 
 // On charge les images du jeu
 config.loadImages();
-
 
 
 // Méthode pour initialiser le héros
@@ -48,9 +48,6 @@ const InitDoors = (doorsSet) => {
     let door = new Door(elem);
     doorsList.push(door);
   })
-
-  console.log('doorsList', doorsList);
-
 };
 
 // On initialise un monstre
@@ -128,6 +125,9 @@ const initSprites = () => {
   initSecretPassage(secretPassages);
 
   if(!config.checkSpritesExists(switchButtonList)){ // Si n'existe pas encore dans la mapsheet
+
+     console.log(config.checkSpritesExists(switchButtonList));
+     console.log('init switchButton');
      initSwitchButton(switchButtons);
   }
 
@@ -198,9 +198,10 @@ const drawPeople = ()=> {
   });
 };
 
-// On dessine le héro
+// On dessine le héros
 const drawHero = () => {
   hero.drawHero();
+  // On dessine aussi les stats du héros en haut de l'écran
   hero.drawHeroDatas(stage.width - 200, 30, 3);
 };
 
@@ -266,13 +267,7 @@ const updateHero = () => {
       // On vérifie s'il y a une collision entre la porte et le héros
       if (config.checkCollision(door, hero)) { // Si passe par une porte
 
-        // On supprime tous les sprites sauf le héros
-        removePeople();
-        removeSecretPassage();
-        removeItems();
-
-        // On supprime les portes
-        removeDoors();
+        removeDestructibleSprites();
 
         const destinationX = door.destination.x;
         const destinationY = door.destination.y;
@@ -300,13 +295,7 @@ const updateHero = () => {
         // On renseigne la position du héro dans la pièce de destination
         hero.setHeroPosition(passage.destination);
 
-        // On supprime tous les sprites sauf le héros
-        removePeople();
-        removeSecretPassage();
-        removeItems();
-
-        // On supprime les portes
-        removeDoors();
+        removeDestructibleSprites();
 
         // On récupère les informations sur la mapSheep courrante
         currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
@@ -434,7 +423,6 @@ window.addEventListener('keydown', handleKeyboardInput);
 // Méthode pour afficher tous les éléments dans l'animation
 const drawAll = () => {
 
-  // Initialisation
 	drawBackground();
   updatePeople();
   drawHero();
@@ -490,7 +478,7 @@ const setDialogBox = () => {
           // Le héros passe en mode discussion
           hero.setTalkMode();
 
-          if(mainCharacter.doSomething(hero)){ // Si le héro constate que le héros a récupéré les 12 trésors
+          if(mainCharacter.doSomething(hero)){ // Si le personnage principal constate que le héros a récupéré les 12 trésors
 
             // On renseigne une nouvelle discussion
             mainCharacter.dialog = ['bravo', 'c super', 'vous avez collecté tous les trésors'];
@@ -563,8 +551,15 @@ const removeAllSprites = () => {
   removeMainCharacter();
   removeDoors();
   hero = {};
+};
 
-}
+// On supprime les sprites que l'on est autorisé à détruire pendant la partie
+const removeDestructibleSprites = () =>{
+  removePeople();
+  removeSecretPassage();
+  removeItems();
+  removeDoors();
+};
 
 
 

@@ -712,16 +712,15 @@ export class GeneralConfig {
         ]
       }
     ];
-
   }
 
 
-  // Méthode qui retourne un chiffre compris entre a et b
+  // Méthode qui retourne un chiffre compris entre A et B
   rangeNumber (a,b){
     return Math.floor((Math.random() * b)) + a;
   }
 
-  // Méthode pour vérifier s'il y collision entre un élément A et B
+  // Méthode pour vérifier s'il y a collision entre un élément A et B
   checkCollision = (a, b) => {
 
     // On vérifie si A et B sont sur la même mapsheet et s'il y a collision
@@ -747,7 +746,7 @@ export class GeneralConfig {
   }
 
 
-  // Méthode qui vérifie si le héro est sorti des limites autorisées / ne traverse pas les murs
+  // Méthode qui vérifie si un sprite animé est sorti des limites autorisées / ne traverse pas les murs
   checkOutOfBounds = (currentMap, someOne) => {
     // Si index du joueur vaut 0 sur la map il y a collision
     if (currentMap.collisionArray[someOne.mapIndexPosition] === 0) {
@@ -757,22 +756,6 @@ export class GeneralConfig {
     }
   };
 
-
-
-  // Méthode pour afficher le viewport
-  // drawViewportBackground(roomImg) {
-  //   ctx.drawImage(
-  //     roomImgLayer1,
-  //     this.roomX , // Position X de la partie à croper
-  //     this.roomY , // Position Y de la partie à croper
-  //     750 , // Largeur de la partie à croper
-  //     62.5 , // Hauteur de la partie à corper
-  //     this.canvasX, // Position x de l'image à croper sur le canvas
-  //     this.canvasY,  // Position y de l'image à croper sur le canvas
-  //     960 , // Largeur de la partie cropée
-  //     62.5 // Hauteur de la partie cropée
-  //   );
-  // }
 
   // Méthode qui renvoie les informations de la mapsheet courante
   getCurrentMapSheetDatas(hero){
@@ -792,7 +775,7 @@ export class GeneralConfig {
   // Méthode qui charge toutes les images du jeu
   loadImages () {
 
-    // On créer les objets Images et on le met dans un tableau
+    // On crée les objets Images et on les place dans un tableau
     this.imagesSet.forEach((item, index)=> {
         this.imagesAssets.push(new Image());
         this.imagesAssets[index].src = item.filePath;
@@ -820,7 +803,7 @@ export class GeneralConfig {
 
   // Méthode qui vérifie si les sprites ont déja été initialisés dans la mapsheet
   checkSpritesExists(spriteList){
-    spriteList.some(sprite => {
+    return spriteList.some(sprite => {
     return sprite.currentWorldPosition.mapSheetId === hero.currentWorldPosition.mapSheetId;
     })
   }

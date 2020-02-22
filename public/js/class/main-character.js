@@ -21,7 +21,7 @@ export class MainCharacter {
     this.dialog = params.dialog;
     this.currentWorldPosition = {
       wordlId: params.belongsToWorldId ,
-      mapSheetId: params.belongsToMapSheetIds
+      mapSheetId: params.belongsToMapSheetId
     };
   }
 

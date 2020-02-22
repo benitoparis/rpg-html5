@@ -7,7 +7,6 @@ export class People {
  constructor(params) {
 
     this.name = params.name;
-    // this.reference = this.setReference();
     this.reference = params.reference;
     this.x = params.x; // Position X sur la map
     this.y = params.y; // Position Y sur la map
@@ -29,7 +28,6 @@ export class People {
     this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:32},{faceX:64,faceY:32}];
     this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
     this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
-    this.moveStatus = true;
     this.dialog = params.dialog;
     this.currentWorldPosition = {
       wordlId: params.belongsToWorldId ,
@@ -56,8 +54,6 @@ export class People {
 
   // Méthode qui va modifier les coordonnées du people.
   update() {
-
-    if(this.moveStatus){ // S'il a le droit de bouger
 
 
       if(this.frame === this.fps){
@@ -125,11 +121,7 @@ export class People {
             break;
       }
 
-    } else {
 
-      this.speedX = 0;
-      this.speedY = 0;
-    }
 
     // On recalcule le centre du people
     this.centerX = ((this.x + this.width) - (this.width / 2));

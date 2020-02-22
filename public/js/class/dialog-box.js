@@ -25,16 +25,6 @@ export class DialogBox {
 
   };
 
-    // function fillTextMultiLine(ctx, text, x, y) {
-    //   var lineHeight = ctx.measureText("M").width * 1.2;
-    //   var lines = text.split("\n");
-    //   for (var i = 0; i < lines.length; ++i) {
-    //     ctx.fillText(lines[i], x, y);
-    //     y += lineHeight;
-    //   }
-    // }
-
-
   // Méthode pour afficher un message
   drawMessages(x, y, fontsize, msg) {
 
@@ -81,7 +71,7 @@ export class DialogBox {
     ctx.strokeRect(50, 400, stage.width - 100, 200);
   }
 
-  // Méthode pour dessiner une image
+  // Méthode pour dessiner l'avatar du personnage avec qui le héros discute
   drawPicture(){
      ctx.drawImage(
       this.currentPicture,
@@ -110,9 +100,9 @@ export class DialogBox {
     this.currentMsgIndex = 0;
   }
 
-  // Méthode qui définie le message à afficher
+  // Méthode qui définit le message à afficher
   setMsgToDisplay(){
-    console.log('setMsgToDisplay this.currentMsgIndex', this.currentMsgIndex);
+
     if(this.checkDialogContinue()){ // Si l'index du message courant est inférieur à la longueur du dialogue
         this.msgToDisplay = this.currentMsgSet[this.currentMsgIndex];
         this.currentMsgIndex++;
@@ -122,7 +112,7 @@ export class DialogBox {
     }
   }
 
-  // Vérifie si le dialogue continue
+  // Vérifie si l'index du message courant est inférieur à la longueur du dialogue
   checkDialogContinue(){
     if (this.currentMsgIndex < this.currentMsgSet.length){
       return true;

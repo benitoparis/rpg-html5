@@ -7,7 +7,6 @@ export class Storytelling {
     this.currentMsgSet = [];
     this.msgToDisplay = '';
     this.currentMsgIndex = 0;
-
   }
 
   // Dessine une storyTelling
@@ -29,7 +28,6 @@ export class Storytelling {
       // On affiche le message au centre
       this.drawMessages(stage.width / 2, stage.height / 2, 1, msg);
     }
-
   }
 
   // Méthode pour écrire des messages sur l'écran
@@ -89,8 +87,6 @@ export class Storytelling {
       return item.id === id;
     }).storyArray;
 
-    console.log('this.currentMsgSet', this.currentMsgSet);
-
     this.setMsgToDisplay();
 
     if(this.checkDialogContinue()){ // Si la story doit continuer
@@ -103,7 +99,7 @@ export class Storytelling {
     }
   };
 
-  // Méthode qui définie le message à afficher
+  // Méthode qui définit le message à afficher
   setMsgToDisplay(){
     if(this.checkDialogContinue()){ // Si l'index du message courant est inférieur à la longueur du dialogue
         this.msgToDisplay = this.currentMsgSet[this.currentMsgIndex];

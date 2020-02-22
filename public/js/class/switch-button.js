@@ -3,7 +3,7 @@ import { ctx, config, hero} from '../main.js';
 // classe d'un SwitchButton
 export class SwitchButton {
 
- // Constructeur de la classe SwitchButton
+ // Constructeur de la classe des boutons
  constructor(reference, params) {
     this.reference = reference
     this.img = config.getImage(this.reference);
@@ -25,7 +25,7 @@ export class SwitchButton {
   }
 
 
-  // Méthode pour afficher le SwitchButton sur le canvas
+  // Méthode pour afficher le bouton sur le canvas
   draw() {
     ctx.drawImage(
       this.img, // Objet image à afficher
@@ -40,7 +40,7 @@ export class SwitchButton {
     );
   }
 
-  // Méthode pour setter l'index du SwitchButton sur la map
+  // Méthode pour setter l'index du bouton sur la map
   setMapIndexPosition(){
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
   }
@@ -53,7 +53,7 @@ export class SwitchButton {
         // On détermine les coordonnées de l'image à cropper
         this.faceX = 66;
         this.faceY = 32;
-      } else { // Bouton déséactivé
+      } else { // Bouton désactivé
         // On détermine les coordonnées de l'image à cropper
         this.faceX = 0;
         this.faceY = 32;
