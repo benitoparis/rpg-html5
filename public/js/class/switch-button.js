@@ -19,7 +19,7 @@ export class SwitchButton {
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.currentWorldPosition = {
       wordlId: params.belongsToWorldId ,
-      mapSheetId: params.belogsToMapSheetId
+      mapSheetId: params.belongsToMapSheetId
     };
     this.isOpen = false;
   }

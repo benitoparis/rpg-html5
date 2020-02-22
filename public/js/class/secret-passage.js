@@ -16,10 +16,19 @@ export class SecretPassage {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-    this.destination = params.destination;
     this.currentWorldPosition = {
       wordlId: params.belongsToWorldId ,
-      mapSheetId: params.belogsToMapSheetId
+      mapSheetId: params.belongsToMapSheetId
+    };
+    this.destination = {
+      worldName: params.destination.worldName,
+      worldId: params.destination.worldId,
+      mapSheetName: params.destination.mapSheetName,
+      mapSheetId: params.destination.mapSheetId,
+      roomName: params.destination.roomName,
+      x: params.destination.x,
+      y: params.destination.y,
+      heroPosition: params.destination.heroPosition,
     };
   }
 

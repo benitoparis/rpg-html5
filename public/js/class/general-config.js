@@ -1,4 +1,4 @@
-import { ctx, dialogBox } from '../main.js';
+import { ctx, dialogBox, hero } from '../main.js';
 
 // Classe de configuration générale
 export class GeneralConfig {
@@ -85,9 +85,10 @@ export class GeneralConfig {
                 roomName:"piece secrete arrière chateau",
                 x: 432,
                 y: 288,
-                y: 300,
                 width: 48,
                 height: 92,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 1,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -106,6 +107,8 @@ export class GeneralConfig {
                 y: 383,
                 width: 38,
                 height: 48,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 1,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -124,6 +127,8 @@ export class GeneralConfig {
                 y: 1650,
                 width: 46,
                 height: 46,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 1,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -142,6 +147,8 @@ export class GeneralConfig {
                 y: 1633,
                 width: 46,
                 height: 46,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 1,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -160,6 +167,8 @@ export class GeneralConfig {
                 y: 1701,
                 width: 65,
                 height: 152,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 1,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -178,6 +187,8 @@ export class GeneralConfig {
                 y: 2208,
                 width: 48,
                 height: 96,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 1,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -197,6 +208,8 @@ export class GeneralConfig {
                 y: 2064,
                 width: 48,
                 height: 96,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 1,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -215,6 +228,8 @@ export class GeneralConfig {
                 y: 2550,
                 width: 48,
                 height: 96,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 1,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -233,37 +248,37 @@ export class GeneralConfig {
                   x: 704,
                   y: 2409,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 },
                 {
                   x: 336,
                   y:1557,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 },
                 {
                   x: 490,
                   y:1117,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 },
                 {
                   x: 1650,
                   y: 462,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 }, // Salle du roi
                 {
                   x: 1850,
                   y: 2189,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 },
                 {
                   x: 1463,
                   y: 1232,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 }
               ],
               people: [
@@ -274,7 +289,7 @@ export class GeneralConfig {
                  reference: 'persofigurant6',
                  dialog:['Super de vous voir là?', 'Je suis disponible', 'on peut aller au spectacle'],
                  belongsToWorldId: 1,
-                 belogsToMapSheetId: 1
+                 belongsToMapSheetId: 1
                },
                {
                  x: 568,
@@ -283,7 +298,7 @@ export class GeneralConfig {
                  reference: 'persofigurant7',
                  dialog:['heuhh, je suis pressé', 'que faites vous ici',' je pars'],
                  belongsToWorldId: 1,
-                 belogsToMapSheetId: 1
+                 belongsToMapSheetId: 1
                },
                {
                  x: 726,
@@ -292,7 +307,7 @@ export class GeneralConfig {
                  reference: 'persofigurant8',
                  dialog:['Je vais acheter des légumes','ou allez-vous faire vos course'],
                  belongsToWorldId: 1,
-                 belogsToMapSheetId: 1
+                 belongsToMapSheetId: 1
                },
                {
                  x: 770,
@@ -301,7 +316,7 @@ export class GeneralConfig {
                  reference: 'persofigurant9',
                  dialog:['Je nai rien à vous dire', 'on m accuse de vol'],
                  belongsToWorldId: 1,
-                 belogsToMapSheetId: 1
+                 belongsToMapSheetId: 1
                },
                {
                  x: 985,
@@ -310,7 +325,7 @@ export class GeneralConfig {
                  reference: 'persofigurant10',
                  dialog:['Le roi est-il au chateau?', 'Je dois le voir'],
                  belongsToWorldId: 1,
-                 belogsToMapSheetId: 1
+                 belongsToMapSheetId: 1
                 }
               ],
               switchButton: [
@@ -319,7 +334,7 @@ export class GeneralConfig {
                   y: 501,
                   target: 'secretPassage',
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 }
               ],
               mainCharacter: [
@@ -331,7 +346,7 @@ export class GeneralConfig {
                  dialog: ['Super de vous voir là!', 'Avez-vous récupéré tous les trésors?', 'Non, visiblement pas encore !!', 'Allez, au travail, je vous attends !!'],
                  action : 'checkHeroItem',
                  belongsToWorldId: 1,
-                 belogsToMapSheetId: 1
+                 belongsToMapSheetId: 1
                 }, // salle secrete arrière chateau inside
               ],
               secretPassage: [
@@ -349,7 +364,7 @@ export class GeneralConfig {
                     heroPosition: "left"
                   },
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 }, // salle du roi
                 {
                   x: 627,
@@ -365,7 +380,7 @@ export class GeneralConfig {
                     heroPosition: "left"
                   },
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 1
+                  belongsToMapSheetId: 1
                 }, // salle à droite
               ]
             },
@@ -444,6 +459,8 @@ export class GeneralConfig {
                 y: 401,
                 width: 70,
                 height: 37,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 2,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -462,6 +479,8 @@ export class GeneralConfig {
                 y: 952,
                 width: 35,
                 height: 52,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 2,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -480,6 +499,8 @@ export class GeneralConfig {
                 y: 1263,
                 width: 78,
                 height: 74,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 2,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -498,6 +519,8 @@ export class GeneralConfig {
                 y: 2200,
                 width: 78,
                 height: 90,
+                belongsToWorldId: 1,
+                belongsToMapSheetId: 2,
                 destination : {
                   worldName:"Nigloland",
                   worldId: 1,
@@ -516,19 +539,19 @@ export class GeneralConfig {
                   x: 1400,
                   y: 1050,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 }, // En haut sur le dongeon
                 {
                   x: 500,
                   y: 950,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 },
                 {
                   x: 500,
                   y: 1200,
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 }
               ],
               people: [
@@ -539,7 +562,7 @@ export class GeneralConfig {
                   reference: 'persofigurant1',
                   dialog:['Bonjour, vous êtes pressé?','Il y a beaucoup de monde dans le chateau','Vous allez ou au juste?','Savez-vous que le roi organise une fête?','On se croise peu être là-bas?'],
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 },
                 {
                   x: 1865,
@@ -548,7 +571,7 @@ export class GeneralConfig {
                   reference: 'persofigurant2',
                   dialog: ['Pssst Jai quelque chose à vous annoncer','Le voleur a encore frappé', 'je vais mettre en place un plan', 'a bientot'],
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 },
                 {
                   x: 2365,
@@ -557,7 +580,7 @@ export class GeneralConfig {
                   reference: 'persofigurant3',
                   dialog: ['Que faites vous ici','le temps est magnifique', 'adieu'],
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 },
                 {
                   x: 831,
@@ -566,7 +589,7 @@ export class GeneralConfig {
                   reference: 'persofigurant4',
                   dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici', 'le prince arrive'],
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 },
                 {
                   x: 1414,
@@ -575,7 +598,7 @@ export class GeneralConfig {
                   reference: 'persofigurant5',
                   dialog: ['Bonjour, vous cherchez le trésors?','il suffit de lever les yeux!', 'Vous approchez du but mais cela ne sera pas simple comme vous allez le constater assez vite', 'Il est difficilement atteignable'],
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 },
               ],
               switchButton: [],
@@ -595,7 +618,7 @@ export class GeneralConfig {
                     heroPosition: "left"
                   },
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 }, // En haut sur le dongeon
                 {
                   x: 1740,
@@ -611,7 +634,7 @@ export class GeneralConfig {
                     heroPosition: "left"
                   },
                   belongsToWorldId: 1,
-                  belogsToMapSheetId: 2
+                  belongsToMapSheetId: 2
                 } // sur les remparts en bas
               ]
             },
@@ -698,10 +721,11 @@ export class GeneralConfig {
     return Math.floor((Math.random() * b)) + a;
   }
 
-  // Méthode pour vérifier s'il y collision entre un élément a et b
+  // Méthode pour vérifier s'il y collision entre un élément A et B
   checkCollision = (a, b) => {
 
-    if((a.x < b.centerX) && (b.centerX < (a.x + a.width))
+    // On vérifie si A et B sont sur la même mapsheet et s'il y a collision
+    if((this.checkSameMapSheet(a, b)) && (a.x < b.centerX) && (b.centerX < (a.x + a.width))
      && (a.y < b.centerY)
      && (b.centerY < (a.y + a.height))) {
        return true;
@@ -709,6 +733,18 @@ export class GeneralConfig {
       return false;
     }
   };
+
+  // Méthode qui vérifie si un élément A et un élément B sont positionnés la même mapsheet
+  checkSameMapSheet(a, b){
+
+   if(a.currentWorldPosition.mapSheetId === b.currentWorldPosition.mapSheetId &&
+   a.currentWorldPosition.wordlId === b.currentWorldPosition.wordlId ){
+
+     return true;
+   } else {
+     return false;
+   }
+  }
 
 
   // Méthode qui vérifie si le héro est sorti des limites autorisées / ne traverse pas les murs
@@ -780,6 +816,13 @@ export class GeneralConfig {
     }
     return sprites['switchButton']['quantity'];
 
+  }
+
+  // Méthode qui vérifie si les sprites ont déja été initialisés dans la mapsheet
+  checkSpritesExists(spriteList){
+    spriteList.some(sprite => {
+    return sprite.currentWorldPosition.mapSheetId === hero.currentWorldPosition.mapSheetId;
+    })
   }
 
   // Méthode qui supprime définitivement un élément du monde

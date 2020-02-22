@@ -7,6 +7,7 @@ import { MainCharacter } from './class/main-character.js';
 import { SecretPassage } from './class/secret-passage.js';
 import { SwitchButton } from './class/switch-button.js';
 import { Storytelling } from './class/storytelling.js';
+import { Door } from './class/door.js';
 
 // Déclaration des variables
 const stage = document.getElementById("stage");
@@ -28,6 +29,7 @@ export let itemList = [];
 export let secretPassageList = [];
 export let mainCharacterList = [];
 export let switchButtonList = [];
+export let doorsList = [];
 
 
 // On charge les images du jeu
@@ -40,9 +42,20 @@ const InitHero = () => {
   hero = new Hero (1,1,15,15);
 };
 
+// Méthode pour initialiser les portes
+const InitDoors = (doorsSet) => {
+  doorsSet.forEach(elem => {
+    let door = new Door(elem);
+    doorsList.push(door);
+  })
+
+  console.log('doorsList', doorsList);
+
+};
+
 // On initialise un monstre
 const initMainCharacter = (mainCharacterSet) => {
-  mainCharacterSet.forEach(elem=> {
+  mainCharacterSet.forEach(elem => {
     let mainCharacter = new MainCharacter(elem);
     mainCharacterList.push(mainCharacter);
   })
@@ -76,14 +89,17 @@ const initSwitchButton = (switchButtonSet) => {
 // Méthode qui initialise les passages secrets sur la map
 const initSecretPassage = (secretPassageSet) => {
 
+  console.log('secretPassageSet', secretPassageSet);
+
   // On intère sur les boutons
-  switchButtonList.forEach(elem=> {
+  switchButtonList.forEach( elem => {
     if(elem.target === 'secretPassage' && elem.isOpen){ // Si un boutton active les passages secret et est activé
-      secretPassageSet.forEach(elem => {
-        let secretPassage = new SecretPassage('spritesheet',elem);
+      secretPassageSet.forEach(passage => {
+        let secretPassage = new SecretPassage('spritesheet',passage);
         secretPassageList.push(secretPassage);
       });
     }
+    console.log('secretPassageList', secretPassageList);
   })
 };
 
@@ -99,17 +115,24 @@ const initSprites = () => {
 
 
   const people = currentMapSheetDatas.sprites.people;
-  const item = currentMapSheetDatas.sprites.item;
-  const mainCharacter = currentMapSheetDatas.sprites.mainCharacter;
-  const secretPassage =  currentMapSheetDatas.sprites.secretPassage;
-  const switchButton = currentMapSheetDatas.sprites.switchButton;
+  const items = currentMapSheetDatas.sprites.item;
+  const mainCharacters = currentMapSheetDatas.sprites.mainCharacter;
+  const secretPassages =  currentMapSheetDatas.sprites.secretPassage;
+  const switchButtons = currentMapSheetDatas.sprites.switchButton;
+  const doors = currentMapSheetDatas.doors;
 
   // On initialise tous les sprites s'il y en a dans la mapsheet
   initPeople(people);
-  initItems(item);
-  initMainCharacter(mainCharacter);
-  initSecretPassage(secretPassage);
-  initSwitchButton(switchButton);
+  initItems(items);
+  initMainCharacter(mainCharacters);
+  initSecretPassage(secretPassages);
+
+  if(!config.checkSpritesExists(switchButtonList)){ // Si n'existe pas encore dans la mapsheet
+     initSwitchButton(switchButtons);
+  }
+
+
+  InitDoors(doors);
 
   // On selectionne le bon background
   selectBackGroundImg(hero);
@@ -196,8 +219,7 @@ const drawSwitchButton = () => {
 const drawMainCharacter = () => {
   mainCharacterList.forEach(mainCharacter => {
 
-    if(mainCharacter.currentWorldPosition.mapSheetId === mainCharacter.currentWorldPosition.mapSheetId &&
-      mainCharacter.currentWorldPosition.wordlId === mainCharacter.currentWorldPosition.wordlId ){
+    if(config.checkSameMapSheet(mainCharacter, hero) ){ // On vérifie si le héros et le personnage principals sont sur la même carte
 
       mainCharacter.draw();
 
@@ -239,15 +261,18 @@ const updateHero = () => {
     hero.update(event);
 
     // On itère sur toutes les portes de la mapsheet
-    currentMapSheetDatas.doors.forEach(door => {
+    doorsList.forEach(door => {
 
       // On vérifie s'il y a une collision entre la porte et le héros
       if (config.checkCollision(door, hero)) { // Si passe par une porte
 
-        // On supprime tous les sprites sauf le héro et les boutons
+        // On supprime tous les sprites sauf le héros
         removePeople();
         removeSecretPassage();
         removeItems();
+
+        // On supprime les portes
+        removeDoors();
 
         const destinationX = door.destination.x;
         const destinationY = door.destination.y;
@@ -272,11 +297,16 @@ const updateHero = () => {
     secretPassageList.forEach(passage =>{
       if(config.checkCollision(passage, hero)) { // On vérifie s'il y a une collision entre le passage secret et le héros
 
-        // On supprime tous les sprites sauf le héro
-        removeAllSprites();
-
         // On renseigne la position du héro dans la pièce de destination
         hero.setHeroPosition(passage.destination);
+
+        // On supprime tous les sprites sauf le héros
+        removePeople();
+        removeSecretPassage();
+        removeItems();
+
+        // On supprime les portes
+        removeDoors();
 
         // On récupère les informations sur la mapSheep courrante
         currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
@@ -316,27 +346,16 @@ const updateHero = () => {
     // On vérifie s'il y a collision entre le héros et un bouton
     switchButtonList.forEach(button => {
 
-        if(button.currentWorldPosition.mapSheetId === hero.currentWorldPosition.mapSheetId &&
-           button.currentWorldPosition.wordlId === hero.currentWorldPosition.wordlId ){ // Si le boutton apparrient à la même map que la map courante
-
-          if(config.checkCollision(button, hero)){ // Si collision
-            if(button.target === 'secretPassage' && button.isOpen){
-              alert('Levier désactivé');
-            } else {
-               alert('Levier activé');
-            }
-            button.toogleOpen();
-          };
+      if(config.checkCollision(button, hero)){ // Si collision
+        if(button.target === 'secretPassage' && button.isOpen){
+          alert('Levier désactivé');
+        } else {
+           alert('Levier activé');
         }
-    });
+        button.toogleOpen();
+      };
 
-    // // On vérifie s'il y a collision entre le héro et le main character
-    // mainCharacterList.forEach(elem => {
-    //   if(config.checkCollision(hero, elem)){ // Si collision
-    //     elem.doSomething(hero);
-    //     endGame();
-    //   }
-    // });
+    });
 
 
     // On vérifie si le héros est sorti des limites
@@ -392,8 +411,6 @@ const endGame = () => {
 
   // On reset les sprites dont le héros
   removeAllSprites();
-  hero = {};
-  removeSwitchButton();
 
   // On reset le canvas
   ctx.clearRect(0, 0, stage.width, stage.height);
@@ -468,9 +485,6 @@ const setDialogBox = () => {
       // On vérifie s'il y a collision entre le héros et l'un des personnages principaux
       mainCharacterList.forEach(mainCharacter => {
 
-       if(mainCharacter.currentWorldPosition.mapSheetId === mainCharacter.currentWorldPosition.mapSheetId &&
-           mainCharacter.currentWorldPosition.wordlId === mainCharacter.currentWorldPosition.wordlId ){
-
         if(config.checkCollision(hero, mainCharacter)){ // Si collision
 
           // Le héros passe en mode discussion
@@ -491,8 +505,6 @@ const setDialogBox = () => {
           // On renseigne le message à afficher
           dialogBox.setMsgToDisplay();
         }
-
-      }
 
       });
 
@@ -537,6 +549,11 @@ const removeMainCharacter = ()=>{
   mainCharacterList = [];
 }
 
+// Méthode pour supprimer les portes
+const removeDoors = ()=> {
+  doorsList = [];
+}
+
 // Méthode pour supprimer tous les sprites
 const removeAllSprites = () => {
   removePeople();
@@ -544,7 +561,9 @@ const removeAllSprites = () => {
   removeSecretPassage();
   removeItems();
   removeMainCharacter();
+  removeDoors();
   hero = {};
+
 }
 
 

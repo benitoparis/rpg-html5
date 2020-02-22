@@ -33,7 +33,7 @@ export class People {
     this.dialog = params.dialog;
     this.currentWorldPosition = {
       wordlId: params.belongsToWorldId ,
-      mapSheetId: params.belogsToMapSheetId
+      mapSheetId: params.belongsToMapSheetId
     };
   }
 

@@ -4,11 +4,11 @@ import { ctx, config, hero} from '../main.js';
 export class Item {
 
  // Constructeur de la classe Item
- constructor(reference, coordinate) {
+ constructor(reference, params) {
     this.reference = reference
     this.itemImg = config.getImage(this.reference);
-    this.x = coordinate.x // Position X sur la map
-    this.y = coordinate.y; // Position Y sur la map
+    this.x = params.x // Position X sur la map
+    this.y = params.y; // Position Y sur la map
     this.width = 48;
     this.height = 48;
     this.faceX = 130;
@@ -16,6 +16,10 @@ export class Item {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
+    this.currentWorldPosition = {
+      wordlId: params.belongsToWorldId ,
+      mapSheetId: params.belongsToMapSheetId
+    };
   }
 
 
