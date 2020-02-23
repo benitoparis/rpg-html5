@@ -1,6 +1,6 @@
 import { ctx, dialogBox, hero } from '../main.js';
 
-// Classe de configuration générale
+// Classe de la configuration générale
 export class GeneralConfig {
 
   // constructeur
@@ -252,13 +252,13 @@ export class GeneralConfig {
                 },
                 {
                   x: 336,
-                  y:1557,
+                  y: 1557,
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 },
                 {
                   x: 490,
-                  y:1117,
+                  y: 1117,
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 },
@@ -536,18 +536,21 @@ export class GeneralConfig {
             sprites: {
               item : [
                 {
+                  id: 1,
                   x: 1400,
                   y: 1050,
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 2
                 }, // En haut sur le dongeon
                 {
+                  id: 2,
                   x: 500,
                   y: 950,
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 2
                 },
                 {
+                  id: 3,
                   x: 500,
                   y: 1200,
                   belongsToWorldId: 1,
@@ -556,6 +559,7 @@ export class GeneralConfig {
               ],
               people: [
                 {
+                  id: 1,
                   x: 506,
                   y: 484,
                   name: 'Joshua',
@@ -565,6 +569,7 @@ export class GeneralConfig {
                   belongsToMapSheetId: 2
                 },
                 {
+                  id: 2,
                   x: 1865,
                   y: 486,
                   name: 'James',
@@ -574,6 +579,7 @@ export class GeneralConfig {
                   belongsToMapSheetId: 2
                 },
                 {
+                  id: 3,
                   x: 2365,
                   y: 1800,
                   name: 'Joseph',
@@ -583,6 +589,7 @@ export class GeneralConfig {
                   belongsToMapSheetId: 2
                 },
                 {
+                  id: 4,
                   x: 831,
                   y: 2443,
                   name: 'Andrew',
@@ -592,6 +599,7 @@ export class GeneralConfig {
                   belongsToMapSheetId: 2
                 },
                 {
+                  id: 5,
                   x: 1414,
                   y: 1694,
                   name: 'Peter',
@@ -605,6 +613,7 @@ export class GeneralConfig {
               mainCharacter: [],
               secretPassage: [
                 {
+                  id: 1,
                   x: 1344,
                   y: 1136,
                   destination : {
@@ -621,6 +630,7 @@ export class GeneralConfig {
                   belongsToMapSheetId: 2
                 }, // En haut sur le dongeon
                 {
+                  id: 2,
                   x: 1740,
                   y: 2316,
                   destination : {
@@ -759,9 +769,17 @@ export class GeneralConfig {
 
   // Méthode qui renvoie les informations de la mapsheet courante
   getCurrentMapSheetDatas(hero){
-    return this.worlds[0].mapSheets.find(data => {
+
+    return this.getCurrentWorldDatas(hero).mapSheets.find(data => {
       return data.mapSheetId === hero.currentWorldPosition.mapSheetId;
     });
+  }
+
+  // Méthode pour récupérer les informations concernant le monde courant
+  getCurrentWorldDatas(hero){
+     return this.worlds.find(elem => {
+      return elem.worldId === hero.currentWorldPosition.wordlId;
+    })
   }
 
   // Méthode qui renvoie l'objet image correspondant à une reference
@@ -788,12 +806,13 @@ export class GeneralConfig {
     });
   }
 
-  // Vérifie s'il reste des sprites à initialiser dans la map courante
+  // Vérifie s'il reste des sprites à initialiser dans la mapsheet courante
   checkRemainingSprites(object, currentMapSheet){
     const worldsNb = this.worlds.length;
     let sprites = [];
+
     for(let i = 1; i < worldsNb; i++){
-        sprites = this.worlds.mapSheets.find(data=>{
+        sprites = this.worlds.mapSheets.find(data =>{
         return data.id === currentMapSheet.id;
       })
     }
@@ -811,16 +830,15 @@ export class GeneralConfig {
   // Méthode qui supprime définitivement un élément du monde
   permanentlyRemoveFromWorld(currentMapSheet, sprite, item){
 
-    // this.worlds[currentMapSheet.belongsToWorldId].mapSheets[currentMapSheet.mapSheetId].sprites[sprite].splice(index, 1);
     const world = this.worlds.find(elem=>{
       return elem.worldId === currentMapSheet.belongsToWorldId;
     });
 
     const mapsheet = world.mapSheets.find(item => {
-      return item.mapSheetId === currentMapSheet.mapSheetId
+      return item.mapSheetId === currentMapSheet.mapSheetId;
     })
 
-    const index = mapsheet.sprites[sprite].findIndex(elem=>{
+    const index = mapsheet.sprites[sprite].findIndex(elem => {
       return (elem.x === item.x && elem.y === item.y);
     });
 
@@ -833,7 +851,7 @@ export class GeneralConfig {
   drawHomeMenu(){
 
     // On dessine un fond noir sur l'écran d'accueil
-    ctx.fillStyle="#000000";
+    ctx.fillStyle = "#000000";
     ctx.fillRect(0,0, stage.width, stage.height);
 
     // On affiche les messages

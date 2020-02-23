@@ -22,7 +22,6 @@ export class DialogBox {
 
     // On dessine l'image de la personne qui parle
     this.drawPicture();
-
   };
 
   // Méthode pour afficher un message
@@ -71,9 +70,9 @@ export class DialogBox {
     ctx.strokeRect(50, 400, stage.width - 100, 200);
   }
 
-  // Méthode pour dessiner l'avatar du personnage avec qui le héros discute
+  // Méthode pour dessiner l'avatar du personnage dans la boite de dialogue avec qui le héros discute
   drawPicture(){
-     ctx.drawImage(
+    ctx.drawImage(
       this.currentPicture,
       32 , // Position X de la partie à croper
       0 , // Position Y de la partie à croper

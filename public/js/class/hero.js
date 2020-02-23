@@ -24,16 +24,16 @@ export class Hero {
     this.currentWorldPosition = {
       wordlId: 1 ,
       mapSheetId: 2
-    }
+    };
     this.currentLoopIndex = 0;
     this.rightCycleLoop = [{faceX:0,faceY:64}, {faceX:32,faceY:64},{faceX:0,faceY:64},{faceX:64,faceY:64}];
     this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:32},{faceX:64,faceY:32}];
     this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
     this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
-    this.xp = 500200;
     this.moveStatus = true;
     this.isTalking = false;
-    this.items = 0
+    this.items = 0 // Nb de trésor collecté
+    this.xp = 500200; // Chiffre en dur
   }
 
   // Méthode pour afficher le sprite du héros
@@ -63,8 +63,6 @@ export class Hero {
       this.frame++;
     }
 
-
-
     // On détermine quel sprite afficher
     if (this.frame % 3 === 0){ // on décide d'incrémenter l'index toutes les 3 frames
       this.currentLoopIndex++;
@@ -88,9 +86,6 @@ export class Hero {
         this.faceX = this.rightCycleLoop[this.currentLoopIndex].faceX;
         this.faceY = this.rightCycleLoop[this.currentLoopIndex].faceY;
 
-
-        this.shootDirection = 'right';
-
         break;
 
       case "ArrowLeft":
@@ -101,13 +96,9 @@ export class Hero {
         }
         this.x = this.x - this.speedX;
 
-
-
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.leftCycleLoop[this.currentLoopIndex].faceX;
         this.faceY = this.leftCycleLoop[this.currentLoopIndex].faceY;
-
-        this.shootDirection = 'left';
         break;
 
       case "ArrowUp":
@@ -124,7 +115,6 @@ export class Hero {
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.upCycleLoop[this.currentLoopIndex].faceX;
         this.faceY = this.upCycleLoop[this.currentLoopIndex].faceY;
-        this.shootDirection = 'up';
         break;
 
       case "ArrowDown":
@@ -140,12 +130,6 @@ export class Hero {
         // On détermine la positon x/y du crop du personnage
         this.faceX = this.downCycleLoop[this.currentLoopIndex].faceX;
         this.faceY = this.downCycleLoop[this.currentLoopIndex].faceY;
-        this.shootDirection = 'down';
-        break;
-
-
-      case "a":
-        console.log('touche a');
         break;
 
       default:

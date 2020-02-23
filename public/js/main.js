@@ -1,13 +1,15 @@
-import { Hero } from './class/hero.js';
+
 import { GeneralConfig } from './class/general-config.js';
+import { Hero } from './class/hero.js';
+import { Door } from './class/door.js';
 import { People } from './class/people.js';
-import { DialogBox } from './class/dialog-box.js';
 import { Item } from './class/item.js';
 import { MainCharacter } from './class/main-character.js';
 import { SecretPassage } from './class/secret-passage.js';
 import { SwitchButton } from './class/switch-button.js';
+import { DialogBox } from './class/dialog-box.js';
 import { Storytelling } from './class/storytelling.js';
-import { Door } from './class/door.js';
+
 
 // Déclaration des variables
 const stage = document.getElementById("stage");
@@ -16,29 +18,27 @@ stage.height = 625;
 
 // On utilise la méthode getContext pour aller chercher les methodes et les propriétés du canvas
 export const ctx = stage.getContext("2d");
+
 export const config = new GeneralConfig();
 export const dialogBox = new DialogBox();
 export const storytelling = new Storytelling(config.stories);
 
 let backgroundToDisplay = [];
-let currentMapSheetDatas;
+let currentMapSheetDatas = {};
 
 // On initialise des objets vides
 export let hero = {};
+export let doorsList = [];
 export let peopleList = [];
 export let mainCharacterList = [];
 export let itemList = [];
-export let secretPassageList = [];
 export let switchButtonList = [];
-export let doorsList = [];
-
-
-// On charge les images du jeu
-config.loadImages();
+export let secretPassageList = [];
 
 
 // Méthode pour initialiser le héros
 const InitHero = () => {
+  //
   hero = new Hero (1,1,15,15);
 };
 
@@ -50,15 +50,7 @@ const InitDoors = (doorsSet) => {
   })
 };
 
-// On initialise un monstre
-const initMainCharacter = (mainCharacterSet) => {
-  mainCharacterSet.forEach(elem => {
-    let mainCharacter = new MainCharacter(elem);
-    mainCharacterList.push(mainCharacter);
-  })
-};
-
-// Méthode pour Initialiser les people
+// Méthode pour Initialiser les personnages
 const initPeople = (peopleSet)=> {
   peopleSet.forEach(elem =>{
     let people = new People(elem);
@@ -66,16 +58,23 @@ const initPeople = (peopleSet)=> {
   });
 };
 
-// Méthode pour initialiser les items
+// On initialise les personnages principaux
+const initMainCharacter = (mainCharacterSet) => {
+  mainCharacterSet.forEach(elem => {
+    let mainCharacter = new MainCharacter(elem);
+    mainCharacterList.push(mainCharacter);
+  })
+};
+
+// Méthode pour initialiser les items (les trésors)
 const initItems = (itemSet)=> {
   itemSet.forEach(elem => {
    let item = new Item ('spritesheet', elem);
    itemList.push(item);
   });
-
 };
 
-// On initialise les boutons sur la map
+// On initialise les boutons
 const initSwitchButton = (switchButtonSet) => {
  switchButtonSet.forEach(elem => {
    let switchButton = new SwitchButton('spritesheet', elem);
@@ -83,10 +82,8 @@ const initSwitchButton = (switchButtonSet) => {
  });
 };
 
-// Méthode qui initialise les passages secrets sur la map
+// Méthode qui initialise les passages secrets
 const initSecretPassage = (secretPassageSet) => {
-
-  console.log('secretPassageSet', secretPassageSet);
 
   // On intère sur les boutons
   switchButtonList.forEach( elem => {
@@ -96,39 +93,46 @@ const initSecretPassage = (secretPassageSet) => {
         secretPassageList.push(secretPassage);
       });
     }
-    console.log('secretPassageList', secretPassageList);
   })
 };
 
 // Méthode pour initialiser les sprites
-const initSprites = () => {
+const initAllSprites = () => {
 
-  if (typeof(hero.x) === 'undefined'){ // On vérifie si le héro n'a pas déjà été initialisé
+  // On vérifie si le héro n'a pas déjà été initialisé
+  if (typeof(hero.x) === 'undefined'){
     InitHero();
   };
 
-  // On récupère les informations sur la mapSheep courrante
+  // On récupère les informations sur la map sur laquelle se trouve le héros
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
 
+  // On récupère les informations pour ininitialiser les sprites animés
   const people = currentMapSheetDatas.sprites.people;
+
+  // On récupère les informations pour initialiser les sprites non animés
   const items = currentMapSheetDatas.sprites.item;
   const mainCharacters = currentMapSheetDatas.sprites.mainCharacter;
   const secretPassages =  currentMapSheetDatas.sprites.secretPassage;
   const switchButtons = currentMapSheetDatas.sprites.switchButton;
+
+  // On récupère les informations pour initialiser les portes
   const doors = currentMapSheetDatas.doors;
 
   // On initialise tous les sprites s'il y en a dans la mapsheet
   initPeople(people);
   initItems(items);
-  initMainCharacter(mainCharacters);
   initSecretPassage(secretPassages);
 
-  if(!config.checkSpritesExists(switchButtonList)){ // Si n'existe pas encore dans la mapsheet
 
-     console.log(config.checkSpritesExists(switchButtonList));
-     console.log('init switchButton');
+  // On initialise les objets qui ne seront jamais supprimés
+  if(!config.checkSpritesExists(switchButtonList)){ // Si n'existe pas encore dans la mapsheet
      initSwitchButton(switchButtons);
+  }
+
+  if(!config.checkSpritesExists(mainCharacterList)){ // Si n'existe pas encore dans la mapsheet
+    initMainCharacter(mainCharacters);
   }
 
 
@@ -138,16 +142,18 @@ const initSprites = () => {
   selectBackGroundImg(hero);
 };
 
-
 // Méthode pour connaitre l'image de fond à afficher
 const selectBackGroundImg = (hero) => {
 
-  if (hero.currentWorldPosition.worldId === 1 && hero.currentWorldPosition.mapSheetId === 1){
+  if (hero.currentWorldPosition.worldId === 1 &&
+    hero.currentWorldPosition.mapSheetId === 1){ // Si le héros est sur la mapsheet 1
+
     backgroundToDisplay.push(config.getImage('room1'));
 
   }
 
-  if(hero.currentWorldPosition.wordlId === 1 && hero.currentWorldPosition.mapSheetId === 2){
+  if(hero.currentWorldPosition.wordlId === 1 &&
+     hero.currentWorldPosition.mapSheetId === 2){ // Si le héros est sur la mapsheet 2
     backgroundToDisplay.push(config.getImage('room2_layer_01'), config.getImage('room2_layer_02'), config.getImage('room2_layer_03')) ;
   }
 };
@@ -183,18 +189,10 @@ const updatePeople = () => {
     people.update();
     people.setMapIndexPosition();
 
-    //On vérifie si le personnage est sorti des limites / a traversé un mur.
+    //On vérifie si le personnage est sortie des limites / a traversé un mur.
     if(config.checkOutOfBounds(currentMapSheetDatas, people)){ // Si le personnage est en dehors du terrain
       people.setTarget();
     }
-  });
-};
-
-// On dessine les personnages
-const drawPeople = ()=> {
-  // On itère sur la liste des personnages
-  peopleList.forEach(people => {
-    people.draw();
   });
 };
 
@@ -205,12 +203,19 @@ const drawHero = () => {
   hero.drawHeroDatas(stage.width - 200, 30, 3);
 };
 
-// Méthode pour afficher les boutons
+// On dessine les personnages
+const drawPeople = () => {
+  // On itère sur la liste des personnages
+  peopleList.forEach(people => {
+    people.draw();
+  });
+};
+
+// Méthode pour dessiner les boutons
 const drawSwitchButton = () => {
   switchButtonList.forEach(button => {
 
-    if(button.currentWorldPosition.mapSheetId === hero.currentWorldPosition.mapSheetId &&
-       button.currentWorldPosition.wordlId === hero.currentWorldPosition.wordlId ){ // Si le boutton apparrient à la même map que la map courante
+    if(config.checkSameMapSheet(button, hero)){ // Si le boutton et le héros sont sur la même map
       button.draw();
     }
 
@@ -220,7 +225,7 @@ const drawSwitchButton = () => {
 const drawMainCharacter = () => {
   mainCharacterList.forEach(mainCharacter => {
 
-    if(config.checkSameMapSheet(mainCharacter, hero) ){ // On vérifie si le héros et le personnage principals sont sur la même carte
+    if(config.checkSameMapSheet(mainCharacter, hero) ){ // On vérifie si le héros et le personnage principal sont sur la même map
 
       mainCharacter.draw();
 
@@ -229,7 +234,7 @@ const drawMainCharacter = () => {
   });
 };
 
-// On dessine les items/objets
+// On dessine les items(les trésors)
 const drawItems = () => {
   // On itère sur la liste des items
   itemList.forEach(item => {
@@ -261,7 +266,7 @@ const updateHero = () => {
 
     hero.update(event);
 
-    // On itère sur toutes les portes de la mapsheet
+    // On itère sur toutes les portes de la map
     doorsList.forEach(door => {
 
       // On vérifie s'il y a une collision entre la porte et le héros
@@ -282,13 +287,12 @@ const updateHero = () => {
         selectBackGroundImg(hero);
 
         // On initalise à nouveau les sprites en fonction de la mapsheet
-        initSprites();
+        initAllSprites();
 
       };
-
     });
 
-    // On itère sur les passages secrets
+    // On itère sur les passages secrets de la map
     secretPassageList.forEach(passage =>{
       if(config.checkCollision(passage, hero)) { // On vérifie s'il y a une collision entre le passage secret et le héros
 
@@ -304,13 +308,12 @@ const updateHero = () => {
         selectBackGroundImg(hero);
 
         // On initalise à nouveau les sprites en fonction de la mapsheet
-        initSprites();
+        initAllSprites();
       }
     });
 
-
     let index = 0;
-    // On vérifie s'il y a une collision entre un item/ Objet et le héros
+    // On vérifie s'il y a une collision entre un item et le héros
     itemList.forEach(item => {
       if(config.checkCollision(item, hero)){ // Si collision
 
@@ -321,10 +324,10 @@ const updateHero = () => {
         // On supprime l'item de la liste
         itemList.splice(itemIndex, 1);
 
-        // On incrémente ne nombre d'item collectés par le héro
+        // On incrémente ne nombre d'item collectés par le héros
         hero.addItem();
 
-        // On supprime définitivement cet élément du jeu
+        // On retire définitivement cet élément du jeu
         config.permanentlyRemoveFromWorld(currentMapSheetDatas,'item', item);
 
         index++;
@@ -343,7 +346,6 @@ const updateHero = () => {
         }
         button.toogleOpen();
       };
-
     });
 
 
@@ -369,7 +371,7 @@ const handleKeyboardInput = (event) => {
 
     if(!config.gameActive){ // On n'est pas en phase de jeu
 
-      // On lance la cinématique
+      // On lance la cinématique 1
       storytelling.launchStorytelling(1);
     }
 
@@ -386,41 +388,18 @@ export const launchGame = (event) => {
 
   ctx.clearRect(0, 0, stage.width, stage.height);
 
+  // On indique qu'on est en phase de jeu
   config.gameActive = true;
 
   // On initialise les sprites après un délai de deux secondes
-  setTimeout(initSprites, 2000);
+  setTimeout(initAllSprites, 2000);
 
-  // Méthode pour rafraichir tous les éléments du jeu toutes les secondes
+  // Méthode pour rafraichir tous les éléments du jeu chaque seconde
   config.setInterval = setInterval(drawAll, 1000 / config.fps);
 };
 
-// Méthode qui met fin au jeu
-const endGame = () => {
 
-  // On reset les sprites dont le héros
-  removeAllSprites();
-
-  // On reset le canvas
-  ctx.clearRect(0, 0, stage.width, stage.height);
-
-  // On met fin à la phase de jeu
-  config.gameActive = false;
-
-  // On met fin au cycle de rafraichissement
-  clearInterval(config.setInterval);
-
-  storytelling.drawBlackScreen('the END');
-
-  // on relance le menu du jeu
-  setTimeout(config.drawHomeMenu, 3000);
-};
-
-// On ajoute une évènement qui se déclenche dès qu'une touche du clavier est enfoncée.
-window.addEventListener('keydown', handleKeyboardInput);
-
-
-// Méthode pour afficher tous les éléments dans l'animation
+// Méthode pour dessiner tous les éléments
 const drawAll = () => {
 
 	drawBackground();
@@ -434,8 +413,7 @@ const drawAll = () => {
   drawDialogBox();
 };
 
-
-// Méthode qui joue une piste sonore
+// Méthode initialise l'objet sonore
 const initSound = (url)  => {
   // audio.style.display = "none";
   const audio = document.getElementById('myPlayer');
@@ -446,10 +424,6 @@ const initSound = (url)  => {
   };
   audio.addEventListener('click', audio.play);
 };
-
-
-initSound('../audio/soundtracks/far-east-kingdom.mp3');
-
 
 // On déclenche le mode dialogue
 const setDialogBox = () => {
@@ -493,7 +467,6 @@ const setDialogBox = () => {
           // On renseigne le message à afficher
           dialogBox.setMsgToDisplay();
         }
-
       });
 
 
@@ -510,6 +483,11 @@ const setDialogBox = () => {
       }
 
     }
+};
+
+// Méthode pour supprimer les portes
+const removeDoors = ()=> {
+  doorsList = [];
 };
 
 // Méthode pour supprimer les personnages
@@ -535,25 +513,20 @@ const removeItems = () =>{
 // Méthode pour supprimer les personnages principaux
 const removeMainCharacter = ()=>{
   mainCharacterList = [];
-}
-
-// Méthode pour supprimer les portes
-const removeDoors = ()=> {
-  doorsList = [];
-}
+};
 
 // Méthode pour supprimer tous les sprites
 const removeAllSprites = () => {
+  hero = {};
+  removeDoors();
   removePeople();
   removeSwitchButton();
   removeSecretPassage();
   removeItems();
   removeMainCharacter();
-  removeDoors();
-  hero = {};
 };
 
-// On supprime les sprites que l'on est autorisé à détruire pendant la partie
+// On supprime les sprites que l'on est autorisé à détruire, à chaque changement de map, pendant la partie
 const removeDestructibleSprites = () =>{
   removePeople();
   removeSecretPassage();
@@ -562,5 +535,33 @@ const removeDestructibleSprites = () =>{
 };
 
 
+// Méthode qui met fin à la partie
+const endGame = () => {
 
+  // On supprime tous les sprites
+  removeAllSprites();
 
+  // On nettoie le canvas
+  ctx.clearRect(0, 0, stage.width, stage.height);
+
+  // On met fin à la phase de jeu
+  config.gameActive = false;
+
+  // On met fin au cycle de rafraichissement
+  clearInterval(config.setInterval);
+
+  // On affiche le message THE END
+  storytelling.drawBlackScreen('the END');
+
+  // on relance le menu d'accueil au bout de 3 secondes
+  setTimeout(config.drawHomeMenu, 3000);
+};
+
+// On initialise l'objet Audio
+initSound('../audio/soundtracks/far-east-kingdom.mp3');
+
+// On ajoute une évènement qui se déclenche dès qu'une touche du clavier est enfoncée.
+window.addEventListener('keydown', handleKeyboardInput);
+
+// On charge les images du jeu
+config.loadImages();

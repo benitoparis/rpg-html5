@@ -7,8 +7,8 @@ export class Door {
 constructor(params) {
     this.id = params.id;
     this.name = params.roomName;
-    this.x = params.x // Position X sur la map
-    this.y = params.y; // Position Y sur la map
+    this.x = params.x
+    this.y = params.y;
     this.width = params.width;
     this.height = params.height;
     this.centerX = ((this.x + this.width) - (this.width / 2));
@@ -27,7 +27,7 @@ constructor(params) {
       x: params.destination.x,
       y: params.destination.y,
       heroPosition: params.destination.heroPosition
-    }
+    };
  }
 
 }
