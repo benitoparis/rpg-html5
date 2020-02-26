@@ -1,38 +1,21 @@
 import { ctx, hero, config, dialogBox} from '../main.js';
+import { AnimatedSprite } from './animated-sprite.js';
 
 // classe d'un people
-export class People {
+export class People extends AnimatedSprite {
 
  // Constructeur de la classe people...
  constructor(params) {
 
+    // On appelle le constructeur de la classe parent
+    super(params)
+
     this.name = params.name;
     this.reference = params.reference;
-    this.x = params.x; // Position X sur la map
-    this.y = params.y; // Position Y sur la map
     this.characterImg = config.getImage(this.reference);
-    this.dx = 0;
-    this.dy = 0;
-    this.width = 48;
-    this.height = 48;
-    this.centerX = ((this.x + this.width) - (this.width / 2));
-    this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-    this.speedX = 1;
-    this.speedY = 1;
-    this.faceX = 0;
-    this.faceY = 30;
+    // les propriétés de la classe animated sprites
     this.target = {x: 388, width: 100, y: 800, height:100, direction: 'south'};
-    this.currentLoopIndex = 0;
-    this.rightCycleLoop = [{faceX:0,faceY:64}, {faceX:32,faceY:64},{faceX:0,faceY:64},{faceX:64,faceY:64}];
-    this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:32},{faceX:64,faceY:32}];
-    this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
-    this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
-    this.dialog = params.dialog;
-    this.currentWorldPosition = {
-      wordlId: params.belongsToWorldId ,
-      mapSheetId: params.belongsToMapSheetId
-    };
+
   }
 
   // Méthode pour afficher le sprite du people
@@ -144,7 +127,6 @@ export class People {
   // Méthode qui détermine la position cible du people
   setTarget(){
 
-
     const randomNumber = config.rangeNumber(1,4);
 
     this.target = {};
@@ -182,45 +164,29 @@ export class People {
     }
   }
 
-  // Dessine la cible courante du people sur le canvas
-  drawTarget(){
-      ctx.fillStyle = "#FFFFFF";
-      ctx.fillRect(
-        351 - (hero.x - this.target.x),
-        288.5 - (hero.y - this.target.y),
-        100,
-        100
-      );
-  }
-
-  // Méthode qui renvoie une reference de people
-  // setReference(){
-  //   const randomId = config.rangeNumber(1,12);
-  //   return `persofigurant${randomId}`;
-  // }
 
   // On vérifie si le dialogue est terminé
-  dialogEnd(){
-    if(this.dialog.currentMsgIndex <= this.dialog.list.length - 1){
-       return false;
-    } else {
-       this.dialog.currentMsgIndex = 0;
-       return true;
-    }
-  }
+  // dialogEnd(){
+  //   if(this.dialog.currentMsgIndex <= this.dialog.list.length - 1){
+  //      return false;
+  //   } else {
+  //      this.dialog.currentMsgIndex = 0;
+  //      return true;
+  //   }
+  // }
 
-// Méthode qui gère le contenu de la boite de dialogue
- selectMessage() {
+// // Méthode qui gère le contenu de la boite de dialogue
+//  selectMessage() {
 
-   if(!this.dialogEnd()){ // Si le dialogue doit continuer
-    this.dialog.currentMsgIndex++;
-    return this.dialog.list[this.dialog.currentMsgIndex];
+//    if(!this.dialogEnd()){ // Si le dialogue doit continuer
+//     this.dialog.currentMsgIndex++;
+//     return this.dialog.list[this.dialog.currentMsgIndex];
 
-   } else {
-     this.dialog.currentMsgIndex = 0;
-   }
+//    } else {
+//      this.dialog.currentMsgIndex = 0;
+//    }
 
- }
+//  }
 
 
 

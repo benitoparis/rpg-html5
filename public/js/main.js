@@ -38,8 +38,17 @@ export let secretPassageList = [];
 
 // Méthode pour initialiser le héros
 const InitHero = () => {
-  //
-  hero = new Hero (1,1,15,15);
+
+  const params = {
+    x: 400,
+    y: 400,
+    //faceX: 0,
+    //faceY: 64
+    belongsToWorldId: 1 ,
+    belongsToMapSheetId: 2
+  };
+
+  hero = new Hero (params);
 };
 
 // Méthode pour initialiser les portes
@@ -278,7 +287,7 @@ const updateHero = () => {
         const destinationY = door.destination.y;
 
         // On renseigne la position du héro dans la pièce de destination
-        hero.setHeroPosition(door.destination);
+        hero.setPosition(door.destination);
 
         // On récupère les informations sur la mapSheep courrante
         currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
@@ -297,7 +306,7 @@ const updateHero = () => {
       if(config.checkCollision(passage, hero)) { // On vérifie s'il y a une collision entre le passage secret et le héros
 
         // On renseigne la position du héro dans la pièce de destination
-        hero.setHeroPosition(passage.destination);
+        hero.setPosition(passage.destination);
 
         removeDestructibleSprites();
 

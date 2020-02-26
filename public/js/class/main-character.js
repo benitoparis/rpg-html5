@@ -17,7 +17,6 @@ export class MainCharacter {
     this.height = 48;
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.dialog = params.dialog;
     this.currentWorldPosition = {
       wordlId: params.belongsToWorldId ,
@@ -39,11 +38,6 @@ export class MainCharacter {
         this.height // Hauteur de la partie cropée
     );
   };
-
-  // Méthode pour setter l'index du personnage sur la map
-  setMapIndexPosition(){
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-  }
 
   // action
   doSomething(hero){

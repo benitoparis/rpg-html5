@@ -1,4 +1,5 @@
 import { ctx, config, hero} from '../main.js';
+import { Destination } from './destination.js';
 
 // classe d'une porte
 export class Door {
@@ -18,16 +19,7 @@ constructor(params) {
       wordlId: params.belongsToWorldId ,
       mapSheetId: params.belongsToMapSheetId
     };
-    this.destination = {
-      worldName: params.destination.worldName,
-      worldId: params.destination.worldId,
-      mapSheetName: params.destination.mapSheetName,
-      mapSheetId: params.destination.mapSheetId,
-      roomName: params.destination.roomName,
-      x: params.destination.x,
-      y: params.destination.y,
-      heroPosition: params.destination.heroPosition
-    };
+    this.destination = new Destination(params.destination);
  }
 
 }

@@ -15,7 +15,6 @@ export class Item {
     this.faceY = 70;
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.currentWorldPosition = {
       wordlId: params.belongsToWorldId ,
       mapSheetId: params.belongsToMapSheetId
@@ -36,11 +35,6 @@ export class Item {
       this.width, // Largeur de l'image sur le canvas
       this.height // Hauteur de l'image sur le canvas
     );
-  }
-
-  // Méthode pour setter l'index de l'item sur la map
-  setMapIndexPosition(){
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
   }
 
 }

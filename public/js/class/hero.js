@@ -1,36 +1,17 @@
 import { ctx, config } from '../main.js';
+import { AnimatedSprite } from './animated-sprite.js';
 
 // classe du héros
-export class Hero {
+export class Hero extends AnimatedSprite {
 
  // Constructeur de la classe du héros...
- constructor(dx, dy, speedX, speedY) {
+ constructor(params) {
+
+    // On appelle le constructeur de la classe parent
+    super(params)
 
     this.reference = 'perso1';
     this.characterImg = config.getImage(this.reference);
-    this.x = 400; // Position X sur la map lors de l'instanciation
-    this.y = 400; // Position Y sur la map lors de l'instanciation
-    this.dx = dx;
-    this.dy = dy;
-    this.width = 48;
-    this.height = 48;
-    this.centerX = ((this.x + this.width) - (this.width / 2));
-    this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-    this.speedX = speedX;
-    this.speedY = speedY;
-    this.faceX = 0; // Coordinnée X de l'image à croper
-    this.faceY = 64; // Coordinnée Y de l'image à croper
-    this.currentWorldPosition = {
-      wordlId: 1 ,
-      mapSheetId: 2
-    };
-    this.currentLoopIndex = 0;
-    this.rightCycleLoop = [{faceX:0,faceY:64}, {faceX:32,faceY:64},{faceX:0,faceY:64},{faceX:64,faceY:64}];
-    this.leftCycleLoop = [{faceX:0,faceY:32}, {faceX:32,faceY:32},{faceX:0,faceY:32},{faceX:64,faceY:32}];
-    this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
-    this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
-    this.moveStatus = true;
     this.isTalking = false;
     this.items = 0 // Nb de trésor collecté
     this.xp = 500200; // Chiffre en dur
@@ -146,7 +127,7 @@ export class Hero {
   }
 
   // Méthode pour réinitialiser la position du héro
-  setHeroPosition(destination) {
+  setPosition(destination) {
     this.x = destination.x;
     this.y = destination.y;
     this.currentWorldPosition.worldId = destination.worldId;
@@ -156,28 +137,6 @@ export class Hero {
     this.setMapIndexPosition();
   };
 
-  // Méthode pour retirer un point de vie au héro
-  removeLifeCredit(){
-    this.lifeCredits -= 1;
-    if(this.lifeCredits < 0){
-      this.isDead = true;
-    }
-  }
-
-  // Méthode pour récupérer le nombre de crédit
-  getLifeCredit(){
-  return this.lifeCredits;
-  }
-
-  // On vérifie si le héro est mort
-  isHeroDead(){
-    return this.isDead;
-  }
-
-  // Méthode pour connaitre la direction du joueur
-  getDirection(){
-    return this.shootDirection;
-  }
 
   // Méthode pour setter l'index du héros sur la map
   setMapIndexPosition(){
@@ -188,13 +147,11 @@ export class Hero {
   // On indique que le hero est en train de parler
   setTalkMode(){
     this.isTalking = true;
-    this.moveStatus = true;
   }
 
   // On retire le mode talk
   removeTalkMode(){
     this.isTalking = false;
-    this.moveStatus = false;
   }
 
   // On ajoute un item
@@ -220,19 +177,6 @@ export class Hero {
     const message = `Item : ${this.items}   XP : ${this.xp}`;
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText(message, x, y);
-
-    // for(let i = 0; i <= msg.length; i += 60){
-    //   let start = i;
-    //   let end = i  + 60;
-    //   y += 50;
-
-    //   let cuttedMsg = msg.slice(start, end);
-    //   console.log(start,end, y, cuttedMsg);
-    //   ctx.fillText(cuttedMsg, x, y);
-
-    // }
-
-
 
   };
 

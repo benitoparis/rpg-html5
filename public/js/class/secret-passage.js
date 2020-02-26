@@ -1,4 +1,5 @@
 import { ctx, config, hero} from '../main.js';
+import { Destination } from './destination.js';
 
 // classe d'un passage secret
 export class SecretPassage {
@@ -20,16 +21,7 @@ export class SecretPassage {
       wordlId: params.belongsToWorldId ,
       mapSheetId: params.belongsToMapSheetId
     };
-    this.destination = {
-      worldName: params.destination.worldName,
-      worldId: params.destination.worldId,
-      mapSheetName: params.destination.mapSheetName,
-      mapSheetId: params.destination.mapSheetId,
-      roomName: params.destination.roomName,
-      x: params.destination.x,
-      y: params.destination.y,
-      heroPosition: params.destination.heroPosition,
-    };
+    this.destination = new Destination(params.destination);
   }
 
   // Méthode pour afficher le passage secret sur le canvas
