@@ -16,7 +16,7 @@ constructor(params) {
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.currentWorldPosition = {
-      wordlId: params.belongsToWorldId ,
+      worldId: params.belongsToWorldId ,
       mapSheetId: params.belongsToMapSheetId
     };
     this.destination = new Destination(params.destination);

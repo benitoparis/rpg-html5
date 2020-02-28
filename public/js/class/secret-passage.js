@@ -1,4 +1,5 @@
 import { ctx, config, hero} from '../main.js';
+import { WorldPosition } from './world-position.js';
 import { Destination } from './destination.js';
 
 // classe d'un passage secret
@@ -17,10 +18,7 @@ export class SecretPassage {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-    this.currentWorldPosition = {
-      wordlId: params.belongsToWorldId ,
-      mapSheetId: params.belongsToMapSheetId
-    };
+    this.currentWorldPosition = new WorldPosition(params.belongsToWorldId,params.belongsToMapSheetId);
     this.destination = new Destination(params.destination);
   }
 

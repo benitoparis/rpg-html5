@@ -129,18 +129,18 @@ const initAllSprites = () => {
   // On récupère les informations pour initialiser les portes
   const doors = currentMapSheetDatas.doors;
 
-  // On initialise tous les sprites s'il y en a dans la mapsheet
+  // On initialise tous les sprites s'il y en a dans la map
   initPeople(people);
   initItems(items);
   initSecretPassage(secretPassages);
 
 
   // On initialise les objets qui ne seront jamais supprimés
-  if(!config.checkSpritesExists(switchButtonList)){ // Si n'existe pas encore dans la mapsheet
+  if(!config.checkSpritesExists(switchButtonList)){ // Si n'existe pas encore dans la map
      initSwitchButton(switchButtons);
   }
 
-  if(!config.checkSpritesExists(mainCharacterList)){ // Si n'existe pas encore dans la mapsheet
+  if(!config.checkSpritesExists(mainCharacterList)){ // Si n'existe pas encore dans la map
     initMainCharacter(mainCharacters);
   }
 
@@ -155,14 +155,14 @@ const initAllSprites = () => {
 const selectBackGroundImg = (hero) => {
 
   if (hero.currentWorldPosition.worldId === 1 &&
-    hero.currentWorldPosition.mapSheetId === 1){ // Si le héros est sur la mapsheet 1
+    hero.currentWorldPosition.mapSheetId === 1){ // Si le héros est sur la map 1
 
     backgroundToDisplay.push(config.getImage('room1'));
 
   }
 
-  if(hero.currentWorldPosition.wordlId === 1 &&
-     hero.currentWorldPosition.mapSheetId === 2){ // Si le héros est sur la mapsheet 2
+  if(hero.currentWorldPosition.worldId === 1 &&
+     hero.currentWorldPosition.mapSheetId === 2){ // Si le héros est sur la map 2
     backgroundToDisplay.push(config.getImage('room2_layer_01'), config.getImage('room2_layer_02'), config.getImage('room2_layer_03')) ;
   }
 };
@@ -295,7 +295,7 @@ const updateHero = () => {
         // On selectionne le bon background
         selectBackGroundImg(hero);
 
-        // On initalise à nouveau les sprites en fonction de la mapsheet
+        // On initalise à nouveau les sprites en fonction de la map
         initAllSprites();
 
       };
@@ -316,7 +316,7 @@ const updateHero = () => {
         // On selectionne le bon background
         selectBackGroundImg(hero);
 
-        // On initalise à nouveau les sprites en fonction de la mapsheet
+        // On initalise à nouveau les sprites en fonction de la map
         initAllSprites();
       }
     });
@@ -461,10 +461,10 @@ const setDialogBox = () => {
           // Le héros passe en mode discussion
           hero.setTalkMode();
 
-          if(mainCharacter.doSomething(hero)){ // Si le personnage principal constate que le héros a récupéré les 12 trésors
+          if(mainCharacter.ckeckItems(hero)){ // Si le personnage principal constate que le héros a récupéré les 12 trésors
 
             // On renseigne une nouvelle discussion
-            mainCharacter.dialog = ['bravo', 'c super', 'vous avez collecté tous les trésors'];
+            mainCharacter.dialog = ['bravo', 'c\'super', 'vous avez collecté tous les trésors'];
 
             // La partie est terminée
             // On met fin au jeu

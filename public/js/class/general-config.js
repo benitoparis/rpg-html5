@@ -200,7 +200,6 @@ export class GeneralConfig {
                   heroPosition: "up"
                 }
               },
-
               {
                 id: 7,
                 roomName:"zone entrée chateau inside",
@@ -343,7 +342,7 @@ export class GeneralConfig {
                  y: 440,
                  name: 'Darius',
                  reference: 'persomonstre2',
-                 dialog: ['Super de vous voir là!', 'Avez-vous récupéré tous les trésors?', 'Non, visiblement pas encore !!', 'Allez, au travail, je vous attends !!'],
+                 dialog: ['C\'est super de vous voir là!', 'Avez-vous récupéré tous les trésors?', 'Non, visiblement pas encore !!', 'Allez, au travail, je vous attends !!'],
                  action : 'checkHeroItem',
                  belongsToWorldId: 1,
                  belongsToMapSheetId: 1
@@ -650,16 +649,15 @@ export class GeneralConfig {
             },
             belongsToWorldId: 1
           }
-        ],
-
+        ]
       }
     ];
     this.imagesSet = [
-      {type: 'background', reference: '1',  filePath: '../img/background/1.png'},
-      {type: 'background', reference: 'room1',  filePath: '../img/rooms/room1.png'},
-      {type: 'background', reference: 'room2_layer_01',  filePath: '../img/rooms/layer_01.png'},
-      {type: 'background', reference: 'room2_layer_02',  filePath: '../img/rooms/layer_02.png'},
-      {type: 'background', reference: 'room2_layer_03',  filePath: '../img/rooms/layer_03.png'},
+      {type: 'map', reference: '1',  filePath: '../img/background/1.png'},
+      {type: 'map', reference: 'room1',  filePath: '../img/rooms/room1.png'},
+      {type: 'map', reference: 'room2_layer_01',  filePath: '../img/rooms/layer_01.png'},
+      {type: 'map', reference: 'room2_layer_02',  filePath: '../img/rooms/layer_02.png'},
+      {type: 'map', reference: 'room2_layer_03',  filePath: '../img/rooms/layer_03.png'},
       {type: 'character', reference: 'spritesheet2',  filePath: '../img/sprites/spritesheet2.png'},
       {type: 'character', reference: 'persofigurant1',  filePath: '../img/sprites/persofigurant1.png'},
       {type: 'character', reference: 'persofigurant2',  filePath: '../img/sprites/persofigurant2.png'},
@@ -674,16 +672,16 @@ export class GeneralConfig {
       {type: 'character', reference: 'persofigurant11',  filePath: '../img/sprites/persofigurant11.png'},
       {type: 'character', reference: 'persofigurant12',  filePath: '../img/sprites/persofigurant12.png'},
       {type: 'character', reference: 'persofigurant12',  filePath: '../img/sprites/persofigurant13.png'},
-      {type: 'character', reference: 'perso1',  filePath: '../img/sprites/perso1.png'},
-      {type: 'character', reference: 'perso2',  filePath: '../img/sprites/perso2.png'},
-      {type: 'character', reference: 'perso3',  filePath: '../img/sprites/perso3.png'},
-      {type: 'character', reference: 'perso4',  filePath: '../img/sprites/perso4.png'},
-      {type: 'character', reference: 'perso5',  filePath: '../img/sprites/perso5.png'},
-      {type: 'character', reference: 'perso6',  filePath: '../img/sprites/perso6.png'},
-      {type: 'character', reference: 'perso7',  filePath: '../img/sprites/perso7.png'},
-      {type: 'character', reference: 'perso8',  filePath: '../img/sprites/perso8.png'},
-      {type: 'character', reference: 'perso9',  filePath: '../img/sprites/perso9.png'},
-      {type: 'character', reference: 'perso10',  filePath: '../img/sprites/perso10.png'},
+      {type: 'character', reference: 'heros1',  filePath: '../img/sprites/perso1.png'},
+      {type: 'character', reference: 'heros2',  filePath: '../img/sprites/perso2.png'},
+      {type: 'character', reference: 'heros3',  filePath: '../img/sprites/perso3.png'},
+      {type: 'character', reference: 'heros4',  filePath: '../img/sprites/perso4.png'},
+      {type: 'character', reference: 'heros5',  filePath: '../img/sprites/perso5.png'},
+      {type: 'character', reference: 'heros6',  filePath: '../img/sprites/perso6.png'},
+      {type: 'character', reference: 'heros7',  filePath: '../img/sprites/perso7.png'},
+      {type: 'character', reference: 'heros8',  filePath: '../img/sprites/perso8.png'},
+      {type: 'character', reference: 'heros9',  filePath: '../img/sprites/perso9.png'},
+      {type: 'character', reference: 'heros10',  filePath: '../img/sprites/perso10.png'},
       {type: 'character', reference: 'persomonstre1',  filePath: '../img/sprites/persomonstre1.png'},
       {type: 'character', reference: 'persomonstre2',  filePath: '../img/sprites/persomonstre2.png'},
       {type: 'character', reference: 'persomonstre3',  filePath: '../img/sprites/persomonstre3.png'},
@@ -755,7 +753,6 @@ export class GeneralConfig {
    }
   }
 
-
   // Méthode qui vérifie si un sprite animé est sorti des limites autorisées / ne traverse pas les murs
   checkOutOfBounds = (currentMap, someOne) => {
     // Si index du joueur vaut 0 sur la map il y a collision
@@ -765,7 +762,6 @@ export class GeneralConfig {
       return false;
     }
   };
-
 
   // Méthode qui renvoie les informations de la mapsheet courante
   getCurrentMapSheetDatas(hero){
@@ -778,7 +774,7 @@ export class GeneralConfig {
   // Méthode pour récupérer les informations concernant le monde courant
   getCurrentWorldDatas(hero){
      return this.worlds.find(elem => {
-      return elem.worldId === hero.currentWorldPosition.wordlId;
+      return elem.worldId === hero.currentWorldPosition.worldId;
     })
   }
 
@@ -817,7 +813,6 @@ export class GeneralConfig {
       })
     }
     return sprites['switchButton']['quantity'];
-
   }
 
   // Méthode qui vérifie si les sprites ont déja été initialisés dans la mapsheet
@@ -843,7 +838,6 @@ export class GeneralConfig {
     });
 
     mapsheet.sprites[sprite].splice(index, 1);
-
   }
 
 

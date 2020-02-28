@@ -10,7 +10,7 @@ export class Hero extends AnimatedSprite {
     // On appelle le constructeur de la classe parent
     super(params)
 
-    this.reference = 'perso1';
+    this.reference = 'heros1';
     this.characterImg = config.getImage(this.reference);
     this.isTalking = false;
     this.items = 0 // Nb de trésor collecté
@@ -26,8 +26,6 @@ export class Hero extends AnimatedSprite {
       this.faceY , // Position Y de la partie à croper
       32 , // Largeur de la partie à croper
       32 , // Hauteur de la partie à corper
-      // this.x, // Position x de l'image à croper sur le canvas
-      // this.y,  // Position y de l'image à croper sur le canvas
       351, // on l'affiche toujours au milieu du canvas // Position x de l'image à croper sur le canvas
       288.5, // on l'affiche toujours au milieu du canvas // Position y de l'image à croper sur le canvas
       this.width, // Largeur de la partie cropée
@@ -126,23 +124,23 @@ export class Hero extends AnimatedSprite {
 
   }
 
-  // Méthode pour réinitialiser la position du héro
-  setPosition(destination) {
-    this.x = destination.x;
-    this.y = destination.y;
-    this.currentWorldPosition.worldId = destination.worldId;
-    this.currentWorldPosition.mapSheetId = destination.mapSheetId;
-    this.centerX = ((this.x + this.width) - (this.width / 2));
-    this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.setMapIndexPosition();
-  };
+  // // Méthode pour réinitialiser la position du héro
+  // setPosition(destination) {
+  //   this.x = destination.x;
+  //   this.y = destination.y;
+  //   this.currentWorldPosition.worldId = destination.worldId;
+  //   this.currentWorldPosition.mapSheetId = destination.mapSheetId;
+  //   this.centerX = ((this.x + this.width) - (this.width / 2));
+  //   this.centerY = ((this.y + this.height) - (this.height / 2));
+  //   this.setMapIndexPosition();
+  // };
 
 
-  // Méthode pour setter l'index du héros sur la map
-  setMapIndexPosition(){
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
+  // // Méthode pour setter l'index du héros sur la map
+  // setMapIndexPosition(){
+  //   this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
 
-  }
+  // }
 
   // On indique que le hero est en train de parler
   setTalkMode(){

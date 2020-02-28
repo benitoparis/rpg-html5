@@ -1,9 +1,10 @@
 import { ctx, config, hero} from '../main.js';
+import { WorldPosition } from './world-position.js';
 
-// classe d'un MainCharacter
+// classe d'un personnal principal
 export class MainCharacter {
 
- // Constructeur de la classe Item
+ // Constructeur de la classe d'un personnage principal
  constructor(params) {
     this.name = params.name; // Exemple 'darius'
     this.reference = params.reference;
@@ -18,10 +19,7 @@ export class MainCharacter {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
     this.dialog = params.dialog;
-    this.currentWorldPosition = {
-      wordlId: params.belongsToWorldId ,
-      mapSheetId: params.belongsToMapSheetId
-    };
+    this.currentWorldPosition = new WorldPosition(params.belongsToWorldId,params.belongsToMapSheetId);
   }
 
   // Méthode pour afficher le personnage sur le canvas
@@ -40,18 +38,14 @@ export class MainCharacter {
   };
 
   // action
-  doSomething(hero){
+  // doSomething(hero){
+  ckeckItems(hero){
 
-    if (this.action === 'checkHeroItem'){
-
-      if(hero.items >= 9) { // Si le héro a collecté les X trésors
+      if(hero.items >= 9) { // Si le héros a collecté les X trésors
         return true;
       } else {
         return false;
       }
-    }
   }
-
-
 
 }

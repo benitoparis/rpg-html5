@@ -1,24 +1,22 @@
 import { ctx, config, hero} from '../main.js';
+import { WorldPosition } from './world-position.js';
 
 // classe d'un Item
 export class Item {
 
  // Constructeur de la classe Item
  constructor(reference, params) {
-    this.reference = reference
+    this.reference = reference // Type d'item (tresors,..)
     this.itemImg = config.getImage(this.reference);
     this.x = params.x // Position X sur la map
     this.y = params.y; // Position Y sur la map
     this.width = 48;
     this.height = 48;
-    this.faceX = 130;
-    this.faceY = 70;
+    this.faceX = 130; // Position x du crop
+    this.faceY = 70; // Position y du crop
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.currentWorldPosition = {
-      wordlId: params.belongsToWorldId ,
-      mapSheetId: params.belongsToMapSheetId
-    };
+    this.currentWorldPosition = new WorldPosition(params.belongsToWorldId,params.belongsToMapSheetId);
   }
 
 

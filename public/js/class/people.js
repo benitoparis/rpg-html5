@@ -26,8 +26,6 @@ export class People extends AnimatedSprite {
       this.faceY , // Position Y de la partie à croper
       30 , // Largeur de la partie à croper
       30 , // Hauteur de la partie à corper
-      //this.x, // Position x de l'image à croper sur le canvas
-      // this.y,  // Position y de l'image à croper sur le canvas
       351 - (hero.x - this.x),
       288.5 - (hero.y - this.y),
       this.width, // Largeur de la partie cropée
@@ -37,7 +35,6 @@ export class People extends AnimatedSprite {
 
   // Méthode qui va modifier les coordonnées du people.
   update() {
-
 
       if(this.frame === this.fps){
         this.frame = 0;
@@ -117,12 +114,6 @@ export class People extends AnimatedSprite {
 
   }
 
-
-  // Méthode pour setter l'index du héros sur la map
-  setMapIndexPosition(){
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-
-  }
 
   // Méthode qui détermine la position cible du people
   setTarget(){

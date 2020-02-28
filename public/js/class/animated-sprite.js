@@ -1,4 +1,5 @@
 import { ctx, config, launchGame} from '../main.js';
+import { WorldPosition } from './world-position.js';
 
   export class AnimatedSprite {
 
@@ -22,9 +23,23 @@ import { ctx, config, launchGame} from '../main.js';
       this.upCycleLoop = [{faceX:0,faceY:96}, {faceX:32,faceY:96},{faceX:0,faceY:96},{faceX:64,faceY:96}];
       this.downCycleLoop = [{faceX:0,faceY:0}, {faceX:32,faceY:0},{faceX:0,faceY:0},{faceX:64,faceY:0}];
       this.dialog = params.dialog;
-      this.currentWorldPosition = {
-        wordlId: params.belongsToWorldId ,
-        mapSheetId: params.belongsToMapSheetId
-      };
+      this.currentWorldPosition = new WorldPosition(params.belongsToWorldId,params.belongsToMapSheetId );
+    }
+
+    // Méthode pour réinitialiser la position du héro
+    setPosition(destination) {
+      this.x = destination.x;
+      this.y = destination.y;
+      this.currentWorldPosition.worldId = destination.worldId;
+      this.currentWorldPosition.mapSheetId = destination.mapSheetId;
+      this.centerX = ((this.x + this.width) - (this.width / 2));
+      this.centerY = ((this.y + this.height) - (this.height / 2));
+      this.setMapIndexPosition();
+    };
+
+
+    // Méthode pour setter l'index du héros sur la map
+    setMapIndexPosition(){
+      this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     }
   }
