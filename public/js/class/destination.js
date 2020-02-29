@@ -12,7 +12,7 @@ export class Destination {
       this.roomName = params.roomName;
       this.x = params.x;
       this.y = params.y;
-      this.heroPosition = params.heroPosition;
+      this.heroDirection = params.heroDirection;
  }
 
 

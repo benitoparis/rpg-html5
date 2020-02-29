@@ -6,11 +6,10 @@ export class SwitchButton {
 
  // Constructeur de la classe des boutons
  constructor(params) {
-    this.reference = params.reference
+    this.reference = params.reference;
     this.img = config.getImage(this.reference);
     this.x = params.x // Position X sur la map
     this.y = params.y; // Position Y sur la map
-    this.target = 'secretPassage';
     this.width = 48;
     this.height = 48;
     this.faceX = 0;

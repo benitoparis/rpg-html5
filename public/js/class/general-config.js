@@ -97,7 +97,7 @@ export class GeneralConfig {
                   roomName: "les remparts",
                   x: 709,
                   y: 388,
-                  heroPosition: "up"
+                  heroDirection: "up"
                 }
               },
               {
@@ -117,7 +117,7 @@ export class GeneralConfig {
                   roomName: "les remparts",
                   x: 2294,
                   y: 951,
-                  heroPosition: "right"
+                  heroDirection: "right"
                 }
               },
               {
@@ -137,7 +137,7 @@ export class GeneralConfig {
                   roomName: "Prison castle inside",
                   x: 733,
                   y: 2309,
-                  heroPosition: "down"
+                  heroDirection: "down"
                 }
               },
               {
@@ -157,7 +157,7 @@ export class GeneralConfig {
                   roomName: "zone entrée chateau inside",
                   x: 2257,
                   y: 2166,
-                  heroPosition: "down"
+                  heroDirection: "down"
                 }
               },
               {
@@ -177,7 +177,7 @@ export class GeneralConfig {
                   roomName: "parvis en haut du chateau",
                   x: 1225,
                   y: 1349,
-                  heroPosition: "down"
+                  heroDirection: "down"
                 }
               },
               {
@@ -197,7 +197,7 @@ export class GeneralConfig {
                   roomName: "couloir dans chateau inside",
                   x: 588,
                   y: 1620,
-                  heroPosition: "up"
+                  heroDirection: "up"
                 }
               },
               {
@@ -217,7 +217,7 @@ export class GeneralConfig {
                   roomName: "couloir dans chateau inside",
                   x: 2304,
                   y: 1609,
-                  heroPosition: "up"
+                  heroDirection: "up"
                 }
               },
               {
@@ -237,7 +237,7 @@ export class GeneralConfig {
                   roomName: "remparts devant",
                   x: 1300,
                   y: 2272,
-                  heroPosition: "down"
+                  heroDirection: "down"
                 }
               },
             ],
@@ -337,7 +337,7 @@ export class GeneralConfig {
                 {
                   x: 2277,
                   y: 501,
-                  target: 'secretPassage',
+                  reference:'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 }
@@ -366,7 +366,7 @@ export class GeneralConfig {
                     roomName: "les remparts en bas",
                     x: 1800,
                     y: 2294,
-                    heroPosition: "left"
+                    heroDirection: "left"
                   },
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
@@ -383,7 +383,7 @@ export class GeneralConfig {
                     roomName: "en haut du dongeon",
                     x: 1410,
                     y: 1128,
-                    heroPosition: "left"
+                    heroDirection: "left"
                   },
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
@@ -475,7 +475,7 @@ export class GeneralConfig {
                   roomName: "piece secrete arrière chateau",
                   x: 437,
                   y: 398,
-                  heroPosition: "down"
+                  heroDirection: "down"
                 }
               },
               {
@@ -495,7 +495,7 @@ export class GeneralConfig {
                   roomName: "salle secrete à droite chateau",
                   x: 2490,
                   y: 383,
-                  heroPosition: "left"
+                  heroDirection: "left"
                 }
               },
               {
@@ -515,7 +515,7 @@ export class GeneralConfig {
                   roomName: "zone entrée chateau inside",
                   x: 1706,
                   y: 1860,
-                  heroPosition: "left"
+                  heroDirection: "left"
                 }
               },
               {
@@ -535,7 +535,7 @@ export class GeneralConfig {
                   roomName: "zone entrée chateau inside",
                   x: 1680,
                   y: 2525,
-                  heroPosition: "up"
+                  heroDirection: "up"
                 }
               },
             ],
@@ -631,7 +631,7 @@ export class GeneralConfig {
                     roomName: "salle à droite",
                     x: 594,
                     y: 1232,
-                    heroPosition: "left"
+                    heroDirection: "left"
                   },
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 2
@@ -649,7 +649,7 @@ export class GeneralConfig {
                     roomName: "salle du roi",
                     x: 1106,
                     y: 510,
-                    heroPosition: "left"
+                    heroDirection: "left"
                   },
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 2

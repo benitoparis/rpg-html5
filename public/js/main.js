@@ -42,8 +42,6 @@ const InitHero = () => {
   const params = {
     x: 400,
     y: 400,
-    //faceX: 0,
-    //faceY: 64
     belongsToWorldId: 1 ,
     belongsToMapSheetId: 2
   };
@@ -59,7 +57,7 @@ const InitDoors = (doorsSet) => {
   })
 };
 
-// Méthode pour Initialiser les personnages
+// Méthode pour Initialiser les personnages figurants
 const initPeople = (peopleSet)=> {
   peopleSet.forEach(elem =>{
     let people = new People(elem);
@@ -86,7 +84,7 @@ const initItems = (itemSet)=> {
 // On initialise les boutons
 const initSwitchButton = (switchButtonSet) => {
  switchButtonSet.forEach(elem => {
-   let switchButton = new SwitchButton('spritesheet', elem);
+   let switchButton = new SwitchButton(elem);
    switchButtonList.push(switchButton);
  });
 };
@@ -134,7 +132,6 @@ const initAllSprites = () => {
   initItems(items);
   initSecretPassage(secretPassages);
 
-
   // On initialise les objets qui ne seront jamais supprimés
   if(!config.checkSpritesExists(switchButtonList)){ // Si n'existe pas encore dans la map
      initSwitchButton(switchButtons);
@@ -151,7 +148,7 @@ const initAllSprites = () => {
   selectBackGroundImg(hero);
 };
 
-// Méthode pour connaitre l'image de fond à afficher
+// Méthode pour connaitre l'image de background à afficher
 const selectBackGroundImg = (hero) => {
 
   if (hero.currentWorldPosition.worldId === 1 &&
@@ -186,7 +183,7 @@ const drawBackground = () => {
   })
 };
 
-// On met à jour la position des personnages
+// On met à jour la position des personnages figurants
 const updatePeople = () => {
 
   peopleList.forEach(people => {
@@ -198,7 +195,7 @@ const updatePeople = () => {
     people.update();
     people.setMapIndexPosition();
 
-    //On vérifie si le personnage est sortie des limites / a traversé un mur.
+    //On vérifie si le personnage figurant est sorti des limites / a traversé un mur.
     if(config.checkOutOfBounds(currentMapSheetDatas, people)){ // Si le personnage est en dehors du terrain
       people.setTarget();
     }
@@ -212,6 +209,7 @@ const drawHero = () => {
   hero.drawHeroDatas(stage.width - 200, 30, 3);
 };
 
+
 // On dessine les personnages
 const drawPeople = () => {
   // On itère sur la liste des personnages
@@ -219,6 +217,7 @@ const drawPeople = () => {
     people.draw();
   });
 };
+
 
 // Méthode pour dessiner les boutons
 const drawSwitchButton = () => {
@@ -251,7 +250,7 @@ const drawItems = () => {
   });
 };
 
-// Dessine la boite de dialogue
+// Dessine la boite de dialogue (La bulle de dialogue)
 export const drawDialogBox = () => {
   if(hero.isTalking){ // Si le heros est en mode discussion
     dialogBox.drawDialogs();
@@ -268,6 +267,8 @@ const drawSecretPassage = ()=> {
 
 // On update les coordonnées du héros
 const updateHero = () => {
+
+    // On conserve les coordonnées x et y du héros avant de le déplacer
     const x = hero.x;
     const y = hero.y;
     const centerX = hero.centerX;
@@ -321,8 +322,8 @@ const updateHero = () => {
       }
     });
 
-    let index = 0;
-    // On vérifie s'il y a une collision entre un item et le héros
+    //let index = 0;
+    // On vérifie s'il y a une collision entre un trésor et le héros
     itemList.forEach(item => {
       if(config.checkCollision(item, hero)){ // Si collision
 
@@ -339,7 +340,7 @@ const updateHero = () => {
         // On retire définitivement cet élément du jeu
         config.permanentlyRemoveFromWorld(currentMapSheetDatas,'item', item);
 
-        index++;
+        // index++;
 
       }
     });
@@ -348,7 +349,7 @@ const updateHero = () => {
     switchButtonList.forEach(button => {
 
       if(config.checkCollision(button, hero)){ // Si collision
-        if(button.target === 'secretPassage' && button.isOpen){
+        if(button.isOpen){
           alert('Levier désactivé');
         } else {
            alert('Levier activé');
@@ -360,6 +361,7 @@ const updateHero = () => {
 
     // On vérifie si le héros est sorti des limites
     if(config.checkOutOfBounds(currentMapSheetDatas, hero)){ // Si le héro est en dehors du terrain
+      // Si c'est le cas on lui remet ses coordonées initiales, celles qu'il avait avant de dépaser les limites
       hero.x = x;
       hero.y = y;
       hero.centerX = centerX;
@@ -499,7 +501,7 @@ const removeDoors = ()=> {
   doorsList = [];
 };
 
-// Méthode pour supprimer les personnages
+// Méthode pour supprimer les personnages figurants
 const removePeople = () => {
   peopleList = [];
 };
@@ -514,7 +516,7 @@ const removeSecretPassage = ()=>{
   secretPassageList = [];
 };
 
-// Méthode pour supprimer tous les items
+// Méthode pour supprimer tous les trésors
 const removeItems = () =>{
   itemList = [];
 };
