@@ -26,7 +26,7 @@ import { WorldPosition } from './world-position.js';
       this.currentWorldPosition = new WorldPosition(params.belongsToWorldId,params.belongsToMapSheetId );
     }
 
-    // Méthode pour réinitialiser la position du héro
+    // Méthode pour réinitialiser la position du héros
     setPosition(destination) {
       this.x = destination.x;
       this.y = destination.y;

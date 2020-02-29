@@ -9,7 +9,6 @@ export class MainCharacter {
     this.name = params.name; // Exemple 'darius'
     this.reference = params.reference;
     this.characterImg = config.getImage(this.reference);
-    this.action = params.action;
     this.x = params.x // Position X sur la map
     this.y = params.y; // Position Y sur la map
     this.faceX = 0;

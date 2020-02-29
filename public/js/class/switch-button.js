@@ -5,8 +5,8 @@ import { WorldPosition } from './world-position.js';
 export class SwitchButton {
 
  // Constructeur de la classe des boutons
- constructor(reference, params) {
-    this.reference = reference
+ constructor(params) {
+    this.reference = params.reference
     this.img = config.getImage(this.reference);
     this.x = params.x // Position X sur la map
     this.y = params.y; // Position Y sur la map

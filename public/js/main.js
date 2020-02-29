@@ -78,7 +78,7 @@ const initMainCharacter = (mainCharacterSet) => {
 // Méthode pour initialiser les items (les trésors)
 const initItems = (itemSet)=> {
   itemSet.forEach(elem => {
-   let item = new Item ('spritesheet', elem);
+   let item = new Item (elem);
    itemList.push(item);
   });
 };
@@ -98,7 +98,7 @@ const initSecretPassage = (secretPassageSet) => {
   switchButtonList.forEach( elem => {
     if(elem.target === 'secretPassage' && elem.isOpen){ // Si un boutton active les passages secret et est activé
       secretPassageSet.forEach(passage => {
-        let secretPassage = new SecretPassage('spritesheet',passage);
+        let secretPassage = new SecretPassage(passage);
         secretPassageList.push(secretPassage);
       });
     }

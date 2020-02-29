@@ -246,36 +246,42 @@ export class GeneralConfig {
                 {
                   x: 704,
                   y: 2409,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 },
                 {
                   x: 336,
                   y: 1557,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 },
                 {
                   x: 490,
                   y: 1117,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 },
                 {
                   x: 1650,
                   y: 462,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 }, // Salle du roi
                 {
                   x: 1850,
                   y: 2189,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 },
                 {
                   x: 1463,
                   y: 1232,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 1
                 }
@@ -341,9 +347,8 @@ export class GeneralConfig {
                  x: 358,
                  y: 440,
                  name: 'Darius',
-                 reference: 'persomonstre2',
+                 reference: 'personnage-important2',
                  dialog: ['C\'est super de vous voir là!', 'Avez-vous récupéré tous les trésors?', 'Non, visiblement pas encore !!', 'Allez, au travail, je vous attends !!'],
-                 action : 'checkHeroItem',
                  belongsToWorldId: 1,
                  belongsToMapSheetId: 1
                 }, // salle secrete arrière chateau inside
@@ -352,6 +357,7 @@ export class GeneralConfig {
                 {
                   x: 1111,
                   y: 425,
+                  reference: 'tileset1',
                   destination : {
                     worldName:"Nigloland",
                     worldId: 1,
@@ -368,6 +374,7 @@ export class GeneralConfig {
                 {
                   x: 627,
                   y: 1210,
+                  reference: 'tileset1',
                   destination : {
                     worldName:"Nigloland",
                     worldId: 1,
@@ -535,23 +542,23 @@ export class GeneralConfig {
             sprites: {
               item : [
                 {
-                  id: 1,
                   x: 1400,
                   y: 1050,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 2
                 }, // En haut sur le dongeon
                 {
-                  id: 2,
                   x: 500,
                   y: 950,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 2
                 },
                 {
-                  id: 3,
                   x: 500,
                   y: 1200,
+                  reference: 'tileset1',
                   belongsToWorldId: 1,
                   belongsToMapSheetId: 2
                 }
@@ -615,6 +622,7 @@ export class GeneralConfig {
                   id: 1,
                   x: 1344,
                   y: 1136,
+                  reference: 'tileset1',
                   destination : {
                     worldName:"Nigloland",
                     worldId: 1,
@@ -632,6 +640,7 @@ export class GeneralConfig {
                   id: 2,
                   x: 1740,
                   y: 2316,
+                  reference: 'tileset1',
                   destination : {
                     worldName:"Nigloland",
                     worldId: 1,
@@ -658,42 +667,40 @@ export class GeneralConfig {
       {type: 'map', reference: 'room2_layer_01',  filePath: '../img/rooms/layer_01.png'},
       {type: 'map', reference: 'room2_layer_02',  filePath: '../img/rooms/layer_02.png'},
       {type: 'map', reference: 'room2_layer_03',  filePath: '../img/rooms/layer_03.png'},
-      {type: 'character', reference: 'spritesheet2',  filePath: '../img/sprites/spritesheet2.png'},
-      {type: 'character', reference: 'persofigurant1',  filePath: '../img/sprites/persofigurant1.png'},
-      {type: 'character', reference: 'persofigurant2',  filePath: '../img/sprites/persofigurant2.png'},
-      {type: 'character', reference: 'persofigurant3',  filePath: '../img/sprites/persofigurant3.png'},
-      {type: 'character', reference: 'persofigurant4',  filePath: '../img/sprites/persofigurant4.png'},
-      {type: 'character', reference: 'persofigurant5',  filePath: '../img/sprites/persofigurant5.png'},
-      {type: 'character', reference: 'persofigurant6',  filePath: '../img/sprites/persofigurant6.png'},
-      {type: 'character', reference: 'persofigurant7',  filePath: '../img/sprites/persofigurant7.png'},
-      {type: 'character', reference: 'persofigurant8',  filePath: '../img/sprites/persofigurant8.png'},
-      {type: 'character', reference: 'persofigurant9',  filePath: '../img/sprites/persofigurant9.png'},
-      {type: 'character', reference: 'persofigurant10',  filePath: '../img/sprites/persofigurant10.png'},
-      {type: 'character', reference: 'persofigurant11',  filePath: '../img/sprites/persofigurant11.png'},
-      {type: 'character', reference: 'persofigurant12',  filePath: '../img/sprites/persofigurant12.png'},
-      {type: 'character', reference: 'persofigurant12',  filePath: '../img/sprites/persofigurant13.png'},
-      {type: 'character', reference: 'heros1',  filePath: '../img/sprites/perso1.png'},
-      {type: 'character', reference: 'heros2',  filePath: '../img/sprites/perso2.png'},
-      {type: 'character', reference: 'heros3',  filePath: '../img/sprites/perso3.png'},
-      {type: 'character', reference: 'heros4',  filePath: '../img/sprites/perso4.png'},
-      {type: 'character', reference: 'heros5',  filePath: '../img/sprites/perso5.png'},
-      {type: 'character', reference: 'heros6',  filePath: '../img/sprites/perso6.png'},
-      {type: 'character', reference: 'heros7',  filePath: '../img/sprites/perso7.png'},
-      {type: 'character', reference: 'heros8',  filePath: '../img/sprites/perso8.png'},
-      {type: 'character', reference: 'heros9',  filePath: '../img/sprites/perso9.png'},
-      {type: 'character', reference: 'heros10',  filePath: '../img/sprites/perso10.png'},
-      {type: 'character', reference: 'persomonstre1',  filePath: '../img/sprites/persomonstre1.png'},
-      {type: 'character', reference: 'persomonstre2',  filePath: '../img/sprites/persomonstre2.png'},
-      {type: 'character', reference: 'persomonstre3',  filePath: '../img/sprites/persomonstre3.png'},
-      {type: 'character', reference: 'persomonstre4',  filePath: '../img/sprites/persomonstre4.png'},
-      {type: 'character', reference: 'persomonstre5',  filePath: '../img/sprites/persomonstre5.png'},
-      {type: 'character', reference: 'persomonstre6',  filePath: '../img/sprites/persomonstre6.png'},
-      {type: 'character', reference: 'persomonstre7',  filePath: '../img/sprites/persomonstre7.png'},
-      {type: 'character', reference: 'persomonstre8',  filePath: '../img/sprites/persomonstre8.png'},
-      {type: 'character', reference: 'persomonstre9',  filePath: '../img/sprites/persomonstre9.png'},
-      {type: 'character', reference: 'persomonstre10',  filePath: '../img/sprites/persomonstre10.png'},
-      {type: 'item', reference: 'treasure',  filePath: '../img/treasure.png'},
-      {type: 'sprite-sheet', reference: 'spritesheet',  filePath: '../img/complete-spritesheet.png'}
+      {type: 'sprite-sheet-character', reference: 'persofigurant1',  filePath: '../img/sprites/persofigurant1.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant2',  filePath: '../img/sprites/persofigurant2.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant3',  filePath: '../img/sprites/persofigurant3.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant4',  filePath: '../img/sprites/persofigurant4.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant5',  filePath: '../img/sprites/persofigurant5.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant6',  filePath: '../img/sprites/persofigurant6.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant7',  filePath: '../img/sprites/persofigurant7.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant8',  filePath: '../img/sprites/persofigurant8.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant9',  filePath: '../img/sprites/persofigurant9.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant10',  filePath: '../img/sprites/persofigurant10.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant11',  filePath: '../img/sprites/persofigurant11.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant12',  filePath: '../img/sprites/persofigurant12.png'},
+      {type: 'sprite-sheet-character', reference: 'persofigurant12',  filePath: '../img/sprites/persofigurant13.png'},
+      {type: 'sprite-sheet-character', reference: 'heros1', filePath: '../img/sprites/heros1.png'},
+      {type: 'sprite-sheet-character', reference: 'heros2', filePath: '../img/sprites/heros2.png'},
+      {type: 'sprite-sheet-character', reference: 'heros3', filePath: '../img/sprites/heros3.png'},
+      {type: 'sprite-sheet-character', reference: 'heros4', filePath: '../img/sprites/heros4.png'},
+      {type: 'sprite-sheet-character', reference: 'heros5', filePath: '../img/sprites/heros5.png'},
+      {type: 'sprite-sheet-character', reference: 'heros6', filePath: '../img/sprites/heros6.png'},
+      {type: 'sprite-sheet-character', reference: 'heros7', filePath: '../img/sprites/heros7.png'},
+      {type: 'sprite-sheet-character', reference: 'heros8', filePath: '../img/sprites/heros8.png'},
+      {type: 'sprite-sheet-character', reference: 'heros9', filePath: '../img/sprites/heros9.png'},
+      {type: 'sprite-sheet-character', reference: 'heros10', filePath: '../img/sprites/heros10.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important1',  filePath: '../img/sprites/personnage-important1.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important2',  filePath: '../img/sprites/personnage-important2.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important3',  filePath: '../img/sprites/personnage-important3.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important4',  filePath: '../img/sprites/personnage-important4.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important5',  filePath: '../img/sprites/personnage-important5.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important6',  filePath: '../img/sprites/personnage-important6.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important7',  filePath: '../img/sprites/personnage-important7.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important8',  filePath: '../img/sprites/personnage-important8.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important9',  filePath: '../img/sprites/personnage-important9.png'},
+      {type: 'sprite-sheet-character', reference: 'personnage-important10',  filePath: '../img/sprites/personnage-important10.png'},
+      {type: 'tileset', reference: 'tileset1',  filePath: '../img/tilesets/tileset1.png'}
     ];
     this.imagesAssets = [];
     this.stories = [

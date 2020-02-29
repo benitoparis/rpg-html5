@@ -6,7 +6,7 @@ import { Destination } from './destination.js';
 export class SecretPassage {
 
  // Constructeur de la classe secret passage
- constructor(reference, params) {
+ constructor(params) {
     this.reference = reference;
     this.img = config.getImage(this.reference);
     this.x = params.x // Position X sur la map

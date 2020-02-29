@@ -3,7 +3,7 @@ import { ctx, config, hero} from '../main.js';
 // classe d'un Item
 export class Destination {
 
- // Constructeur de la classe Item
+ // Constructeur de la classe Destination
  constructor(params) {
       this.worldName = params.worldName;
       this.worldId = params.worldId;

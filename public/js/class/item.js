@@ -5,8 +5,8 @@ import { WorldPosition } from './world-position.js';
 export class Item {
 
  // Constructeur de la classe Item
- constructor(reference, params) {
-    this.reference = reference // Type d'item (tresors,..)
+ constructor(params) {
+    this.reference = params.reference // Type d'item (tresors,..)
     this.itemImg = config.getImage(this.reference);
     this.x = params.x // Position X sur la map
     this.y = params.y; // Position Y sur la map
