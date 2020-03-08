@@ -1,5 +1,5 @@
 import { ctx, config, launchGame} from '../main.js';
-import { WorldPosition } from './world-position.js';
+
 
   export class AnimatedSprite {
 

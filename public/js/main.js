@@ -11,6 +11,7 @@ import { DialogBox } from './class/dialog-box.js';
 import { Storytelling } from './class/storytelling.js';
 
 
+
 // Déclaration des variables
 const stage = document.getElementById("stage");
 stage.width = 750;
@@ -76,7 +77,7 @@ const initMainCharacter = (mainCharacterSet) => {
 // Méthode pour initialiser les items (les trésors)
 const initItems = (itemSet)=> {
   itemSet.forEach(elem => {
-   let item = new Item (elem);
+   let item = new Item(elem);
    itemList.push(item);
   });
 };
@@ -197,14 +198,14 @@ const updatePeople = () => {
 
     //On vérifie si le personnage figurant est sorti des limites / a traversé un mur.
     if(config.checkOutOfBounds(currentMapSheetDatas, people)){ // Si le personnage est en dehors du terrain
-      people.setTarget();
+      people.setTarget(true);
     }
   });
 };
 
 // On dessine le héros
 const drawHero = () => {
-  hero.drawHero();
+  hero.draw();
   // On dessine aussi les stats du héros en haut de l'écran
   hero.drawHeroDatas(stage.width - 200, 30, 3);
 };
@@ -438,6 +439,7 @@ const initSound = (url)  => {
 
 // On déclenche le mode dialogue
 const setDialogBox = () => {
+
     if(hero.isTalking === false){ // Le héros n'est pas déjà en cours de discussion
 
       peopleList.forEach(people => {
@@ -479,7 +481,6 @@ const setDialogBox = () => {
           dialogBox.setMsgToDisplay();
         }
       });
-
 
     } else { // Si le héros est déjà en train de discuter
 

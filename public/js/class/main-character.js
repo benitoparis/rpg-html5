@@ -1,28 +1,29 @@
 import { ctx, config, hero} from '../main.js';
 import { WorldPosition } from './world-position.js';
 
-// classe d'un personnal principal
+// classe d'un personnage principal
 export class MainCharacter {
 
  // Constructeur de la classe d'un personnage principal
  constructor(params) {
     this.name = params.name; // Exemple 'darius'
     this.reference = params.reference;
-    this.characterImg = config.getImage(this.reference);
+    this.characterImg = config.getImage(this.reference); // Récupère l'objet image de la créature
     this.x = params.x // Position X sur la map
     this.y = params.y; // Position Y sur la map
-    this.faceX = 0;
-    this.faceY = 0;
-    this.width = 48;
-    this.height = 48;
-    this.centerX = ((this.x + this.width) - (this.width / 2));
-    this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.dialog = params.dialog;
+    this.faceX = 0; // Coordonnées X du morceau d'image à cropper sur l'image de la créature
+    this.faceY = 0; // Coordonnées Y du morceau d'image à cropper sur l'image de la créature
+    this.width = 48; // Largeur de la créature en pixel
+    this.height = 48; // Hauteur de la créature en pixel
+    this.centerX = ((this.x + this.width) - (this.width / 2)); // Centre x
+    this.centerY = ((this.y + this.height) - (this.height / 2)); // Centre y
+    this.dialog = params.dialog; // Le dialogue de la créature
     this.currentWorldPosition = new WorldPosition(params.belongsToWorldId,params.belongsToMapSheetId);
   }
 
   // Méthode pour afficher le personnage sur le canvas
   draw() {
+
     ctx.drawImage(
         this.characterImg, // Objet de l'image à croper
         this.faceX , // Position X de la partie à croper
@@ -36,8 +37,7 @@ export class MainCharacter {
     );
   };
 
-  // action
-  // doSomething(hero){
+  // Méthide qui vérifie si le héros a collecté les 9 trésors
   ckeckItems(hero){
 
       if(hero.items >= 9) { // Si le héros a collecté les X trésors

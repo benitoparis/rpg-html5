@@ -597,7 +597,7 @@ export class GeneralConfig {
                 {
                   id: 4,
                   x: 831,
-                  y: 2443,
+                  y: 2300,
                   name: 'Andrew',
                   reference: 'persofigurant4',
                   dialog: ['Bonjour','Je suis tout exité','Suivez-moi','Non, par ici', 'le prince arrive'],
@@ -662,7 +662,6 @@ export class GeneralConfig {
       }
     ];
     this.imagesSet = [
-      {type: 'map', reference: '1',  filePath: '../img/background/1.png'},
       {type: 'map', reference: 'room1',  filePath: '../img/rooms/room1.png'},
       {type: 'map', reference: 'room2_layer_01',  filePath: '../img/rooms/layer_01.png'},
       {type: 'map', reference: 'room2_layer_02',  filePath: '../img/rooms/layer_02.png'},
@@ -732,8 +731,9 @@ export class GeneralConfig {
 
   // Méthode qui retourne un chiffre compris entre A et B
   rangeNumber (a,b){
+
     return Math.floor((Math.random() * b)) + a;
-  }
+  };
 
   // Méthode pour vérifier s'il y a collision entre un élément A et B
   checkCollision = (a, b) => {
@@ -761,7 +761,7 @@ export class GeneralConfig {
   }
 
   // Méthode qui vérifie si un sprite animé est sorti des limites autorisées / ne traverse pas les murs
-  checkOutOfBounds = (currentMap, someOne) => {
+  checkOutOfBounds(currentMap, someOne){
     // Si index du joueur vaut 0 sur la map il y a collision
     if (currentMap.collisionArray[someOne.mapIndexPosition] === 0) {
       return true;
@@ -780,7 +780,7 @@ export class GeneralConfig {
 
   // Méthode pour récupérer les informations concernant le monde courant
   getCurrentWorldDatas(hero){
-     return this.worlds.find(elem => {
+    return this.worlds.find(elem => {
       return elem.worldId === hero.currentWorldPosition.worldId;
     })
   }
@@ -847,7 +847,6 @@ export class GeneralConfig {
     mapsheet.sprites[sprite].splice(index, 1);
   }
 
-
   // Affiche le menu du jeu
   drawHomeMenu(){
 
@@ -859,5 +858,6 @@ export class GeneralConfig {
     dialogBox.drawMessages(10 , stage.height / 3, 1, 'MY OWN RPG');
     dialogBox.drawMessages(10 , stage.height / 2, 2, 'Press ENTER');
     dialogBox.drawMessages(stage.width / 4, 500, 2, ' ©2020 Copyright MYNAME');
-  };
+  }
+
 }

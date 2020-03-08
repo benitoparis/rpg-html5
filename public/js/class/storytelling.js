@@ -16,10 +16,11 @@ export class Storytelling {
 
     // On affiche le message au centre
     this.drawMessages(70, 200, 2);
-  };
+  }
 
   // Dessine une écran noir
   drawBlackScreen(msg){
+
     // On dessine un fond noir
     ctx.fillStyle="#000000";
     ctx.fillRect(0, 0, stage.width, stage.height);
@@ -60,12 +61,12 @@ export class Storytelling {
       ctx.fillText(cuttedMsg, x, y);
 
     }
-
-  };
+  }
 
   // Méthode pour dessiner une image
   drawPicture(){
-     ctx.drawImage(
+
+    ctx.drawImage(
       this.currentPicture,
       32 , // Position X de la partie à croper
       0 , // Position Y de la partie à croper
@@ -76,10 +77,10 @@ export class Storytelling {
       48, // Largeur de la partie cropée
       48 // Hauteur de la partie cropée
     );
-  };
+  }
 
   // Dessine l'image du menu
-  launchStorytelling = (id) => {
+  launchStorytelling(id) {
 
     this.currentMsgSet = [];
 
@@ -97,10 +98,11 @@ export class Storytelling {
 
       launchGame();
     }
-  };
+  }
 
   // Méthode qui définit le message à afficher
   setMsgToDisplay(){
+
     if(this.checkDialogContinue()){ // Si l'index du message courant est inférieur à la longueur du dialogue
         this.msgToDisplay = this.currentMsgSet[this.currentMsgIndex];
         this.currentMsgIndex++;
@@ -112,6 +114,7 @@ export class Storytelling {
 
   // Vérifie si le dialogue continue
   checkDialogContinue(){
+
     if (this.currentMsgIndex < this.currentMsgSet.length){
       return true;
     } else {
@@ -119,5 +122,4 @@ export class Storytelling {
       return false;
     }
   }
-
 }

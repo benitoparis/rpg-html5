@@ -24,6 +24,7 @@ export class SwitchButton {
 
   // Méthode pour afficher le bouton sur le canvas
   draw() {
+
     ctx.drawImage(
       this.img, // Objet image à afficher
       this.faceX , // Position X de la partie à croper
@@ -37,13 +38,10 @@ export class SwitchButton {
     );
   }
 
-  // Méthode pour setter l'index du bouton sur la map
-  setMapIndexPosition(){
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-  }
 
   // Méthode qui ouvre/ ferme le bouton
   toogleOpen(){
+
       this.isOpen = this.isOpen ? false : true;
 
       if(this.isOpen){ // Si bouton activé

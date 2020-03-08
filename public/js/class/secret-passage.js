@@ -17,13 +17,13 @@ export class SecretPassage {
     this.height = 48;
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
     this.currentWorldPosition = new WorldPosition(params.belongsToWorldId,params.belongsToMapSheetId);
     this.destination = new Destination(params.destination);
   }
 
   // Méthode pour afficher le passage secret sur le canvas
   draw() {
+
     ctx.drawImage(
         this.img, // Objet de l'image à croper
         this.faceX , // Position X de la partie à croper
@@ -36,12 +36,5 @@ export class SecretPassage {
         this.height // Hauteur de la partie cropée
     );
   }
-
-  // Méthode pour setter l'index du passage secret sur la map
-  setMapIndexPosition(){
-    this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48));
-  }
-
-
 
 }
