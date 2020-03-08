@@ -1,5 +1,6 @@
 import { ctx, hero, config, dialogBox} from '../main.js';
 import { WorldPosition } from './world-position.js';
+import { TargetZone } from './target-zone.js';
 
 // classe d'un people
 export class People {
@@ -129,28 +130,34 @@ export class People {
       }
 
     } else { // Si pas de collision alors on set une nouvelle cible
-      const randomNumber = config.rangeNumber(1,4);
 
-      this.target = {};
+      this.target = new TargetZone(this.x, this.y);
+      console.log('this.target', this.target);
 
-      switch(randomNumber){
-        case 1 : // A l'Est
-          this.target = {x: this.x + 200 ,width: 100, y: this.y - 25, height: 100, direction : 'east'};
-        break;
-        case 2 : // A l'Ouest
-          this.target = {x: this.x - 200 , width: 100, y: this.y - 25, height: 100, direction : 'west' };
-        break;
-        case 3 : // Au Nord
-          this.target = {x: this.x - 25, width: 100, y: this.y - 200, height: 100,  direction : 'north' };
-        break;
-        case 4 : // Au Sud
-          this.target = {x: this.x - 25, width: 100, y: this.y + 200, height: 100, direction : 'south' };
-        break;
 
-        default:
-        this.target = {x: this.x + 200, width: 100 , y: this.y - 25,height: 100, direction : 'east'};
-        break;
-      };
+
+      // const randomNumber = config.rangeNumber(1,4);
+
+      // this.target = {};
+
+      // switch(randomNumber){
+      //   case 1 : // A l'Est
+      //     this.target = {x: this.x + 200 ,width: 100, y: this.y - 25, height: 100, direction : 'east'};
+      //   break;
+      //   case 2 : // A l'Ouest
+      //     this.target = {x: this.x - 200 , width: 100, y: this.y - 25, height: 100, direction : 'west' };
+      //   break;
+      //   case 3 : // Au Nord
+      //     this.target = {x: this.x - 25, width: 100, y: this.y - 200, height: 100,  direction : 'north' };
+      //   break;
+      //   case 4 : // Au Sud
+      //     this.target = {x: this.x - 25, width: 100, y: this.y + 200, height: 100, direction : 'south' };
+      //   break;
+
+        // default:
+        // this.target = {x: this.x + 200, width: 100 , y: this.y - 25,height: 100, direction : 'east'};
+        // break;
+      // };
     }
 
 
@@ -162,6 +169,15 @@ export class People {
     // On recalcule le centre du people
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
+  }
+
+  drawTarget(){
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(
+      351 - (hero.x - this.target.x),
+      288.5 - (hero.y - this.target.y),
+      this.target.width,
+      this.target.height);
   }
 
 

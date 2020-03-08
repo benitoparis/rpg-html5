@@ -187,6 +187,8 @@ const drawBackground = () => {
 // On met à jour la position des personnages figurants
 const updatePeople = () => {
 
+
+
   peopleList.forEach(people => {
     const x = people.x;
     const y = people.y;
@@ -194,6 +196,7 @@ const updatePeople = () => {
     const centerY = people.centerY;
 
     people.update();
+
     people.setMapIndexPosition();
 
     //On vérifie si le personnage figurant est sorti des limites / a traversé un mur.

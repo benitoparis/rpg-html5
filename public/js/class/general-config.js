@@ -860,4 +860,32 @@ export class GeneralConfig {
     dialogBox.drawMessages(stage.width / 4, 500, 2, ' ©2020 Copyright MYNAME');
   }
 
+  randomPositionOrNegativeNumber(){
+    let randomNumber = 0;
+    return randomNumber = Math.floor(Math.random() * 201) - 100;
+  }
+
+
+  randomDirection(){
+    const randomNumber = this.rangeNumber(1,4);
+    let direction = '';
+
+    switch(randomNumber){
+      case 1:
+        direction = 'east';
+        break;
+      case 2:
+        direction = 'west';
+        break;
+      case 3:
+        direction = 'north';
+        break;
+      case 4:
+        direction = 'south'
+        break;
+    }
+
+    return direction;
+  }
+
 }
