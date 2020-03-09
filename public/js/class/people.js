@@ -1,6 +1,5 @@
 import { ctx, hero, config, dialogBox} from '../main.js';
 import { WorldPosition } from './world-position.js';
-import { TargetZone } from './target-zone.js';
 
 // classe d'un people
 export class People {
@@ -31,7 +30,9 @@ export class People {
     this.dialog = params.dialog;
     this.currentWorldPosition = new WorldPosition(params.belongsToWorldId,params.belongsToMapSheetId );
 
-    this.target = {x: 388, width: 100, y: 800, height: 100, direction: 'south'};
+    let that  = this;
+    this.autoMove = setInterval(() => { that.setRandomDirection();}, 2000);
+    this.direction = 'south';
 
   }
 
@@ -55,7 +56,7 @@ export class People {
 
     this.setCurrentLoopIndex();
 
-    switch (this.target.direction) {
+    switch (this.direction) {
       case 'east':
         this.speedX = 2;
 
@@ -102,65 +103,19 @@ export class People {
     }
 
     this.setCenter();
-
-    if(this.checkTargetCollision()){ // Si il a atteint sa cible on définit une nouvelle cible
-
-      this.setTarget(false);
-    }
+    this.setMapIndexPosition();
   }
 
-  // Méthode qui détermine la position cible du people
-  setTarget(isCollide){
+  // Réinitialise les cordonnées x /y du people
+  resetCoordinates(x, y){
+    this.x = x;
+    this.y = y;
+  }
 
-    if (isCollide){ // Si collision
+  // Renvoie une direction aléatoirement
+  setRandomDirection() {
 
-      switch (this.target.direction){
-        case 'east':
-          this.target = {x: this.x - 200 , width: 100, y: this.y - 25, height: 100, direction : 'west' };
-          break;
-        case 'west':
-          this.target = {x: this.x + 200 ,width: 100, y: this.y - 25, height: 100, direction : 'east'};
-          break;
-        case 'north':
-          this.target = {x: this.x - 25, width: 100, y: this.y + 200, height: 100, direction : 'south' };
-          break;
-        case 'south':
-          this.target = {x: this.x - 25, width: 100, y: this.y - 200, height: 100,  direction : 'north' };
-          break;
-      }
-
-    } else { // Si pas de collision alors on set une nouvelle cible
-
-      this.target = new TargetZone(this.x, this.y);
-      console.log('this.target', this.target);
-
-
-
-      // const randomNumber = config.rangeNumber(1,4);
-
-      // this.target = {};
-
-      // switch(randomNumber){
-      //   case 1 : // A l'Est
-      //     this.target = {x: this.x + 200 ,width: 100, y: this.y - 25, height: 100, direction : 'east'};
-      //   break;
-      //   case 2 : // A l'Ouest
-      //     this.target = {x: this.x - 200 , width: 100, y: this.y - 25, height: 100, direction : 'west' };
-      //   break;
-      //   case 3 : // Au Nord
-      //     this.target = {x: this.x - 25, width: 100, y: this.y - 200, height: 100,  direction : 'north' };
-      //   break;
-      //   case 4 : // Au Sud
-      //     this.target = {x: this.x - 25, width: 100, y: this.y + 200, height: 100, direction : 'south' };
-      //   break;
-
-        // default:
-        // this.target = {x: this.x + 200, width: 100 , y: this.y - 25,height: 100, direction : 'east'};
-        // break;
-      // };
-    }
-
-
+    this.direction = config.randomDirection();
   }
 
   // On recalcule le centre du people
@@ -170,16 +125,6 @@ export class People {
     this.centerX = ((this.x + this.width) - (this.width / 2));
     this.centerY = ((this.y + this.height) - (this.height / 2));
   }
-
-  drawTarget(){
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(
-      351 - (hero.x - this.target.x),
-      288.5 - (hero.y - this.target.y),
-      this.target.width,
-      this.target.height);
-  }
-
 
   // Méthode qui renseigne l'index de la séquence de marche
   setCurrentLoopIndex(){
@@ -200,19 +145,7 @@ export class People {
     }
   }
 
-  // Méthode qui vérifie si le people a atteint sa cible
-  checkTargetCollision() {
-
-   if((this.target.x < this.centerX) && (this.centerX < (this.target.x + this.target.width))
-     && (this.target.y < this.centerY)
-     && (this.centerY < (this.target.y + this.target.height))) {
-       return true;
-    } else {
-      return false;
-    }
-  }
-
-  // Méthode pour réinitialiser la position du people
+  // Méthode pour réinitialiser la position du people dans la map
   setPosition(destination) {
 
     this.x = destination.x;

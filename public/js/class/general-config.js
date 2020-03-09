@@ -860,12 +860,13 @@ export class GeneralConfig {
     dialogBox.drawMessages(stage.width / 4, 500, 2, ' ©2020 Copyright MYNAME');
   }
 
+  // Méthode qui renvoie aléatoirement un nombre négatif ou positif
   randomPositionOrNegativeNumber(){
     let randomNumber = 0;
     return randomNumber = Math.floor(Math.random() * 201) - 100;
   }
 
-
+  // Méthode qui renvoie une direction aléatoire
   randomDirection(){
     const randomNumber = this.rangeNumber(1,4);
     let direction = '';

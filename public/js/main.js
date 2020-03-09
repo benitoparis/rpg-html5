@@ -197,11 +197,13 @@ const updatePeople = () => {
 
     people.update();
 
-    people.setMapIndexPosition();
-
     //On vérifie si le personnage figurant est sorti des limites / a traversé un mur.
     if(config.checkOutOfBounds(currentMapSheetDatas, people)){ // Si le personnage est en dehors du terrain
-      people.setTarget(true);
+
+      // On repositionne le people avant la collision
+      people.resetCoordinates(x,y);
+      // On détermine aléatoirement une nouvelle direction
+      people.setRandomDirection();
     }
   });
 };
