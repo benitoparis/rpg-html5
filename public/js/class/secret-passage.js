@@ -7,7 +7,7 @@ export class SecretPassage {
 
  // Constructeur de la classe secret passage
  constructor(params) {
-    this.reference = reference;
+    this.reference = params.reference;
     this.img = config.getImage(this.reference);
     this.x = params.x // Position X sur la map
     this.y = params.y; // Position Y sur la map

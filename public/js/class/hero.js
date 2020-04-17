@@ -18,12 +18,12 @@ export class Hero {
     this.y = params.y; // Position Y sur la map
     this.width = 48; // Largeur du héros en pixel
     this.height = 48; // Hauteur du héros en pixel
-    this.centerX = ((this.x + this.width) - (this.width / 2));// Centre X
-    this.centerY = ((this.y + this.height) - (this.height / 2)); // Centre Y
+    this.centerX = (this.x + this.width / 2);// Centre X
+    this.centerY = (this.y + this.height / 2); // Centre Y
     this.mapIndexPosition = Math.floor(this.centerX / 48) + (60 * Math.floor(this.centerY / 48)); // Position du héros sur le tableau de collision
     this.speedX = 15; // Vitesse du héros quand il se déplace en abscisse
     this.speedY = 15; // Vitesse du héros quand il se déplace en ordonnée
-    this.frame = 0;
+    //this.frame = 0;
     this.faceX = 0; // Coordonnées X du morceau d'image à cropper sur l'image du héros
     this.faceY = 64; // Coordonnées Y du morceau d'image à cropper sur l'image du héros
     this.currentLoopIndex = 0;
@@ -135,8 +135,8 @@ export class Hero {
   // On recalcule le centre du héros
   setCenter(){
 
-    this.centerX = ((this.x + this.width) - (this.width / 2));
-    this.centerY = ((this.y + this.height) - (this.height / 2));
+    this.centerX = (this.x + this.width / 2);// Centre X
+    this.centerY = (this.y + this.height / 2); // Centre Y
   }
 
   // Méthode qui renseigne l'index de la séquence de marche

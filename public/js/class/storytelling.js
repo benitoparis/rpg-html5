@@ -27,7 +27,7 @@ export class Storytelling {
 
     if(msg){
       // On affiche le message au centre
-      this.drawMessages(stage.width / 2, stage.height / 2, 1, msg);
+      this.drawMessages(stage.width / 2, stage.height / 2, 3, msg);
     }
   }
 
@@ -53,7 +53,7 @@ export class Storytelling {
 
     for(let i = 0; i <= msg.length; i += 40){
       let start = i;
-      let end = i  + 60;
+      let end = i  + 40;
       y += 50;
 
       let cuttedMsg = msg.slice(start, end);
@@ -64,20 +64,20 @@ export class Storytelling {
   }
 
   // Méthode pour dessiner une image
-  drawPicture(){
+  // drawPicture(){
 
-    ctx.drawImage(
-      this.currentPicture,
-      32 , // Position X de la partie à croper
-      0 , // Position Y de la partie à croper
-      30, // Largeur de la partie à croper
-      30, // Hauteur de la partie à corper
-      630, // Position X sur le canvas
-      410, // Position Y sur le canvas
-      48, // Largeur de la partie cropée
-      48 // Hauteur de la partie cropée
-    );
-  }
+  //   ctx.drawImage(
+  //     this.currentPicture,
+  //     32 , // Position X de la partie à croper
+  //     0 , // Position Y de la partie à croper
+  //     30, // Largeur de la partie à croper
+  //     30, // Hauteur de la partie à corper
+  //     630, // Position X sur le canvas
+  //     410, // Position Y sur le canvas
+  //     48, // Largeur de la partie cropée
+  //     48 // Hauteur de la partie cropée
+  //   );
+  // }
 
   // Dessine l'image du menu
   launchStorytelling(id) {
@@ -90,11 +90,11 @@ export class Storytelling {
 
     this.setMsgToDisplay();
 
-    if(this.checkDialogContinue()){ // Si la story doit continuer
+    if(this.checkStoryContinue()){ // Si la story doit continuer
 
       this.drawStoryTelling();
 
-    } else {
+    } else { // S'il n'y a plus de texte à afficher dans la story
 
       launchGame();
     }
@@ -103,7 +103,7 @@ export class Storytelling {
   // Méthode qui définit le message à afficher
   setMsgToDisplay(){
 
-    if(this.checkDialogContinue()){ // Si l'index du message courant est inférieur à la longueur du dialogue
+    if(this.checkStoryContinue()){ // Si l'index du message courant est inférieur à la longueur du dialogue
         this.msgToDisplay = this.currentMsgSet[this.currentMsgIndex];
         this.currentMsgIndex++;
     } else {
@@ -113,7 +113,7 @@ export class Storytelling {
   }
 
   // Vérifie si le dialogue continue
-  checkDialogContinue(){
+  checkStoryContinue(){
 
     if (this.currentMsgIndex < this.currentMsgSet.length){
       return true;

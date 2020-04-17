@@ -95,7 +95,7 @@ const initSecretPassage = (secretPassageSet) => {
 
   // On intère sur les boutons
   switchButtonList.forEach( elem => {
-    if(elem.target === 'secretPassage' && elem.isOpen){ // Si un boutton active les passages secret et est activé
+    if(elem.isOpen){ // Si levié est activé
       secretPassageSet.forEach(passage => {
         let secretPassage = new SecretPassage(passage);
         secretPassageList.push(secretPassage);
@@ -104,10 +104,12 @@ const initSecretPassage = (secretPassageSet) => {
   })
 };
 
+
+
 // Méthode pour initialiser les sprites
 const initAllSprites = () => {
 
-  // On vérifie si le héro n'a pas déjà été initialisé
+  // On vérifie si le héros n'a pas déjà été initialisé
   if (typeof(hero.x) === 'undefined'){
     InitHero();
   };
@@ -115,9 +117,11 @@ const initAllSprites = () => {
   // On récupère les informations sur la map sur laquelle se trouve le héros
   currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
-
   // On récupère les informations pour ininitialiser les sprites animés
   const people = currentMapSheetDatas.sprites.people;
+
+    // On récupère les informations pour initialiser les portes
+  const doors = currentMapSheetDatas.doors;
 
   // On récupère les informations pour initialiser les sprites non animés
   const items = currentMapSheetDatas.sprites.item;
@@ -125,12 +129,13 @@ const initAllSprites = () => {
   const secretPassages =  currentMapSheetDatas.sprites.secretPassage;
   const switchButtons = currentMapSheetDatas.sprites.switchButton;
 
-  // On récupère les informations pour initialiser les portes
-  const doors = currentMapSheetDatas.doors;
 
   // On initialise tous les sprites s'il y en a dans la map
   initPeople(people);
+
+
   initItems(items);
+
   initSecretPassage(secretPassages);
 
   // On initialise les objets qui ne seront jamais supprimés
@@ -148,6 +153,8 @@ const initAllSprites = () => {
   // On selectionne le bon background
   selectBackGroundImg(hero);
 };
+
+
 
 // Méthode pour connaitre l'image de background à afficher
 const selectBackGroundImg = (hero) => {
@@ -177,7 +184,7 @@ const drawBackground = () => {
       750 , // Largeur de la partie à croper
       625 , // Hauteur de la partie à corper
       0, // Position X sur le canvas de l'image cropée
-      0,  // Position X sur le canvas de l'image cropée
+      0,  // Position Y sur le canvas de l'image cropée
       750 , // Largeur de l'image cropée sur le canvas
       625 // Hauteur de l'image cropée sur le canvas
     );
@@ -186,8 +193,6 @@ const drawBackground = () => {
 
 // On met à jour la position des personnages figurants
 const updatePeople = () => {
-
-
 
   peopleList.forEach(people => {
     const x = people.x;
@@ -216,7 +221,7 @@ const drawHero = () => {
 };
 
 
-// On dessine les personnages
+// On dessine les personnages figurant
 const drawPeople = () => {
   // On itère sur la liste des personnages
   peopleList.forEach(people => {
@@ -238,13 +243,9 @@ const drawSwitchButton = () => {
 // On dessine les personnages principaux
 const drawMainCharacter = () => {
   mainCharacterList.forEach(mainCharacter => {
-
     if(config.checkSameMapSheet(mainCharacter, hero) ){ // On vérifie si le héros et le personnage principal sont sur la même map
-
       mainCharacter.draw();
-
     }
-
   });
 };
 
@@ -265,6 +266,8 @@ export const drawDialogBox = () => {
 
 // On dessine les passages secrets
 const drawSecretPassage = ()=> {
+
+  console.log('secretPassageList', secretPassageList);
   // On itère sur la liste des passages secrets
   secretPassageList.forEach(secretPassage => {
     secretPassage.draw();
@@ -280,6 +283,7 @@ const updateHero = () => {
     const centerX = hero.centerX;
     const centerY = hero.centerY;
 
+    // On met à jour les coordonnées du héros
     hero.update(event);
 
     // On itère sur toutes les portes de la map
@@ -288,15 +292,16 @@ const updateHero = () => {
       // On vérifie s'il y a une collision entre la porte et le héros
       if (config.checkCollision(door, hero)) { // Si passe par une porte
 
+        // A chaque passage dans une porte on détruit tous les objets (sauf le héros, le levier et Darius)
         removeDestructibleSprites();
 
         const destinationX = door.destination.x;
         const destinationY = door.destination.y;
 
-        // On renseigne la position du héro dans la pièce de destination
+        // On renseigne la position du héros dans la pièce de destination
         hero.setPosition(door.destination);
 
-        // On récupère les informations sur la mapSheep courrante
+        // On récupère les informations sur la map courrante
         currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
         // On selectionne le bon background
@@ -312,12 +317,12 @@ const updateHero = () => {
     secretPassageList.forEach(passage =>{
       if(config.checkCollision(passage, hero)) { // On vérifie s'il y a une collision entre le passage secret et le héros
 
-        // On renseigne la position du héro dans la pièce de destination
+        // On renseigne la position du héros dans la pièce de destination
         hero.setPosition(passage.destination);
 
         removeDestructibleSprites();
 
-        // On récupère les informations sur la mapSheep courrante
+        // On récupère les informations sur la courrante
         currentMapSheetDatas = config.getCurrentMapSheetDatas(hero);
 
         // On selectionne le bon background
@@ -328,7 +333,6 @@ const updateHero = () => {
       }
     });
 
-    //let index = 0;
     // On vérifie s'il y a une collision entre un trésor et le héros
     itemList.forEach(item => {
       if(config.checkCollision(item, hero)){ // Si collision
@@ -346,8 +350,6 @@ const updateHero = () => {
         // On retire définitivement cet élément du jeu
         config.permanentlyRemoveFromWorld(currentMapSheetDatas,'item', item);
 
-        // index++;
-
       }
     });
 
@@ -360,6 +362,7 @@ const updateHero = () => {
         } else {
            alert('Levier activé');
         }
+        // On active ou désactive le levier
         button.toogleOpen();
       };
     });
@@ -379,12 +382,12 @@ const updateHero = () => {
 // Méthode qui réagit aux évènements du clavier
 const handleKeyboardInput = (event) => {
 
-  if (event.code === 'Space'){ // Si le joueur appuie sur la touche ESPACE
+  if (event.code === 'Space'){ // Si touche ESPACE
 
     // On active le mode dialogue
     setDialogBox();
 
-  } else if (event.keyCode === 13) { // Si touche ENTRER
+  } else if (event.keyCode === 13) { // Si touche ENTREE
 
     if(!config.gameActive){ // On n'est pas en phase de jeu
 
@@ -394,7 +397,7 @@ const handleKeyboardInput = (event) => {
 
 	}  else { // n'importe quelle autre touche
 
-    // on met à jour le hero
+    // on met à jour le heros
     updateHero();
 
   }
@@ -419,26 +422,29 @@ export const launchGame = (event) => {
 // Méthode pour dessiner tous les éléments
 const drawAll = () => {
 
-	drawBackground();
   updatePeople();
+
+	drawBackground();
   drawHero();
-  drawPeople();
   drawItems();
+  drawPeople();
   drawMainCharacter();
   drawSwitchButton();
   drawSecretPassage();
   drawDialogBox();
 };
 
+
+
 // Méthode initialise l'objet sonore
 const initSound = (url)  => {
-  // audio.style.display = "none";
   const audio = document.getElementById('myPlayer');
   audio.src = url;
   audio.autoplay = true;
   audio.onended = function(){
-    audio.remove() //Remove when played.
+    audio.remove(); //on arrete le son à la fin de la piste
   };
+  // On attache un évènement au clic sur l'objet Audio
   audio.addEventListener('click', audio.play);
 };
 
@@ -448,13 +454,13 @@ const setDialogBox = () => {
     if(hero.isTalking === false){ // Le héros n'est pas déjà en cours de discussion
 
       peopleList.forEach(people => {
-        // On vérifie s'il y a collision entre le héro et un personnage
+        // On vérifie s'il y a collision entre le héros et un personnage
         if(config.checkCollision(hero, people)){ // Si collision
 
           // Le héros passe en mode discussion
           hero.setTalkMode();
 
-          // On injecte le personnage dans l'objet dialogBox
+          // On injecte le personnage dans l'objet dialogBox afin qu'il récupère son dialogue
           dialogBox.getSprite(people);
 
           // On renseigne le message à afficher
@@ -462,7 +468,7 @@ const setDialogBox = () => {
         }
       });
 
-      // On vérifie s'il y a collision entre le héros et l'un des personnages principaux
+      // On vérifie s'il y a collision entre le héros et l'un des personnages principaux (Darius)
       mainCharacterList.forEach(mainCharacter => {
 
         if(config.checkCollision(hero, mainCharacter)){ // Si collision
@@ -543,7 +549,7 @@ const removeAllSprites = () => {
   removeMainCharacter();
 };
 
-// On supprime les sprites que l'on est autorisé à détruire, à chaque changement de map, pendant la partie
+// On supprime les sprites que l'on est autorisé à détruire pendant la partie (à chaque changement de map)
 const removeDestructibleSprites = () =>{
   removePeople();
   removeSecretPassage();

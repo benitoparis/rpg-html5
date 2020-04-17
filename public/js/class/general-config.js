@@ -706,14 +706,16 @@ export class GeneralConfig {
       {
         id: 1,
         storyArray : [
-          'Contrairement à une opinion répandue, le Lorem Ipsum n\'est pas simplement du texte aléatoire.',
-          'et en étudiant tous les usages de ce mot dans la littérature classique',
-          'L\'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux.',
-          'à reproduire le même extrait sans fin, ce qui fait de lipsum.com le seul vrai générateur de Lorem Ipsum',
-          'Nam sole orto magnitudine angusti gurgitis sed profundi a transitu arcebantur et dum piscatorios quaerunt lenunculos ve',
-          'Adolescebat autem obstinatum propositum erga haec et similia multa',
-          'Advenit post multos Scudilo Scutariorum tribunus velamento subagrestis ingenii persuasionis opifex callidus. qui eum adulabili',
-          'Sed quid est quod in hac causa maxime homines admirentur et '
+          'Il y a plus de 600 ans vivait le seigneur Stobolt.',
+          'Il était sombre et tempetueux',
+          '...exterminait...enfermait ses ennemis dans son chateau',
+          'pour mettre fin à son règne, une chevalier',
+           'dénommé Lobreath fut envoyé à ses trousses',
+          'Il se rendit au chateau de Rerdag pour y rencontrer Daruis,',
+          'une créature qui pourrait bien l\'aider',
+          'Daruis aimait les pièces d\'or et attendait',
+          'que quelqu\'un lui livre les neufs trésors égarés...',
+          'Vous êtes Lobreath..A VOUS DE JOUER'
         ]
       },
       {
@@ -731,13 +733,11 @@ export class GeneralConfig {
 
   // Méthode qui retourne un chiffre compris entre A et B
   rangeNumber (a,b){
-
     return Math.floor((Math.random() * b)) + a;
   };
 
   // Méthode pour vérifier s'il y a collision entre un élément A et B
   checkCollision = (a, b) => {
-
     // On vérifie si A et B sont sur la même mapsheet et s'il y a collision
     if((this.checkSameMapSheet(a, b)) && (a.x < b.centerX) && (b.centerX < (a.x + a.width))
      && (a.y < b.centerY)
@@ -772,7 +772,6 @@ export class GeneralConfig {
 
   // Méthode qui renvoie les informations de la mapsheet courante
   getCurrentMapSheetDatas(hero){
-
     return this.getCurrentWorldDatas(hero).mapSheets.find(data => {
       return data.mapSheetId === hero.currentWorldPosition.mapSheetId;
     });
@@ -861,10 +860,10 @@ export class GeneralConfig {
   }
 
   // Méthode qui renvoie aléatoirement un nombre négatif ou positif
-  randomPositionOrNegativeNumber(){
-    let randomNumber = 0;
-    return randomNumber = Math.floor(Math.random() * 201) - 100;
-  }
+  // randomPositionOrNegativeNumber(){
+  //   let randomNumber = 0;
+  //   return randomNumber = Math.floor(Math.random() * 201) - 100;
+  // }
 
   // Méthode qui renvoie une direction aléatoire
   randomDirection(){
