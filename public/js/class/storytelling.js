@@ -63,22 +63,6 @@ export class Storytelling {
     }
   }
 
-  // Méthode pour dessiner une image
-  // drawPicture(){
-
-  //   ctx.drawImage(
-  //     this.currentPicture,
-  //     32 , // Position X de la partie à croper
-  //     0 , // Position Y de la partie à croper
-  //     30, // Largeur de la partie à croper
-  //     30, // Hauteur de la partie à corper
-  //     630, // Position X sur le canvas
-  //     410, // Position Y sur le canvas
-  //     48, // Largeur de la partie cropée
-  //     48 // Hauteur de la partie cropée
-  //   );
-  // }
-
   // Dessine l'image du menu
   launchStorytelling(id) {
 
